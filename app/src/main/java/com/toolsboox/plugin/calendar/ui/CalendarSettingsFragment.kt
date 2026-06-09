@@ -14,7 +14,6 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.toolsboox.R
 import com.toolsboox.da.LocaleItem
 import com.toolsboox.databinding.FragmentCalendarSettingsBinding
@@ -47,12 +46,6 @@ class CalendarSettingsFragment @Inject constructor() : ScreenFragment() {
      */
     @Inject
     lateinit var sharedPreferences: SharedPreferences
-
-    /**
-     * The Firebase analytics.
-     */
-    @Inject
-    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     /**
      * The presenter of the fragment.

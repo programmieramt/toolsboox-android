@@ -5,8 +5,6 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.logEvent
 import com.toolsboox.R
 import com.toolsboox.da.SquareItem
 import com.toolsboox.databinding.FragmentTemplatesMainBinding
@@ -23,12 +21,6 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class TemplatesMainFragment @Inject constructor() : ScreenFragment() {
-
-    /**
-     * The Firebase analytics.
-     */
-    @Inject
-    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     @Inject
     lateinit var presenter: TemplatesMainPresenter
@@ -115,7 +107,6 @@ class TemplatesMainFragment @Inject constructor() : ScreenFragment() {
 
         toolbar.root.title = getString(R.string.drawer_title, getString(R.string.app_name), getString(R.string.templates_main_title))
 
-        firebaseAnalytics.logEvent("templates") {}
     }
 
     /**

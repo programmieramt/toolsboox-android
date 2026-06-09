@@ -5,8 +5,6 @@ import android.graphics.*
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.logEvent
 import com.toolsboox.R
 import com.toolsboox.databinding.FragmentTemplatesThisWeeksCalendarBinding
 import com.toolsboox.ui.plugin.ScreenFragment
@@ -28,12 +26,6 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class ThisWeeksCalendarFragment @Inject constructor() : ScreenFragment() {
-
-    /**
-     * The Firebase analytics.
-     */
-    @Inject
-    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     /**
      * The inflated layout.
@@ -215,9 +207,6 @@ class ThisWeeksCalendarFragment @Inject constructor() : ScreenFragment() {
 
         toolbar.root.title = getString(R.string.drawer_title, getString(R.string.app_name), getString(R.string.templates_this_weeks_calendar_title))
 
-        firebaseAnalytics.logEvent("templates") {
-            param("view", "thisWeekCalendar")
-        }
     }
 
     /**

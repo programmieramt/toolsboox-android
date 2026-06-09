@@ -15,9 +15,6 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.Firebase
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.analytics
 import com.toolsboox.BuildConfig
 import com.toolsboox.R
 import com.toolsboox.databinding.ActivityMainBinding
@@ -48,12 +45,6 @@ class MainActivity : BaseActivity<MainPresenter>(), MainView {
     private val viewModel by viewModels<MainViewModel>()
 
     /**
-     * The Firebase analytics.
-     */
-    @Inject
-    lateinit var firebaseAnalytics: FirebaseAnalytics
-
-    /**
      * The injected shared preferences.
      */
     @Inject
@@ -79,8 +70,6 @@ class MainActivity : BaseActivity<MainPresenter>(), MainView {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        firebaseAnalytics = Firebase.analytics
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())

@@ -23,8 +23,6 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.lifecycleScope
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.logEvent
 import com.google.mlkit.common.model.RemoteModelManager
 import com.google.mlkit.vision.digitalink.recognition.DigitalInkRecognition
 import com.google.mlkit.vision.digitalink.recognition.DigitalInkRecognitionModel
@@ -89,12 +87,6 @@ abstract class SurfaceFragment : ScreenFragment() {
         // List of unrecognized buttons.
         private val buttons = mutableListOf<String>()
     }
-
-    /**
-     * The Firebase analytics.
-     */
-    @Inject
-    lateinit var privateFirebaseAnalytics: FirebaseAnalytics
 
     /**
      * The injected presenter.
@@ -1878,16 +1870,6 @@ abstract class SurfaceFragment : ScreenFragment() {
             strokesToAdd.add(stroke)
 
             if (finger) convertStrokes()
-        }
-
-        if (actions.isNotEmpty() || buttons.isNotEmpty()) {
-            privateFirebaseAnalytics.logEvent("actionsAndButtons") {
-                param("brand", Build.BRAND.lowercase())
-                param("device", Build.DEVICE.lowercase())
-                param("manufacturer", Build.MANUFACTURER.lowercase())
-                param("actions", actions.sortedBy { it }.joinToString(","))
-                param("buttons", buttons.sortedBy { it }.joinToString(","))
-            }
         }
 
         lastPoint = null

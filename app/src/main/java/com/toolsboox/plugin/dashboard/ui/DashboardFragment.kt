@@ -16,8 +16,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.play.core.review.ReviewException
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.logEvent
 import com.squareup.moshi.Moshi
 import com.toolsboox.BuildConfig
 import com.toolsboox.R
@@ -45,12 +43,6 @@ class DashboardFragment @Inject constructor() : ScreenFragment() {
         // User already notified about new version.
         private var notifiedAboutNewVersion: Boolean = false
     }
-
-    /**
-     * The Firebase analytics.
-     */
-    @Inject
-    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     /**
      * The injected presenter.
@@ -168,10 +160,8 @@ class DashboardFragment @Inject constructor() : ScreenFragment() {
         binding.buttonToggleAd.setOnClickListener {
             if (sharedPreferences.getBoolean("advertisements", true)) {
                 sharedPreferences.edit().putBoolean("advertisements", false).apply()
-                firebaseAnalytics.logEvent("advertisementSwitchOff", null)
             } else {
                 sharedPreferences.edit().putBoolean("advertisements", true).apply()
-                firebaseAnalytics.logEvent("advertisementSwitchOn", null)
             }
 
             updateAdButton()
@@ -183,8 +173,6 @@ class DashboardFragment @Inject constructor() : ScreenFragment() {
         super.onResume()
 
         toolbar.root.title = getString(R.string.drawer_title, getString(R.string.app_name), getString(R.string.dashboard_title))
-
-        firebaseAnalytics.logEvent("dashboard") {}
 
         askAppPermissions()
         deviceCheck()
@@ -295,8 +283,6 @@ class DashboardFragment @Inject constructor() : ScreenFragment() {
         val nextRateTimestamp = sharedPreferences.getLong("nextRateTimestamp", randomFuture)
         if (nextRateTimestamp > Instant.now().toEpochMilli()) return
         sharedPreferences.edit().putLong("nextRateTimestamp", randomFuture).apply()
-
-        firebaseAnalytics.logEvent("reviewRequest", null)
 
         val manager = ReviewManagerFactory.create(requireContext())
         manager.requestReviewFlow().addOnCompleteListener { task ->
