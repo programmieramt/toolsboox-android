@@ -1,6 +1,5 @@
 package com.toolsboox.plugin.calendar.ui
 
-import android.Manifest
 import android.content.ContentResolver
 import android.net.Uri
 import android.os.Environment
@@ -66,11 +65,6 @@ class CalendarDayPresenter @Inject constructor() : FragmentPresenter() {
         currentDate: LocalDate, defaultStartHour: Int, locale: Locale
     ) {
         if (!checkPermissions(fragment, binding.root)) return
-
-        if (!fragment.checkPermission(Manifest.permission.READ_CALENDAR)) {
-            fragment.showError(null, R.string.main_read_calendar_permission_missing, binding.root)
-            return
-        }
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
