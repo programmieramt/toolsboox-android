@@ -68,7 +68,7 @@ android {
             } else {
                 storePassword System.getenv("KEYSTORE_PASSWORD")
             }
-            keyAlias "key0"
+            keyAlias "androiddebugkey"
             if (project.hasProperty('toolBooxKeyPassword')) {
                 keyPassword project.property('toolBooxKeyPassword').toString()
             } else {
