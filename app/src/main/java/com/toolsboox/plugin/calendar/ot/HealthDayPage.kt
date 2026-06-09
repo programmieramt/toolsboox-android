@@ -129,7 +129,7 @@ class HealthDayPage {
             canvas.drawRect(0.0f, 0.0f, 1404.0f, 1872.0f, Creator.fillWhite)
             canvas.drawRect(lo, to, lo + 4 * cew, to + 35 * ceh, Creator.lineDefaultBlack)
 
-            canvas.drawRect(0.0f, to + 0 * ceh, lo, to + 6 * ceh, Creator.fillGrey80)
+            canvas.drawRect(0.0f, to + 0 * ceh, lo, to + 6 * ceh, Creator.fillPetrol)
             canvas.save()
             canvas.rotate(-90.0f, lo - 5.0f, to + 3 * ceh)
             canvas.drawText(startDayText, lo - 5.0f, to + 3 * ceh - 5.0f, Creator.textDefaultWhiteCenter)
@@ -146,7 +146,7 @@ class HealthDayPage {
             canvas.drawLine(0 + 0 * cew, to + 6 * ceh + 0.0f, lo + 4 * cew, to + 6 * ceh + 0.0f, Creator.lineDefaultBlack)
             canvas.drawLine(0 + 0 * cew, to + 6 * ceh + 2.0f, lo + 4 * cew, to + 6 * ceh + 2.0f, Creator.lineDefaultBlack)
 
-            canvas.drawRect(0.0f, to + 6 * ceh, lo, to + 22 * ceh, Creator.fillGrey80)
+            canvas.drawRect(0.0f, to + 6 * ceh, lo, to + 22 * ceh, Creator.fillPetrol)
             canvas.save()
             canvas.rotate(-90.0f, lo - 5.0f, to + 14 * ceh)
             canvas.drawText(duringDayText, lo - 5.0f, to + 14 * ceh - 5.0f, Creator.textDefaultWhiteCenter)
@@ -167,7 +167,7 @@ class HealthDayPage {
             canvas.drawLine(0 + 0 * cew, to + 22 * ceh + 0.0f, lo + 4 * cew, to + 22 * ceh + 0.0f, Creator.lineDefaultBlack)
             canvas.drawLine(0 + 0 * cew, to + 22 * ceh + 2.0f, lo + 4 * cew, to + 22 * ceh + 2.0f, Creator.lineDefaultBlack)
 
-            canvas.drawRect(0.0f, to + 22 * ceh, lo, to + 35 * ceh, Creator.fillGrey80)
+            canvas.drawRect(0.0f, to + 22 * ceh, lo, to + 35 * ceh, Creator.fillPetrol)
             canvas.save()
             canvas.rotate(-90.0f, lo - 5.0f, to + 28.5f * ceh)
             canvas.drawText(endDayText, lo - 5.0f, to + 28.5f * ceh - 5.0f, Creator.textDefaultWhiteCenter)

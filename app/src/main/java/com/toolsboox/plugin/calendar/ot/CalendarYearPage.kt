@@ -241,7 +241,7 @@ class CalendarYearPage : Creator {
          * @param to the top offset
         +         */
         private fun drawMonthGrid(canvas: Canvas, lo: Float, to: Float, firstDayOfWeek: Int) {
-            canvas.drawRect(lo, to + 0 * ceh, lo + 8 * cew, to + 1 * ceh, Creator.fillGrey80)
+            canvas.drawRect(lo, to + 0 * ceh, lo + 8 * cew, to + 1 * ceh, Creator.fillPetrol)
             canvas.drawRect(lo, to + 1 * ceh, lo + 8 * cew, to + 2 * ceh, Creator.fillGrey20)
             canvas.drawLine(lo, to + 0 * ceh, lo + 8 * cew, to + 0 * ceh, Creator.lineDefaultBlack)
             for (i in 1..2) {
@@ -306,7 +306,7 @@ class CalendarYearPage : Creator {
             context: Context, canvas: Canvas, lo: Float, to: Float, quarterNumber: Int, calendarPattern: CalendarPattern
         ) {
             val quarterText = context.getString(R.string.quarter_abbreviation, quarterNumber)
-            canvas.drawRect(lo + 0 * cew, to + 0 * ceh, lo + 1 * cew, to + 8 * ceh, Creator.fillGrey80)
+            canvas.drawRect(lo + 0 * cew, to + 0 * ceh, lo + 1 * cew, to + 8 * ceh, Creator.fillPetrol)
             canvas.save()
             canvas.rotate(-90.0f, lo + cew - 5.0f, to + 4 * ceh)
             canvas.drawText(quarterText, lo + cew - 5.0f, to + 4 * ceh - 5.0f, Creator.textDefaultWhiteCenter)

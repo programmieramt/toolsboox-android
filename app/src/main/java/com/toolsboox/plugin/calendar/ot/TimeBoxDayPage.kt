@@ -103,7 +103,7 @@ class TimeBoxDayPage {
             canvas.drawRect(0.0f, 0.0f, 1404.0f, 1872.0f, Creator.fillWhite)
 
             // Time box title
-            canvas.drawRect(lo, to, lo + cew, to + ceh, Creator.fillGrey80)
+            canvas.drawRect(lo, to, lo + cew, to + ceh, Creator.fillPetrol)
             canvas.drawText(timeBoxText, lo + 10.0f, to + ceh - 10.0f, Creator.textDefaultWhite)
 
             // Time box grid
@@ -136,7 +136,7 @@ class TimeBoxDayPage {
             }
 
             // Tasks title
-            canvas.drawRect(lo + cew + 50.0f, to, lo + 2 * cew + 50.0f, to + ceh, Creator.fillGrey80)
+            canvas.drawRect(lo + cew + 50.0f, to, lo + 2 * cew + 50.0f, to + ceh, Creator.fillPetrol)
             canvas.drawText(tasksText, lo + cew + 60.0f, to + ceh - 10.0f, Creator.textDefaultWhite)
 
             // Tasks grid
@@ -152,18 +152,18 @@ class TimeBoxDayPage {
             canvas.drawLine(lo + cew + 100.0f, to + ceh, lo + cew + 100.0f, to + 5 * ceh, Creator.lineDefaultBlack)
 
             // Brain dump title
-            canvas.drawRect(lo + cew + 50.0f, to + 6 * ceh, lo + 2 * cew + 50.0f, to + 7 * ceh, Creator.fillGrey80)
+            canvas.drawRect(lo + cew + 50.0f, to + 6 * ceh, lo + 2 * cew + 50.0f, to + 7 * ceh, Creator.fillPetrol)
             canvas.drawText(brainDumpText, lo + cew + 60.0f, to + 7 * ceh - 10.0f, Creator.textDefaultWhite)
 
             // Brain dump grid
             for (x in 20..40) {
                 for (y in 8..25) {
-                    canvas.drawRect(lo + 48.0f + x * 30, to + y * ceh - 2.0f, lo + 52.0f + x * 30, to + y * ceh + 2.0f, Creator.fillGrey80)
+                    canvas.drawRect(lo + 48.0f + x * 30, to + y * ceh - 2.0f, lo + 52.0f + x * 30, to + y * ceh + 2.0f, Creator.fillPetrol)
                 }
             }
 
             // Notes title
-            canvas.drawRect(lo + cew + 50.0f, to + 26 * ceh, lo + 2 * cew + 50.0f, to + 27 * ceh, Creator.fillGrey80)
+            canvas.drawRect(lo + cew + 50.0f, to + 26 * ceh, lo + 2 * cew + 50.0f, to + 27 * ceh, Creator.fillPetrol)
             canvas.drawText(notesText, lo + cew + 60.0f, to + 27 * ceh - 10.0f, Creator.textDefaultWhite)
 
             // Notes grid

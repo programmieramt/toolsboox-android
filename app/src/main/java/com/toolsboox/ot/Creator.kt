@@ -20,12 +20,14 @@ interface Creator {
         val colorGrey20 = Color.argb(0.08f, 0.5f, 0.5f, 0.5f)
         val colorGrey50 = Color.argb(0.5f, 0.5f, 0.5f, 0.5f)
         val colorGrey80 = Color.argb(0.8f, 0.5f, 0.5f, 0.5f)
+        val colorPetrol = Color.argb(1.0f, 0.0f, 0.37f, 0.45f)
         val colorWhite = Color.argb(1.0f, 1.0f, 1.0f, 1.0f)
 
         val fillBlack = Paint()
         val fillGrey10 = Paint()
         val fillGrey20 = Paint()
         val fillGrey80 = Paint()
+        val fillPetrol = Paint()
         val fillWhite = Paint()
 
         val lineDefaultBlack: Paint = Paint()
@@ -66,6 +68,10 @@ interface Creator {
             fillGrey80.strokeWidth = 1.0f
             fillGrey80.color = colorGrey80
             fillGrey80.style = Paint.Style.FILL_AND_STROKE
+
+            fillPetrol.strokeWidth = 1.0f
+            fillPetrol.color = colorPetrol
+            fillPetrol.style = Paint.Style.FILL_AND_STROKE
 
             fillWhite.strokeWidth = 1.0f
             fillWhite.color = colorWhite
