@@ -162,6 +162,9 @@ dependencies {
         exclude group: "com.onyx.android.sdk", module: "onyxsdk-geometry"
     }
 
+    // OkHttp (also used by WebDAV sync)
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+
     // OkHttp, Retrofit and GSON
     ksp 'com.squareup.moshi:moshi-kotlin-codegen:1.15.2'
     implementation 'com.squareup.moshi:moshi:1.15.2'

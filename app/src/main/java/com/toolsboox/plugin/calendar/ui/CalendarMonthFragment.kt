@@ -47,7 +47,7 @@ class CalendarMonthFragment @Inject constructor() : SurfaceFragment() {
 
     // The Google Drive sync presenter.
     @Inject
-    lateinit var syncPresenter: CalendarGoogleDriveSyncPresenter
+    lateinit var syncPresenter: CalendarWebDavSyncPresenter
 
     /**
      * The calendar utils.
