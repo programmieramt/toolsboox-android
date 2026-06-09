@@ -106,7 +106,7 @@ class CalendarDayPage {
             canvas.drawRect(0.0f, 0.0f, 1404.0f, 1872.0f, Creator.fillWhite)
 
             // Schedules title
-            canvas.drawRect(lo, to, lo + cew, to + ceh, Creator.fillGrey80)
+            canvas.drawRect(lo, to, lo + cew, to + ceh, Creator.fillPetrol)
             canvas.drawText(schedulesText, lo + 10.0f, to + ceh - 10.0f, Creator.textDefaultWhite)
 
             calendarEvents.sortedWith(compareBy({ it.startDate }, { it.endDate }))
@@ -236,7 +236,7 @@ class CalendarDayPage {
             }
 
             // Tasks title
-            canvas.drawRect(lo + cew + 50.0f, to, lo + 2 * cew + 50.0f, to + ceh, Creator.fillGrey80)
+            canvas.drawRect(lo + cew + 50.0f, to, lo + 2 * cew + 50.0f, to + ceh, Creator.fillPetrol)
             canvas.drawText(tasksText, lo + cew + 60.0f, to + ceh - 10.0f, Creator.textDefaultWhite)
 
             // Tasks grid
@@ -267,7 +267,7 @@ class CalendarDayPage {
             )
 
             // Notes title
-            canvas.drawRect(lo + cew + 50.0f, to + 18 * ceh, lo + 2 * cew + 50.0f, to + 19 * ceh, Creator.fillGrey80)
+            canvas.drawRect(lo + cew + 50.0f, to + 18 * ceh, lo + 2 * cew + 50.0f, to + 19 * ceh, Creator.fillPetrol)
             if (outside.isEmpty()) {
                 canvas.drawText(notesText, lo + cew + 60.0f, to + 19 * ceh - 10.0f, Creator.textDefaultWhite)
             } else {

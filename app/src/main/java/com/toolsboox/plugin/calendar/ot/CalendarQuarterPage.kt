@@ -199,7 +199,7 @@ class CalendarQuarterPage : Creator {
          * @param calendarPattern pattern data class
          */
         private fun drawMonthName(canvas: Canvas, lo: Float, to: Float, month: Int, calendarPattern: CalendarPattern) {
-            canvas.drawRect(lo, to - ceh, lo + cew, to, Creator.fillGrey80)
+            canvas.drawRect(lo, to - ceh, lo + cew, to, Creator.fillPetrol)
 
             val monthName = Month.of(month).getDisplayName(TextStyle.FULL, Locale.getDefault())
             canvas.drawText(monthName, lo + cew / 2.0f, to - 10.0f, Creator.textDefaultWhiteCenter)

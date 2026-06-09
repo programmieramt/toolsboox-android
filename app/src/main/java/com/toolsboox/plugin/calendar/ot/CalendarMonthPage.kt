@@ -198,7 +198,7 @@ class CalendarMonthPage : Creator {
          * @param dayOfWeekNumber the number of the day of week
          */
         private fun drawDayOfWeekNames(canvas: Canvas, lo: Float, to: Float, dayOfWeekNumber: Int) {
-            canvas.drawRect(lo, to, lo + cew, to + 50.0f, Creator.fillGrey80)
+            canvas.drawRect(lo, to, lo + cew, to + 50.0f, Creator.fillPetrol)
             val locale = Locale.getDefault()
             val displayName = when (dayOfWeekNumber) {
                 DayOfWeek.MONDAY.value -> DayOfWeek.MONDAY.getDisplayName(TextStyle.SHORT, locale)
@@ -252,7 +252,7 @@ class CalendarMonthPage : Creator {
             context: Context, canvas: Canvas, lo: Float, to: Float, weekOfYear: Int
         ) {
             val weekText = context.getString(R.string.week_abbreviation, weekOfYear)
-            canvas.drawRect(lo, to, lo + 50.0f, to + ceh, Creator.fillGrey80)
+            canvas.drawRect(lo, to, lo + 50.0f, to + ceh, Creator.fillPetrol)
             canvas.save()
             canvas.rotate(-90.0f, lo + 45.0f, to + ceh / 2.0f)
             canvas.drawText(weekText, lo + 45.0f, to + ceh / 2.0f - 5.0f, Creator.textDefaultWhiteCenter)
