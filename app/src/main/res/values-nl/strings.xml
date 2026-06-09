@@ -186,8 +186,6 @@ Strings related to dashboard fragment -->
     <string name="calendar_year_title">"Jaarlijkse planner - %s"</string>
     <string name="calendar_quarter_title">"kwartaal planner - %s"</string>
     <string name="calendar_month_title">"Maand planner - %s"</string>
-    <string name="calendar_week_title">"Week planner – %1$s week %2$s"</string>
-    <string name="calendar_week_notes">"Notities"</string>
     <string name="calendar_day_title">"Dag planner - %s"</string>
     <string name="calendar_day_schedules">"Planningen"</string>
     <string name="calendar_day_tasks">"Taken"</string>
@@ -238,7 +236,6 @@ Strings related to dashboard fragment -->
     <string name="calendar_settings_start_view_year">"Jaar planner"</string>
     <string name="calendar_settings_start_view_quarter">"Kwartaal planner"</string>
     <string name="calendar_settings_start_view_month">"Maand planner"</string>
-    <string name="calendar_settings_start_view_week">"Week planner"</string>
     <string name="calendar_settings_start_view_day">"Dag planner"</string>
     <string name="calendar_settings_button_backup">"Exporteer backup"</string>
     <string name="calendar_settings_backup_done">"kalender backup geëxporteerd naar downloads"</string>

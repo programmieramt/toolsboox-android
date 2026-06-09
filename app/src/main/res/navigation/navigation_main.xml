@@ -13,9 +13,6 @@
             android:id="@+id/action_to_calendar_day"
             app:destination="@id/CalendarDayFragment"/>
     <action
-            android:id="@+id/action_to_calendar_week"
-            app:destination="@id/CalendarWeekFragment"/>
-    <action
             android:id="@+id/action_to_calendar_month"
             app:destination="@id/CalendarMonthFragment"/>
     <action
@@ -213,64 +210,6 @@
     </fragment>
 
     <fragment
-            android:id="@+id/CalendarWeekFragment"
-            android:name="com.toolsboox.plugin.calendar.ui.CalendarWeekFragment"
-            android:label="CalendarWeekFragment"
-            tools:layout="@layout/fragment_calendar">
-
-        <argument
-                android:name="year"
-                app:argType="string"
-                app:nullable="true"/>
-        <argument
-                android:name="weekOfYear"
-                app:argType="string"
-                app:nullable="true"/>
-        <argument
-                android:name="notes"
-                app:argType="string"
-                app:nullable="true"/>
-
-        <action
-                android:id="@+id/action_to_dashboard"
-                app:destination="@id/DashboardFragment"
-                app:popUpTo="@id/DashboardFragment"
-                app:popUpToInclusive="true"/>
-        <action
-                android:id="@+id/action_to_calendar_cloud_sync"
-                app:destination="@id/CalendarCloudSyncFragment"/>
-        <action
-                android:id="@+id/action_to_calendar_google_drive_sync"
-                app:destination="@id/CalendarGoogleDriveSyncFragment"/>
-        <action
-                android:id="@+id/action_to_calendar_settings"
-                app:destination="@id/CalendarSettingsFragment"/>
-        <action
-                android:id="@+id/action_to_calendar_year"
-                app:destination="@id/CalendarYearFragment"
-                app:popUpTo="@id/CalendarYearFragment"
-                app:popUpToInclusive="true"/>
-        <action
-                android:id="@+id/action_to_calendar_quarter"
-                app:destination="@id/CalendarQuarterFragment"
-                app:popUpTo="@id/CalendarQuarterFragment"
-                app:popUpToInclusive="true"/>
-        <action
-                android:id="@+id/action_to_calendar_month"
-                app:destination="@id/CalendarMonthFragment"
-                app:popUpTo="@id/CalendarMonthFragment"
-                app:popUpToInclusive="true"/>
-        <action
-                android:id="@+id/action_to_calendar_week"
-                app:destination="@id/CalendarWeekFragment"
-                app:popUpTo="@id/CalendarWeekFragment"
-                app:popUpToInclusive="true"/>
-        <action
-                android:id="@+id/action_to_calendar_day"
-                app:destination="@id/CalendarDayFragment"/>
-    </fragment>
-
-    <fragment
             android:id="@+id/CalendarDayFragment"
             android:name="com.toolsboox.plugin.calendar.ui.CalendarDayFragment"
             android:label="CalendarDayFragment"
@@ -321,11 +260,6 @@
                 android:id="@+id/action_to_calendar_month"
                 app:destination="@id/CalendarMonthFragment"
                 app:popUpTo="@id/CalendarMonthFragment"
-                app:popUpToInclusive="true"/>
-        <action
-                android:id="@+id/action_to_calendar_week"
-                app:destination="@id/CalendarWeekFragment"
-                app:popUpTo="@id/CalendarWeekFragment"
                 app:popUpToInclusive="true"/>
         <action
                 android:id="@+id/action_to_calendar_day"

@@ -88,16 +88,6 @@ class CalendarMonthPage : Creator {
                     val px = motionEvent.x * 1404.0f / view.width
                     val py = motionEvent.y * 1872.0f / view.height
 
-                    for (i in 0..5) {
-                        val xo = lo
-                        val yo = to + 50.0f + i * ceh
-
-                        if (px >= xo && px <= xo + 50.0f && py >= yo && py <= yo + ceh) {
-                            CalendarNavigator.toWeekPage(fragment, localDate.plusWeeks(i.toLong()), locale)
-                            return true
-                        }
-                    }
-
                     val yearMonth = YearMonth.of(year, month)
                     val dayValue: Int = LocalDate.of(year, month, 1).dayOfWeek.value
                     var xOffset = (dayValue - firstDayOfWeek + 7) % 7
@@ -152,7 +142,7 @@ class CalendarMonthPage : Creator {
 
             for (i in 0..5) {
                 val weekOfYear = currentDate.plusWeeks(i.toLong()).get(weekOfYearField)
-                drawWeekNames(context, canvas, lo, to + 50.0f + i * ceh, weekOfYear, calendarPattern)
+                drawWeekNames(context, canvas, lo, to + 50.0f + i * ceh, weekOfYear)
             }
 
             drawDayNumbers(canvas, locale, lo + 50.0f, to + 50.0f, year, month, calendarPattern)
@@ -259,7 +249,7 @@ class CalendarMonthPage : Creator {
          * @param calendarPattern the pattern data class
          */
         private fun drawWeekNames(
-            context: Context, canvas: Canvas, lo: Float, to: Float, weekOfYear: Int, calendarPattern: CalendarPattern
+            context: Context, canvas: Canvas, lo: Float, to: Float, weekOfYear: Int
         ) {
             val weekText = context.getString(R.string.week_abbreviation, weekOfYear)
             canvas.drawRect(lo, to, lo + 50.0f, to + ceh, Creator.fillGrey80)
@@ -267,11 +257,6 @@ class CalendarMonthPage : Creator {
             canvas.rotate(-90.0f, lo + 45.0f, to + ceh / 2.0f)
             canvas.drawText(weekText, lo + 45.0f, to + ceh / 2.0f - 5.0f, Creator.textDefaultWhiteCenter)
             canvas.restore()
-
-            if (calendarPattern.getWeekPages(weekOfYear) > 0) {
-                Creator.drawTriangle(canvas, lo + 2.0f, to + 2.0f, 20.0f, Creator.fillWhite)
-            }
-            Creator.notesDots(canvas, lo + 10.0f, to + ceh - 10.0f, 5.0f, calendarPattern.getWeekNotes(weekOfYear))
         }
     }
 }

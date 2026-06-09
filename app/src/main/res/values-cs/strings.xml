@@ -187,8 +187,6 @@ Strings related to dashboard fragment -->
     <string name="calendar_year_title">"Roční plánovač – %s"</string>
     <string name="calendar_quarter_title">"Čtvrtletní plánovač – %s"</string>
     <string name="calendar_month_title">"Měsíční plánovač – %s"</string>
-    <string name="calendar_week_title">"Týdenní plánovač – %s týden %s"</string>
-    <string name="calendar_week_notes">"Poznámky"</string>
     <string name="calendar_day_title">"Denní plánovač – %s"</string>
     <string name="calendar_day_schedules">"Rozvrhy"</string>
     <string name="calendar_day_tasks">"Úkoly"</string>
@@ -239,7 +237,6 @@ Strings related to dashboard fragment -->
     <string name="calendar_settings_start_view_year">"Roční plánovač"</string>
     <string name="calendar_settings_start_view_quarter">"Čtvrtletní plánovač"</string>
     <string name="calendar_settings_start_view_month">"Měsíční plánovač"</string>
-    <string name="calendar_settings_start_view_week">"Týdenní plánovač"</string>
     <string name="calendar_settings_start_view_day">"Denní plánovač"</string>
     <string name="calendar_settings_button_backup">"Uložit zálohu"</string>
     <string name="calendar_settings_backup_done">"Záloha kalendáře byla uložena do složky Downloads"</string>

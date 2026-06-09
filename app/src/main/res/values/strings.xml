@@ -116,7 +116,6 @@
     <string name="calendar_settings_start_view_year">Yearly planner</string>
     <string name="calendar_settings_start_view_quarter">Quarterly planner</string>
     <string name="calendar_settings_start_view_month">Monthly planner</string>
-    <string name="calendar_settings_start_view_week">Weekly planner</string>
     <string name="calendar_settings_start_view_day">Daily planner</string>
     <string name="calendar_settings_select_locale_text">Select the locale of the Calendar:</string>
     <string name="calendar_settings_first_day_of_the_week_text">Start day of the week:</string>
@@ -222,8 +221,6 @@
     <string name="calendar_month_title">Monthly planner &#8211; %s</string>
     <string name="calendar_month_notes">Notes</string>
 
-    <string name="calendar_week_title">Weekly planner &#8211; %1$s week %2$s</string>
-    <string name="calendar_week_notes">Notes</string>
 
     <string name="calendar_day_title">Daily planner &#8211; %s</string>
     <string name="calendar_day_schedules">Schedules</string>

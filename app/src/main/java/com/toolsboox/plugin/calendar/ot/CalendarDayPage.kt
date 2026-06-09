@@ -58,7 +58,6 @@ class CalendarDayPage {
             val year = calendarDay.year
             val month = calendarDay.month
             val day = calendarDay.day
-            val locale = calendarDay.locale
 
             val localDate = LocalDate.of(year, month, day)
 
@@ -74,7 +73,7 @@ class CalendarDayPage {
                 }
 
                 OnGestureListener.UTD -> {
-                    CalendarNavigator.toWeekPage(fragment, localDate, locale)
+                    CalendarNavigator.toMonthPage(fragment, localDate)
                     return true
                 }
 

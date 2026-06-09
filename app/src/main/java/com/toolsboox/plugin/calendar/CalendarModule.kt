@@ -26,9 +26,6 @@ abstract class CalendarModule {
     abstract fun bindMonthPresenter(presenter: CalendarMonthPresenter): FragmentPresenter
 
     @Binds
-    abstract fun bindWeekPresenter(presenter: CalendarWeekPresenter): FragmentPresenter
-
-    @Binds
     abstract fun bindDayPresenter(presenter: CalendarDayPresenter): FragmentPresenter
 
     @Binds

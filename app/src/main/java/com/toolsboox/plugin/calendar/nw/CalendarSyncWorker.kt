@@ -249,7 +249,6 @@ class CalendarSyncWorker(
      *   year-YYYY-v2.json, year-YYYY.json
      *   quarter-YYYY-QN-v2.json
      *   month-YYYY-MM-v2.json
-     *   week-YYYY-WNN-v2.json
      *   day-YYYY-MM-DD-v2.json
      */
     private fun inferSyncItem(file: File, calendarDir: File, userId: UUID): CalendarSyncItem? {
@@ -279,7 +278,6 @@ class CalendarSyncWorker(
         val isCalendarFile = baseName.startsWith("year-") ||
                 baseName.startsWith("quarter-") ||
                 baseName.startsWith("month-") ||
-                baseName.startsWith("week-") ||
                 baseName.startsWith("day-")
 
         if (!isCalendarFile) return null

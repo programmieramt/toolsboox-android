@@ -7,7 +7,6 @@ import com.toolsboox.plugin.calendar.da.v2.*
 import com.toolsboox.ui.plugin.ScreenFragment
 import timber.log.Timber
 import java.time.LocalDate
-import java.time.temporal.WeekFields
 import java.util.*
 
 /**
@@ -172,50 +171,6 @@ object CalendarNavigator {
 
         Timber.i("Navigate to the '$year-$quarter' ($calendarStyle) quarterly calendar")
         fragment.findNavController().navigate(R.id.action_to_calendar_quarter, bundle)
-    }
-
-    /**
-     * Navigate to the weekly calendar notes.
-     *
-     * @param fragment the fragment
-     * @param localDate the local date
-     * @param notePage navigate to the note page
-     */
-    fun toWeekNote(fragment: ScreenFragment, localDate: LocalDate, locale: Locale, notePage: String) {
-        val year = localDate.year
-        val weekOfWeekBasedYear = WeekFields.of(locale).weekOfWeekBasedYear()
-        val weekOfYear = localDate.plusWeeks(0L).get(weekOfWeekBasedYear)
-
-        val bundle = bundleOf()
-        bundle.putString("year", "$year")
-        bundle.putString("weekOfYear", "$weekOfYear")
-        bundle.putString("notePage", notePage)
-
-        Timber.i("Navigate to the '$year-$weekOfYear' ($notePage) weekly calendar")
-        fragment.findNavController().navigate(R.id.action_to_calendar_week, bundle)
-    }
-
-    /**
-     * Navigate to the weekly calendar page.
-     *
-     * @param fragment the fragment
-     * @param localDate the local date
-     * @param calendarStyle to the calendar style
-     */
-    fun toWeekPage(
-        fragment: ScreenFragment, localDate: LocalDate, locale: Locale, calendarStyle: String = CalendarWeek.DEFAULT_STYLE
-    ) {
-        val year = localDate.year
-        val weekOfWeekBasedYear = WeekFields.of(locale).weekOfWeekBasedYear()
-        val weekOfYear = localDate.plusWeeks(0L).get(weekOfWeekBasedYear)
-
-        val bundle = bundleOf()
-        bundle.putString("year", "$year")
-        bundle.putString("weekOfYear", "$weekOfYear")
-        bundle.putString("calendarStyle", calendarStyle)
-
-        Timber.i("Navigate to the '$year-$weekOfYear' ($calendarStyle) weekly calendar")
-        fragment.findNavController().navigate(R.id.action_to_calendar_week, bundle)
     }
 
     /**

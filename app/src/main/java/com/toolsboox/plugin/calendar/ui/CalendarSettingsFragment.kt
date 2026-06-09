@@ -161,7 +161,6 @@ class CalendarSettingsFragment @Inject constructor() : ScreenFragment() {
         // Start view settings
         val listOfStartViews = mutableListOf<String>()
         listOfStartViews.add(getString(R.string.calendar_settings_start_view_day))
-        listOfStartViews.add(getString(R.string.calendar_settings_start_view_week))
         listOfStartViews.add(getString(R.string.calendar_settings_start_view_month))
         listOfStartViews.add(getString(R.string.calendar_settings_start_view_quarter))
         listOfStartViews.add(getString(R.string.calendar_settings_start_view_year))

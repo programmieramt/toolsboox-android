@@ -129,10 +129,9 @@ class MainActivity : BaseActivity<MainPresenter>(), MainView {
                 R.id.drawer_item_calendar -> {
                     val calendarStartActionId = when (sharedPreferences.getInt("calendarStartView", 0)) {
                         0 -> R.id.action_to_calendar_day
-                        1 -> R.id.action_to_calendar_week
-                        2 -> R.id.action_to_calendar_month
-                        3 -> R.id.action_to_calendar_quarter
-                        4 -> R.id.action_to_calendar_year
+                        1 -> R.id.action_to_calendar_month
+                        2 -> R.id.action_to_calendar_quarter
+                        3 -> R.id.action_to_calendar_year
                         else -> R.id.action_to_calendar_day
                     }
                     binding.fragmentContent.findNavController().navigate(calendarStartActionId, bundleOf())
@@ -167,16 +166,14 @@ class MainActivity : BaseActivity<MainPresenter>(), MainView {
             if (path?.startsWith("/calendar") == true) {
                 val defaultCalendarStartActionId = when (sharedPreferences.getInt("calendarStartView", 0)) {
                     0 -> R.id.action_to_calendar_day
-                    1 -> R.id.action_to_calendar_week
-                    2 -> R.id.action_to_calendar_month
-                    3 -> R.id.action_to_calendar_quarter
-                    4 -> R.id.action_to_calendar_year
+                    1 -> R.id.action_to_calendar_month
+                    2 -> R.id.action_to_calendar_quarter
+                    3 -> R.id.action_to_calendar_year
                     else -> R.id.action_to_calendar_day
                 }
 
                 val calendarStartActionId = when (path) {
                     "/calendar/day" -> R.id.action_to_calendar_day
-                    "/calendar/week" -> R.id.action_to_calendar_week
                     "/calendar/month" -> R.id.action_to_calendar_month
                     "/calendar/quarter" -> R.id.action_to_calendar_quarter
                     "/calendar/year" -> R.id.action_to_calendar_year
