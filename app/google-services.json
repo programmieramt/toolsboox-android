@@ -1,56 +1,39 @@
 {
   "project_info": {
-    "project_number": "156975392282",
-    "project_id": "ultrabridge-calendar",
-    "storage_bucket": "ultrabridge-calendar.appspot.com"
+    "project_number": "519660285612",
+    "project_id": "toolsboox-ledger",
+    "storage_bucket": "toolsboox-ledger.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:156975392282:android:toolsbooxmjh",
+        "mobilesdk_app_id": "1:519660285612:android:overwatcherprogrammieramt",
         "android_client_info": {
-          "package_name": "com.toolsboox.mjh"
+          "package_name": "com.overwatcher.programmieramt"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "156975392282-5ecf6siag01jsjeasomssh855bbdnaea.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCtCZLNtNJNs0N9rFY9tMuLe7HEsnn8EB8"
-        }
-      ],
+      "oauth_client": [],
+      "api_key": [],
       "services": {}
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:156975392282:android:toolsbooxmjhdebug",
+        "mobilesdk_app_id": "1:519660285612:android:overwatcherprogrammieramtdebug",
         "android_client_info": {
-          "package_name": "com.toolsboox.mjh.debug"
+          "package_name": "com.overwatcher.programmieramt.debug"
         }
       },
       "oauth_client": [
         {
-          "client_id": "156975392282-s52ec6jicvhc5nem7aeckkte9ojn2no2.apps.googleusercontent.com",
+          "client_id": "519660285612-h9mg8mkgl7a68k6k7h03jvldf7nlnaf8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.toolsboox.mjh.debug",
-            "certificate_hash": "050ca6a28999efb6c34980bed39c2f4ea180522f"
+            "package_name": "com.overwatcher.programmieramt.debug",
+            "certificate_hash": "77c94841154225e2355177c13a01695a79c2bf2e"
           }
-        },
-        {
-          "client_id": "156975392282-5ecf6siag01jsjeasomssh855bbdnaea.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCtCZLNtNJNs0N9rFY9tMuLe7HEsnn8EB8"
-        }
-      ],
+      "api_key": [],
       "services": {}
     }
   ],

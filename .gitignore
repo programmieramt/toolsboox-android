@@ -7,5 +7,6 @@ build
 README.md
 local.properties
 keystore.jks
+client_secret*.json
 .DS_Store
 **/.DS_Store
