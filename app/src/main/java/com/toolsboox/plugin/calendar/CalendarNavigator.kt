@@ -36,9 +36,8 @@ object CalendarNavigator {
     fun toCloudSync(fragment: ScreenFragment) {
         val bundle = bundleOf()
 
-        Timber.i("Navigate to the calendar cloud sync")
-//        fragment.findNavController().navigate(R.id.action_to_calendar_cloud_sync, bundle)
-        fragment.findNavController().navigate(R.id.action_to_calendar_google_drive_sync, bundle)
+        Timber.i("Navigate to the calendar cloud sync → redirected to settings")
+        fragment.findNavController().navigate(R.id.action_to_calendar_settings, bundle)
     }
 
     /**

@@ -96,6 +96,7 @@ class CalendarSettingsFragment @Inject constructor() : ScreenFragment() {
     companion object {
         private const val WORK_NAME = "calendar-cloud-sync"
         private const val ULTRABRIDGE_ENCRYPTED_PREFS_NAME = "ultrabridge_encrypted_prefs"
+        private const val WEBDAV_SYNC_ENCRYPTED_PREFS_NAME = "webdav_sync_encrypted_prefs"
 
         /**
          * Interval options in minutes, indexed to match the spinner.
@@ -103,22 +104,22 @@ class CalendarSettingsFragment @Inject constructor() : ScreenFragment() {
         private val SYNC_INTERVAL_MINUTES = longArrayOf(15, 60, 360, 1440)
     }
 
-    /**
-     * Get or create EncryptedSharedPreferences for Ultrabridge WebDAV credentials.
-     */
-    private fun getUltrabridgeEncryptedPrefs(): SharedPreferences {
+    private fun getEncryptedPrefs(name: String): SharedPreferences {
         val masterKey = MasterKey.Builder(requireContext())
             .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
             .build()
-
         return EncryptedSharedPreferences.create(
-            requireContext(),
-            ULTRABRIDGE_ENCRYPTED_PREFS_NAME,
-            masterKey,
+            requireContext(), name, masterKey,
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
     }
+
+    /**
+     * Get or create EncryptedSharedPreferences for Ultrabridge WebDAV credentials.
+     */
+    private fun getUltrabridgeEncryptedPrefs() = getEncryptedPrefs(ULTRABRIDGE_ENCRYPTED_PREFS_NAME)
+    private fun getWebDavSyncEncryptedPrefs() = getEncryptedPrefs(WEBDAV_SYNC_ENCRYPTED_PREFS_NAME)
 
     /**
      * OnViewCreated hook.
@@ -272,6 +273,18 @@ class CalendarSettingsFragment @Inject constructor() : ScreenFragment() {
             updateAutoSyncIntervalVisibility()
         }
 
+        // WebDAV Sync settings
+        val webDavSyncPrefs = getWebDavSyncEncryptedPrefs()
+        val webDavSyncEnabled = sharedPreferences.getBoolean("webDavSyncEnabled", false)
+        binding.webdavSyncEnableSwitch.isChecked = webDavSyncEnabled
+        binding.webdavSyncUrlInput.setText(webDavSyncPrefs.getString("webDavUrl", ""))
+        binding.webdavSyncUserInput.setText(webDavSyncPrefs.getString("webDavUser", ""))
+        binding.webdavSyncPassInput.setText(webDavSyncPrefs.getString("webDavPassword", ""))
+        updateWebDavSyncFieldsVisibility(webDavSyncEnabled)
+        binding.webdavSyncEnableSwitch.setOnCheckedChangeListener { _, isChecked ->
+            updateWebDavSyncFieldsVisibility(isChecked)
+        }
+
         // Ultrabridge Backup settings
         val ultrabridgePrefs = getUltrabridgeEncryptedPrefs()
         val ultrabridgeEnabled = sharedPreferences.getBoolean("ultrabridgeEnabled", false)
@@ -343,6 +356,30 @@ class CalendarSettingsFragment @Inject constructor() : ScreenFragment() {
             } else {
                 workManager.cancelUniqueWork(WORK_NAME)
             }
+
+            // Persist WebDAV Sync settings
+            val wdEnabled = binding.webdavSyncEnableSwitch.isChecked
+            val wdUrl = binding.webdavSyncUrlInput.text?.toString()?.trim() ?: ""
+            val wdUser = binding.webdavSyncUserInput.text?.toString()?.trim() ?: ""
+            val wdPass = binding.webdavSyncPassInput.text?.toString() ?: ""
+
+            if (wdEnabled && (wdUrl.isEmpty() || wdUser.isEmpty())) {
+                Toast.makeText(requireContext(), R.string.calendar_settings_webdav_sync_missing_fields, Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
+            sharedPreferences.edit().putBoolean("webDavSyncEnabled", wdEnabled).apply()
+            getWebDavSyncEncryptedPrefs().edit()
+                .putString("webDavUrl", wdUrl)
+                .putString("webDavUser", wdUser)
+                .putString("webDavPassword", wdPass)
+                .apply()
+            // Also write to regular prefs so CalendarWebDavSyncPresenter can read them
+            sharedPreferences.edit()
+                .putString("webDavUrl", wdUrl)
+                .putString("webDavUser", wdUser)
+                .putString("webDavPassword", wdPass)
+                .apply()
 
             // Persist Ultrabridge settings
             val ubEnabled = binding.ultrabridgeEnableSwitch.isChecked
@@ -418,6 +455,13 @@ class CalendarSettingsFragment @Inject constructor() : ScreenFragment() {
         val visibility = if (autoSyncEnabled) View.VISIBLE else View.GONE
         binding.autoSyncIntervalText.visibility = visibility
         binding.autoSyncIntervalSpinnerLayout.visibility = visibility
+    }
+
+    private fun updateWebDavSyncFieldsVisibility(enabled: Boolean) {
+        val visibility = if (enabled) View.VISIBLE else View.GONE
+        binding.webdavSyncUrlLayout.visibility = visibility
+        binding.webdavSyncUserLayout.visibility = visibility
+        binding.webdavSyncPassLayout.visibility = visibility
     }
 
     /**

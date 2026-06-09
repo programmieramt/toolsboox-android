@@ -607,6 +607,106 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
+            <!-- WebDAV Sync section -->
+            <TextView
+                    android:id="@+id/webdav_sync_section_label"
+                    android:text="@string/calendar_settings_webdav_sync_title"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/divider_ultrabridge"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/webdav_sync_enable_switch"
+                    android:text="@string/calendar_settings_webdav_sync_enable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/webdav_sync_section_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/webdav_sync_url_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:hint="@string/calendar_settings_webdav_sync_url_hint"
+                    app:layout_constraintTop_toBottomOf="@id/webdav_sync_enable_switch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/webdav_sync_url_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textUri"
+                        android:singleLine="true"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/webdav_sync_user_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:hint="@string/calendar_settings_webdav_sync_user_hint"
+                    app:layout_constraintTop_toBottomOf="@id/webdav_sync_url_layout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/webdav_sync_user_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:singleLine="true"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/webdav_sync_pass_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:hint="@string/calendar_settings_webdav_sync_pass_hint"
+                    app:passwordToggleEnabled="true"
+                    app:layout_constraintTop_toBottomOf="@id/webdav_sync_user_layout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/webdav_sync_pass_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:singleLine="true"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                    android:id="@+id/divider_webdav_sync"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#e0e0e0"
+                    app:layout_constraintTop_toBottomOf="@id/webdav_sync_pass_layout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
             <androidx.constraintlayout.widget.Barrier
                     android:id="@+id/barrierVertical"
                     android:layout_width="0dp"
@@ -629,7 +729,7 @@
 
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/barrierVertical"
-                    app:layout_constraintTop_toBottomOf="@+id/divider_ultrabridge"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_webdav_sync"
                     android:layout_marginTop="24dp"/>
 
             <Button
@@ -641,7 +741,7 @@
 
                     app:layout_constraintStart_toEndOf="@id/barrierVertical"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/divider_ultrabridge"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_webdav_sync"
                     android:layout_marginTop="24dp"/>
 
             <Button
