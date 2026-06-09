@@ -13,7 +13,7 @@
         }
       },
       "oauth_client": [],
-      "api_key": [],
+      "api_key": [{"current_key": "AIzaSyAWfeRpDC6_3ftfTBkAiIrL8RjVvy_BPLc"}],
       "services": {}
     },
     {
@@ -33,7 +33,7 @@
           }
         }
       ],
-      "api_key": [],
+      "api_key": [{"current_key": "AIzaSyAWfeRpDC6_3ftfTBkAiIrL8RjVvy_BPLc"}],
       "services": {}
     }
   ],
