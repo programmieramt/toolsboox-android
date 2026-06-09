@@ -23,7 +23,11 @@ jobs:
     - name: Write google-services.json
       env:
         GOOGLE_SERVICES_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON }}
-      run: echo "$GOOGLE_SERVICES_JSON_B64" | base64 -d > app/google-services.json
+      run: |
+        echo "Secret length: ${#GOOGLE_SERVICES_JSON_B64}"
+        echo "Secret first 20 chars: ${GOOGLE_SERVICES_JSON_B64:0:20}"
+        echo "$GOOGLE_SERVICES_JSON_B64" | base64 -d > app/google-services.json
+        echo "File first 20 chars: $(head -c 20 app/google-services.json)"
     - name: Build with Gradle
       run: ./gradlew assembleProdDebug
     - name: Archive production artifacts
