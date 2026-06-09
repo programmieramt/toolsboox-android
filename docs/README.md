@@ -5,7 +5,7 @@ A personal fork of [Tools for Boox](https://github.com/gaborauth/toolsboox-andro
 ## What's different in this fork
 
 - **Renamed to Overwatcher** — package `com.overwatcher.programmieramt`
-- **Google Drive sync** — bidirectional sync for calendar data
+- **WebDAV sync** — bidirectional calendar sync between devices (Palma 2 Pro ↔ Air 4C) via your own WebDAV server. Replaces Google Drive.
 - **Calendar permissions** — WRITE_CALENDAR added for full permission support on Android 14 (Boox Air 4C)
 - **New app icon** — calendar with "0" on blue background
 - **No ads, no Firebase Analytics** — stripped completely
@@ -21,6 +21,21 @@ Download the latest APK from [Releases](../../releases) and sideload it to your 
 adb shell pm grant com.overwatcher.programmieramt android.permission.READ_CALENDAR
 adb shell pm grant com.overwatcher.programmieramt android.permission.WRITE_CALENDAR
 ```
+
+## WebDAV Sync Setup
+
+Overwatcher syncs calendar data between devices via your own WebDAV server (NAS, Nextcloud, etc.) instead of Google Drive.
+
+1. Open the app → toolbar sync icon → **Settings**
+2. Under **WebDAV Sync**: enable and enter URL, username, password
+3. The sync folder on your server will be `{url}/calendar/`
+4. Repeat on the second device with the same credentials
+
+The sync runs automatically when you open or close a calendar page.
+
+**Two separate WebDAV configs:**
+- **WebDAV Sync** — calendar JSON data, syncs between devices
+- **WebCal Backup** — PDF exports to Ultrabridge
 
 ## Build
 
