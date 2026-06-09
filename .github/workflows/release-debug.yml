@@ -10,6 +10,7 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    environment: Prod
     permissions:
       contents: write
     steps:
@@ -21,6 +22,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: gradle
+
+      - name: Write google-services.json
+        env:
+          GOOGLE_SERVICES_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_B64 }}
+        run: echo "$GOOGLE_SERVICES_JSON_B64" | base64 -d > app/google-services.json
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -35,15 +41,15 @@ jobs:
       - name: Rename APK
         run: |
           mv app/build/outputs/apk/prod/debug/toolboox-prod-debug-*.apk \
-             vibook-planner-${{ steps.tag.outputs.name }}-debug.apk
+             overwatcher-${{ steps.tag.outputs.name }}-debug.apk
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.tag.outputs.name }}
-          name: ViBook Planner ${{ steps.tag.outputs.name }} (Debug)
+          name: Overwatcher ${{ steps.tag.outputs.name }} (Debug)
           body: |
-            ViBook Planner debug build ${{ steps.tag.outputs.name }}.
+            Overwatcher debug build ${{ steps.tag.outputs.name }}.
 
             **Hinweis:** Dies ist ein unsignierter Debug-Build zum Testen/Sideload, kein offizielles Release.
 
@@ -51,4 +57,4 @@ jobs:
           draft: false
           prerelease: true
           generate_release_notes: true
-          files: vibook-planner-${{ steps.tag.outputs.name }}-debug.apk
+          files: overwatcher-${{ steps.tag.outputs.name }}-debug.apk
