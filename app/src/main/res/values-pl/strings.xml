@@ -169,8 +169,6 @@ Strings related to dashboard fragment -->
     <string name="calendar_year_title">"Planer roczny - %s"</string>
     <string name="calendar_quarter_title">"Planer kwartalny - %s"</string>
     <string name="calendar_month_title">"Planer miesięczny - %s"</string>
-    <string name="calendar_week_title">"Planer tygodniowy - %s tydzień %s"</string>
-    <string name="calendar_week_notes">"Notatki"</string>
     <string name="calendar_day_title">"Planer dzienny - %s"</string>
     <string name="calendar_day_schedules">"Harmonogram"</string>
     <string name="calendar_day_tasks">"Zadania"</string>
@@ -212,7 +210,6 @@ Strings related to dashboard fragment -->
     <string name="calendar_settings_start_view_year">"Planer roczny"</string>
     <string name="calendar_settings_start_view_quarter">"Planer kwartalny"</string>
     <string name="calendar_settings_start_view_month">"Planer miesięczny"</string>
-    <string name="calendar_settings_start_view_week">"Planer tygodniowy"</string>
     <string name="calendar_settings_start_view_day">"Planer dzienny"</string>
     <string name="calendar_settings_button_backup">"Eksportuj kopię zapasową"</string>
     <string name="calendar_settings_backup_done">"Kopia zapasowa kalendarza została wyeksportowana do Downloads"</string>

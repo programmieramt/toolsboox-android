@@ -2,13 +2,8 @@ package com.toolsboox.plugin.calendar.ot
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Typeface
-import android.text.TextPaint
 import android.view.MotionEvent
 import android.view.View
-import androidx.core.content.res.ResourcesCompat
 import com.toolsboox.R
 import com.toolsboox.ot.Creator
 import com.toolsboox.plugin.calendar.CalendarNavigator
@@ -17,7 +12,6 @@ import com.toolsboox.plugin.calendar.da.v2.CalendarDay
 import com.toolsboox.plugin.calendar.ui.CalendarDayFragment
 import java.time.LocalDate
 import java.time.format.TextStyle
-import java.time.temporal.WeekFields
 import java.util.*
 
 /**
@@ -28,17 +22,9 @@ import java.util.*
 class CalendarDayNavigator {
 
     companion object {
-        // Cell width
-        private const val cew = 65.0f
-
-        // Cell height
-        private const val ceh = 120.0f
-
-        // Left offset
-        private const val lo = (1404.0f - 20 * cew) / 2.0f
-
-        // Top offset
-        private const val to = (140.4f - 1 * ceh) / 2.0f
+        private const val slotsLeft = 140f
+        private const val slotsRight = 1264f
+        private const val slotCount = 5
 
         /**
          * Process touch event on the calendar navigator and navigate to the view of calendar.
@@ -52,46 +38,39 @@ class CalendarDayNavigator {
         fun onTouchEvent(
             view: View, motionEvent: MotionEvent, fragment: CalendarDayFragment, calendarDay: CalendarDay
         ): Boolean {
-            val year = calendarDay.year
-            val month = calendarDay.month
-            val day = calendarDay.day
-            val locale = calendarDay.locale
-
-            val localDate = LocalDate.of(year, month, day)
+            val localDate = LocalDate.of(calendarDay.year, calendarDay.month, calendarDay.day)
 
             when (motionEvent.action) {
                 MotionEvent.ACTION_UP -> {
                     val px = motionEvent.x * 1404.0f / view.width
                     val py = motionEvent.y * 140.4f / view.height
 
-                    if (px >= lo + 0 * cew && px <= lo + 1 * cew && py >= to && py <= to + ceh) {
+                    val slotWidth = (slotsRight - slotsLeft) / slotCount
+
+                    if (py < 0f || py > 140.4f) return true
+
+                    if (px < slotsLeft) {
                         CalendarNavigator.toDayPage(fragment, localDate.minusDays(1L))
                         return true
                     }
-                    if (px >= lo + 1 * cew && px <= lo + 3 * cew && py >= to && py <= to + ceh) {
+                    if (px < slotsLeft + 2 * slotWidth) {
                         CalendarNavigator.toDayPage(fragment, localDate)
                         return true
                     }
-                    if (px >= lo + 3 * cew && px <= lo + 9 * cew && py >= to && py <= to + ceh) {
-                        CalendarNavigator.toWeekPage(fragment, localDate, locale)
-                        return true
-                    }
-                    if (px >= lo + 9 * cew && px <= lo + 13 * cew && py >= to && py <= to + ceh) {
+                    if (px < slotsLeft + 3 * slotWidth) {
                         CalendarNavigator.toMonthPage(fragment, localDate)
                         return true
                     }
-                    if (px >= lo + 13 * cew && px <= lo + 15 * cew && py >= to && py <= to + ceh) {
+                    if (px < slotsLeft + 4 * slotWidth) {
                         CalendarNavigator.toQuarterPage(fragment, localDate)
                         return true
                     }
-                    if (px >= lo + 15 * cew && px <= lo + 19 * cew && py >= to && py <= to + ceh) {
+                    if (px < slotsRight) {
                         CalendarNavigator.toYearPage(fragment, localDate)
                         return true
                     }
-                    if (px >= lo + 19 * cew && px <= lo + 20 * cew && py >= to && py <= to + ceh) {
-                        CalendarNavigator.toDayPage(fragment, localDate.plusDays(1L))
-                        return true
-                    }
+                    CalendarNavigator.toDayPage(fragment, localDate.plusDays(1L))
+                    return true
                 }
             }
 
@@ -108,7 +87,6 @@ class CalendarDayNavigator {
          */
         fun draw(context: Context, canvas: Canvas, calendarDay: CalendarDay, calendarPattern: CalendarPattern) {
             val currentDate = LocalDate.of(calendarDay.year, calendarDay.month, calendarDay.day)
-            val locale = calendarDay.locale
 
             val year = currentDate.year
             val dayOfYear = currentDate.dayOfYear
@@ -116,16 +94,12 @@ class CalendarDayNavigator {
             val monthName = currentDate.month.getDisplayName(TextStyle.SHORT, Locale.getDefault())
             val quarterOfYear = (currentDate.monthValue - 1) / 3 + 1
             val day = currentDate.dayOfMonth
-            val weekOfYear = currentDate.plusWeeks(0L).get(WeekFields.of(locale).weekOfWeekBasedYear())
             val dayOfWeek = currentDate.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
 
             NavigatorRenderer.render(context, canvas, listOf(
                 NavigatorRenderer.Slot("$day", NavigatorRenderer.Emphasis.FOCAL,
                     calendarPattern.getDayPages(dayOfYear) > 0, calendarPattern.getDayNotes(dayOfYear)),
                 NavigatorRenderer.Slot(dayOfWeek, NavigatorRenderer.Emphasis.NORMAL, false, 0),
-                NavigatorRenderer.Slot(context.getString(R.string.week_abbreviation, weekOfYear),
-                    NavigatorRenderer.Emphasis.MUTED,
-                    calendarPattern.getWeekPages(weekOfYear) > 0, calendarPattern.getWeekNotes(weekOfYear)),
                 NavigatorRenderer.Slot(monthName, NavigatorRenderer.Emphasis.NORMAL,
                     calendarPattern.getMonthPages(monthOfYear) > 0, calendarPattern.getMonthNotes(monthOfYear)),
                 NavigatorRenderer.Slot(context.getString(R.string.quarter_abbreviation, quarterOfYear),

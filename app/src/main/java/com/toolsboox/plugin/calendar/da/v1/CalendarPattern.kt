@@ -5,7 +5,6 @@ import com.toolsboox.plugin.calendar.da.v2.Calendar
 import com.toolsboox.plugin.calendar.da.v2.CalendarDay
 import com.toolsboox.plugin.calendar.da.v2.CalendarMonth
 import com.toolsboox.plugin.calendar.da.v2.CalendarQuarter
-import com.toolsboox.plugin.calendar.da.v2.CalendarWeek
 import com.toolsboox.plugin.calendar.da.v2.CalendarYear
 import java.time.LocalDate
 import java.util.*
@@ -26,8 +25,6 @@ data class CalendarPattern(
     var quarterNote: String = "",
     var monthPage: String = "",
     var monthNote: String = "",
-    var weekPage: String = "",
-    var weekNote: String = "",
     var dayPage: String = "",
     var dayNote: String = ""
 ) {
@@ -45,11 +42,6 @@ data class CalendarPattern(
 
         monthPage = "000000000000"
         monthNote = "000000000000"
-
-        weekPage = ""
-        for (i in 1..54) weekPage += "0"
-        weekNote = ""
-        for (i in 1..54) weekNote += "0"
 
         dayPage = ""
         for (i in 1..366) dayPage += "0"
@@ -162,43 +154,6 @@ data class CalendarPattern(
         if (monthNote.length <= monthOfYear - 1) return 0
 
         return monthNote[monthOfYear - 1].digitToInt()
-    }
-
-    /**
-     * Update week pattern.
-     *
-     * @param calendarWeek the data class
-     */
-    fun updateWeek(calendarWeek: CalendarWeek) {
-        val pages = pages(calendarWeek)
-        val notes = notes(calendarWeek)
-
-        weekPage = setIndex(weekPage, calendarWeek.weekOfYear - 1, (pages + 48).toChar())
-        weekNote = setIndex(weekNote, calendarWeek.weekOfYear - 1, (notes + 48).toChar())
-    }
-
-    /**
-     * Get number of pages of the week.
-     *
-     * @param weekOfYear week of the year
-     * @return number of pages
-     */
-    fun getWeekPages(weekOfYear: Int): Int {
-        if (weekPage.length <= weekOfYear - 1) return 0
-
-        return weekPage[weekOfYear - 1].digitToInt()
-    }
-
-    /**
-     * Get number of notes of the week.
-     *
-     * @param weekOfYear week of the year
-     * @return number of notes
-     */
-    fun getWeekNotes(weekOfYear: Int): Int {
-        if (weekNote.length <= weekOfYear - 1) return 0
-
-        return weekNote[weekOfYear - 1].digitToInt()
     }
 
     /**

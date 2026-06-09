@@ -67,12 +67,6 @@ class CalendarGoogleDriveSyncPresenter @Inject constructor() : FragmentPresenter
     lateinit var calendarQuarterService: CalendarQuarterService
 
     /**
-     * The calendar week service.
-     */
-    @Inject
-    lateinit var calendarWeekService: CalendarWeekService
-
-    /**
      * The calendar year service.
      */
     @Inject
@@ -329,9 +323,6 @@ class CalendarGoogleDriveSyncPresenter @Inject constructor() : FragmentPresenter
                 calendarMonthService.load(item)?.let { calendarMonth ->
                     calendarSyncItems.add(calendarMonthService.getItem(userId, calendarMonth))
                 }
-                calendarWeekService.load(item)?.let { calendarWeek ->
-                    calendarSyncItems.add(calendarWeekService.getItem(userId, calendarWeek))
-                }
                 calendarDayService.load(item)?.let { calendarDay ->
                     calendarSyncItems.add(calendarDayService.getItem(userId, calendarDay))
                 }
@@ -380,9 +371,6 @@ class CalendarGoogleDriveSyncPresenter @Inject constructor() : FragmentPresenter
         }
         calendarMonthService.load(rootPath, calendarSyncItem.path, calendarSyncItem.baseName)?.let {
             calendarSyncItem.json = calendarMonthService.json(it)
-        }
-        calendarWeekService.load(rootPath, calendarSyncItem.path, calendarSyncItem.baseName)?.let {
-            calendarSyncItem.json = calendarWeekService.json(it)
         }
         calendarDayService.load(rootPath, calendarSyncItem.path, calendarSyncItem.baseName)?.let {
             calendarSyncItem.json = calendarDayService.json(it)
@@ -443,14 +431,6 @@ class CalendarGoogleDriveSyncPresenter @Inject constructor() : FragmentPresenter
             val currentDate = LocalDate.ofYearDay(it.year, 1)
             val calendarPattern = calendarPatternService.load(rootPath, currentDate, it.locale)
             calendarPattern.updateMonth(it)
-            calendarPatternService.save(rootPath, currentDate, calendarPattern)
-        }
-        calendarWeekService.fromSyncItem(calendarSyncItem)?.let {
-            calendarWeekService.save(rootPath, calendarSyncItem.path, calendarSyncItem.baseName, it)
-
-            val currentDate = LocalDate.ofYearDay(it.year, 1)
-            val calendarPattern = calendarPatternService.load(rootPath, currentDate, it.locale)
-            calendarPattern.updateWeek(it)
             calendarPatternService.save(rootPath, currentDate, calendarPattern)
         }
         calendarDayService.fromSyncItem(calendarSyncItem)?.let {

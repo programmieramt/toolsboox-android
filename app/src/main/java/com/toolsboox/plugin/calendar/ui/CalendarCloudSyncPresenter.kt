@@ -49,12 +49,6 @@ class CalendarCloudSyncPresenter @Inject constructor() : FragmentPresenter() {
     lateinit var calendarQuarterService: CalendarQuarterService
 
     /**
-     * The calendar week service.
-     */
-    @Inject
-    lateinit var calendarWeekService: CalendarWeekService
-
-    /**
      * The calendar year service.
      */
     @Inject
@@ -93,9 +87,6 @@ class CalendarCloudSyncPresenter @Inject constructor() : FragmentPresenter() {
                             }
                             calendarMonthService.load(item)?.let { calendarMonth ->
                                 calendarSyncItems.add(calendarMonthService.getItem(userId, calendarMonth))
-                            }
-                            calendarWeekService.load(item)?.let { calendarWeek ->
-                                calendarSyncItems.add(calendarWeekService.getItem(userId, calendarWeek))
                             }
                             calendarDayService.load(item)?.let { calendarDay ->
                                 calendarSyncItems.add(calendarDayService.getItem(userId, calendarDay))
@@ -139,9 +130,6 @@ class CalendarCloudSyncPresenter @Inject constructor() : FragmentPresenter() {
                     }
                     calendarMonthService.load(rootPath, calendarSyncItem.path, calendarSyncItem.baseName)?.let {
                         fragment.fileLoadJsonResult(calendarSyncItem, calendarMonthService.json(it))
-                    }
-                    calendarWeekService.load(rootPath, calendarSyncItem.path, calendarSyncItem.baseName)?.let {
-                        fragment.fileLoadJsonResult(calendarSyncItem, calendarWeekService.json(it))
                     }
                     calendarDayService.load(rootPath, calendarSyncItem.path, calendarSyncItem.baseName)?.let {
                         fragment.fileLoadJsonResult(calendarSyncItem, calendarDayService.json(it))
@@ -189,12 +177,6 @@ class CalendarCloudSyncPresenter @Inject constructor() : FragmentPresenter() {
                         it.created = calendarSyncItem.created
                         it.updated = calendarSyncItem.updated
                         calendarMonthService.save(rootPath, calendarSyncItem.path, calendarSyncItem.baseName, it)
-                        fragment.fileUpdateResult(calendarSyncItem, it)
-                    }
-                    calendarWeekService.load(rootPath, calendarSyncItem.path, calendarSyncItem.baseName)?.let {
-                        it.created = calendarSyncItem.created
-                        it.updated = calendarSyncItem.updated
-                        calendarWeekService.save(rootPath, calendarSyncItem.path, calendarSyncItem.baseName, it)
                         fragment.fileUpdateResult(calendarSyncItem, it)
                     }
                     calendarDayService.load(rootPath, calendarSyncItem.path, calendarSyncItem.baseName)?.let {

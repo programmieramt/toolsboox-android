@@ -270,7 +270,7 @@ class CalendarDayFragment @Inject constructor() : SurfaceFragment() {
                     CalendarNavigator.toDayNote(this, currentDate, "${page - 1}")
                 }
             } else {
-                CalendarNavigator.toWeekPage(this, currentDate, locale)
+                CalendarNavigator.toMonthPage(this, currentDate)
             }
         }
         binding.toolbarDrawing.toolbarSwipeDown.setOnClickListener {

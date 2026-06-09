@@ -395,19 +395,6 @@ class UltrabridgeSyncWorker(
                     }
                 }
 
-                name.startsWith("week-") -> {
-                    if (isV2) {
-                        moshi.adapter(CalendarWeek::class.java).fromJson(json)?.let {
-                            it.calendarStrokes to it.noteStrokes
-                        }
-                    } else {
-                        moshi.adapter(com.toolsboox.plugin.calendar.da.v1.CalendarWeek::class.java)
-                            .fromJson(json)?.let { CalendarWeek.convert(it) }?.let {
-                                it.calendarStrokes to it.noteStrokes
-                            }
-                    }
-                }
-
                 name.startsWith("month-") -> {
                     if (isV2) {
                         moshi.adapter(CalendarMonth::class.java).fromJson(json)?.let {

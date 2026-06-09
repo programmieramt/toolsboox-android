@@ -55,12 +55,6 @@ class CalendarSettingsPresenter @Inject constructor() : FragmentPresenter() {
     lateinit var calendarQuarterService: CalendarQuarterService
 
     /**
-     * The calendar week service.
-     */
-    @Inject
-    lateinit var calendarWeekService: CalendarWeekService
-
-    /**
      * The calendar year service.
      */
     @Inject
@@ -185,13 +179,6 @@ class CalendarSettingsPresenter @Inject constructor() : FragmentPresenter() {
                                 calendarMonthService.load(item)?.let { calendarMonth ->
                                     if (calendarMonth.year == year) {
                                         calendarPattern.updateMonth(calendarMonth)
-                                    }
-                                }
-
-
-                                calendarWeekService.load(item)?.let { calendarWeek ->
-                                    if (calendarWeek.year == year) {
-                                        calendarPattern.updateWeek(calendarWeek)
                                     }
                                 }
 

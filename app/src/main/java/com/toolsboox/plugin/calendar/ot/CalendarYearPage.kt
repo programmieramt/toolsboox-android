@@ -221,11 +221,6 @@ class CalendarYearPage : Creator {
                 if (firstInRow) {
                     val weekOfYear = LocalDate.of(year, month, day).get(weekOfYearField)
                     canvas.drawText("$weekOfYear", lo + cew / 2.0f, y, Creator.textSmallBlackCenter)
-
-                    if (calendarPattern.getWeekPages(weekOfYear) > 0) {
-                        Creator.drawTriangle(canvas, lo, y - ceh + 15.0f, 10.0f)
-                    }
-                    Creator.notesDots(canvas, lo + 5.0f, y + 10.0f, 2.5f, calendarPattern.getWeekNotes(weekOfYear))
                     firstInRow = false
                 }
 
