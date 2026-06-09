@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.addTextChangedListener
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.toolsboox.R
 import com.toolsboox.databinding.FragmentCalendarCloudSyncBinding
 import com.toolsboox.ot.CryptoUtils
@@ -30,12 +29,6 @@ class CalendarCloudSyncFragment @Inject constructor() : ScreenFragment() {
      */
     @Inject
     lateinit var sharedPreferences: SharedPreferences
-
-    /**
-     * The Firebase analytics.
-     */
-    @Inject
-    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     /**
      * The presenter of the fragment.

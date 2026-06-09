@@ -8,8 +8,6 @@ import android.widget.EditText
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.logEvent
 import com.toolsboox.R
 import com.toolsboox.databinding.FragmentTeamdrawerRoomBinding
 import com.toolsboox.plugin.teamdrawer.da.RoomItem
@@ -29,12 +27,6 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class RoomFragment @Inject constructor() : ScreenFragment() {
-
-    /**
-     * The Firebase analytics.
-     */
-    @Inject
-    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     @Inject
     lateinit var presenter: RoomPresenter
@@ -132,9 +124,6 @@ class RoomFragment @Inject constructor() : ScreenFragment() {
             }
         }
 
-        firebaseAnalytics.logEvent("teamdrawer") {
-            param("view", "room")
-        }
     }
 
     /**

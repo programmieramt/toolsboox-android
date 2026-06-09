@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.view.SurfaceView
 import android.view.View
 import android.widget.ImageView
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.logEvent
 import com.toolsboox.R
 import com.toolsboox.da.Stroke
 import com.toolsboox.databinding.FragmentCalendarBinding
@@ -40,12 +38,6 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class CalendarQuarterFragment @Inject constructor() : SurfaceFragment() {
-
-    /**
-     * The Firebase analytics.
-     */
-    @Inject
-    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     /**
      * The presenter of the fragment.
@@ -313,9 +305,6 @@ class CalendarQuarterFragment @Inject constructor() : SurfaceFragment() {
 
         CalendarQuarterNavigator.draw(this.requireContext(), navigatorCanvas, calendarQuarter, calendarPattern)
 
-        firebaseAnalytics.logEvent("calendarQuarter") {
-            param("currentDate", currentDate.format(DateTimeFormatter.ISO_DATE))
-        }
     }
 
     /**

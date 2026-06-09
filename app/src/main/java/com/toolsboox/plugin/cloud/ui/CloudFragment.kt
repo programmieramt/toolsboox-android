@@ -24,7 +24,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.Scope
 import com.google.android.material.textfield.TextInputEditText
 import com.google.api.services.drive.DriveScopes
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.squareup.moshi.Moshi
 import com.toolsboox.R
 import com.toolsboox.da.Credential
@@ -59,12 +58,6 @@ class CloudFragment @Inject constructor() : ScreenFragment() {
      */
     @Inject
     lateinit var presenter: CloudPresenter
-
-    /**
-     * The Firebase analytics.
-     */
-    @Inject
-    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     /**
      * The injected shared preferences.
@@ -251,7 +244,6 @@ class CloudFragment @Inject constructor() : ScreenFragment() {
                                 billingClient.acknowledgePurchase(acknowledgePurchaseParams, { acknowledgePurchaseResult ->
                                     if (acknowledgePurchaseResult.responseCode == BillingClient.BillingResponseCode.OK) {
                                         Timber.i("Purchase acknowledged: $purchaseToken")
-                                        firebaseAnalytics.logEvent("purchaseAcknowledged", null)
                                     }
                                 })
                             }

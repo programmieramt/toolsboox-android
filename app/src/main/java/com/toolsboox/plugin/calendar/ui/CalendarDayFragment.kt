@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.SurfaceView
 import android.view.View
 import android.widget.ImageView
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.logEvent
 import com.toolsboox.R
 import com.toolsboox.da.Stroke
 import com.toolsboox.da.TextElement
@@ -38,12 +36,6 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class CalendarDayFragment @Inject constructor() : SurfaceFragment() {
-
-    /**
-     * The Firebase analytics.
-     */
-    @Inject
-    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     /**
      * The presenter of the fragment.
@@ -159,7 +151,6 @@ class CalendarDayFragment @Inject constructor() : SurfaceFragment() {
      * @param strokes the strokes to procrastinate
      */
     override fun onStrokesProcrastinated(strokes: List<Stroke>) {
-        firebaseAnalytics.logEvent("procrastinator", null)
         presenter.procrastinate(this, binding, Stroke.listDeepCopy(strokes), currentDate, calendarDay, calendarStyle)
     }
 
@@ -388,21 +379,6 @@ class CalendarDayFragment @Inject constructor() : SurfaceFragment() {
 
         CalendarDayNavigator.draw(this.requireContext(), navigatorCanvas, calendarDay, calendarPattern)
 
-        if (calendarStyle == CalendarDay.DEFAULT_STYLE) {
-            firebaseAnalytics.logEvent("calendarDay") {
-                param("currentDate", currentDate.format(DateTimeFormatter.ISO_DATE))
-            }
-        }
-        if (calendarStyle == CalendarDay.HEALTH_V1_STYLE) {
-            firebaseAnalytics.logEvent("healthDay_v1") {
-                param("currentDate", currentDate.format(DateTimeFormatter.ISO_DATE))
-            }
-        }
-        if (calendarStyle == CalendarDay.TIME_BOX_V1_STYLE) {
-            firebaseAnalytics.logEvent("timeBoxDay_v1") {
-                param("currentDate", currentDate.format(DateTimeFormatter.ISO_DATE))
-            }
-        }
     }
 
     /**
