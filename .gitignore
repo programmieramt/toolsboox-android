@@ -8,5 +8,6 @@ README.md
 local.properties
 keystore.jks
 client_secret*.json
+app/google-services.json
 .DS_Store
 **/.DS_Store
