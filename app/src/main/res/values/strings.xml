@@ -152,6 +152,7 @@
     <string name="calendar_settings_ultrabridge_url_hint">WebDAV URL</string>
     <string name="calendar_settings_ultrabridge_user_hint">Username</string>
     <string name="calendar_settings_ultrabridge_pass_hint">Password</string>
+    <string name="calendar_settings_ultrabridge_trust_all_certs">Accept self-signed certificate</string>
     <string name="calendar_settings_ultrabridge_enabled_toast">WebCal backup enabled</string>
     <string name="calendar_settings_ultrabridge_disabled_toast">WebCal backup disabled</string>
     <string name="calendar_settings_ultrabridge_missing_fields">Please fill in all WebDAV fields</string>
@@ -161,6 +162,7 @@
     <string name="calendar_settings_webdav_sync_url_hint">URL (e.g. https://nas.home/dav/)</string>
     <string name="calendar_settings_webdav_sync_user_hint">Username</string>
     <string name="calendar_settings_webdav_sync_pass_hint">Password</string>
+    <string name="calendar_settings_webdav_sync_trust_all_certs">Accept self-signed certificate</string>
     <string name="calendar_settings_webdav_sync_missing_fields">Please fill in URL and username</string>
 
     <string name="calendar_settings_button_save">Save</string>

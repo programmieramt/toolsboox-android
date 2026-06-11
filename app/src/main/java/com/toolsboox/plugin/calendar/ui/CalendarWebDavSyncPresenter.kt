@@ -47,6 +47,7 @@ class CalendarWebDavSyncPresenter @Inject constructor() : FragmentPresenter() {
     private fun webDavUser() = sharedPreferences.getString("webDavUser", "") ?: ""
     private fun webDavPassword() = sharedPreferences.getString("webDavPassword", "") ?: ""
     private fun webDavConfigured() = webDavUrl().isNotEmpty() && webDavUser().isNotEmpty()
+    private fun webDavTrustAllCerts() = sharedPreferences.getBoolean("webDavSyncTrustAllCerts", false)
 
     fun backgroundSync(fragment: ScreenFragment, userId: UUID) {
         if (!sharedPreferences.getString("webDavAutoSyncOptIn", "true").toBoolean()) return
@@ -90,8 +91,10 @@ class CalendarWebDavSyncPresenter @Inject constructor() : FragmentPresenter() {
         val user = webDavUser()
         val pass = webDavPassword()
 
+        val trustAllCerts = webDavTrustAllCerts()
+
         fun walkFolder(path: String) {
-            val entries = WebDavService.list(url, "calendar/$path", user, pass)
+            val entries = WebDavService.list(url, "calendar/$path", user, pass, trustAllCerts)
             entries.forEach { entry ->
                 if (entry.isDirectory) {
                     val subPath = "$path${entry.name}/"
@@ -118,7 +121,9 @@ class CalendarWebDavSyncPresenter @Inject constructor() : FragmentPresenter() {
 
     private fun cloudLoad(item: CalendarSyncItem): CalendarSyncItem {
         val fileName = "${item.baseName}-${item.version}.json"
-        val bytes = WebDavService.get(webDavUrl(), "calendar/${item.path}$fileName", webDavUser(), webDavPassword())
+        val bytes = WebDavService.get(
+            webDavUrl(), "calendar/${item.path}$fileName", webDavUser(), webDavPassword(), webDavTrustAllCerts()
+        )
         item.json = String(bytes, Charsets.UTF_8)
         return item
     }
@@ -126,8 +131,12 @@ class CalendarWebDavSyncPresenter @Inject constructor() : FragmentPresenter() {
     private fun cloudUpdate(item: CalendarSyncItem) {
         val fileName = "${item.baseName}-${item.version}.json"
         val path = "calendar/${item.path}"
-        WebDavService.mkdirs(webDavUrl(), path, webDavUser(), webDavPassword())
-        WebDavService.put(webDavUrl(), "$path$fileName", (item.json ?: "").toByteArray(Charsets.UTF_8), webDavUser(), webDavPassword())
+        val trustAllCerts = webDavTrustAllCerts()
+        WebDavService.mkdirs(webDavUrl(), path, webDavUser(), webDavPassword(), trustAllCerts)
+        WebDavService.put(
+            webDavUrl(), "$path$fileName", (item.json ?: "").toByteArray(Charsets.UTF_8),
+            webDavUser(), webDavPassword(), trustAllCerts
+        )
     }
 
     private fun fileList(rootPath: File, userId: UUID): MutableList<CalendarSyncItem> {

@@ -23,16 +23,22 @@ class WebDavService @Inject constructor() {
 
     companion object {
 
-        private val client = OkHttpClient.Builder()
+        private fun clientBuilder() = OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
-            .build()
+
+        private val defaultClient = clientBuilder().build()
+        private val trustAllClient = TrustAllSsl.apply(clientBuilder()).build()
+
+        private fun client(trustAllCerts: Boolean) = if (trustAllCerts) trustAllClient else defaultClient
 
         private fun authHeader(username: String, password: String) =
             Credentials.basic(username, password)
 
-        fun list(baseUrl: String, path: String, username: String, password: String): List<WebDavEntry> {
+        fun list(
+            baseUrl: String, path: String, username: String, password: String, trustAllCerts: Boolean = false
+        ): List<WebDavEntry> {
             val url = "${baseUrl.trimEnd('/')}/${path.trimStart('/')}"
             val body = """<?xml version="1.0"?>
                 <d:propfind xmlns:d="DAV:">
@@ -46,7 +52,7 @@ class WebDavService @Inject constructor() {
                 .method("PROPFIND", body.toRequestBody("application/xml".toMediaType()))
                 .build()
 
-            val response = client.newCall(request).execute()
+            val response = client(trustAllCerts).newCall(request).execute()
             if (!response.isSuccessful && response.code != 207) {
                 Timber.w("PROPFIND failed: ${response.code} $url")
                 return emptyList()
@@ -56,7 +62,9 @@ class WebDavService @Inject constructor() {
             return parseMultiStatus(xml, url)
         }
 
-        fun get(baseUrl: String, path: String, username: String, password: String): ByteArray {
+        fun get(
+            baseUrl: String, path: String, username: String, password: String, trustAllCerts: Boolean = false
+        ): ByteArray {
             val url = "${baseUrl.trimEnd('/')}/${path.trimStart('/')}"
             val request = Request.Builder()
                 .url(url)
@@ -64,12 +72,15 @@ class WebDavService @Inject constructor() {
                 .get()
                 .build()
 
-            val response = client.newCall(request).execute()
+            val response = client(trustAllCerts).newCall(request).execute()
             check(response.isSuccessful) { "GET failed: ${response.code} $url" }
             return response.body?.bytes() ?: ByteArray(0)
         }
 
-        fun put(baseUrl: String, path: String, content: ByteArray, username: String, password: String) {
+        fun put(
+            baseUrl: String, path: String, content: ByteArray, username: String, password: String,
+            trustAllCerts: Boolean = false
+        ) {
             val url = "${baseUrl.trimEnd('/')}/${path.trimStart('/')}"
             val request = Request.Builder()
                 .url(url)
@@ -77,11 +88,13 @@ class WebDavService @Inject constructor() {
                 .put(content.toRequestBody("application/json".toMediaType()))
                 .build()
 
-            val response = client.newCall(request).execute()
+            val response = client(trustAllCerts).newCall(request).execute()
             check(response.isSuccessful) { "PUT failed: ${response.code} $url" }
         }
 
-        fun mkdirs(baseUrl: String, path: String, username: String, password: String) {
+        fun mkdirs(
+            baseUrl: String, path: String, username: String, password: String, trustAllCerts: Boolean = false
+        ) {
             val base = baseUrl.trimEnd('/')
             val segments = path.trimStart('/').trimEnd('/').split("/").filter { it.isNotEmpty() }
             var current = ""
@@ -93,7 +106,7 @@ class WebDavService @Inject constructor() {
                     .header("Authorization", authHeader(username, password))
                     .method("MKCOL", null)
                     .build()
-                val response = client.newCall(request).execute()
+                val response = client(trustAllCerts).newCall(request).execute()
                 // 201 = created, 405 = already exists — both are fine
                 if (!response.isSuccessful && response.code != 405) {
                     Timber.w("MKCOL failed: ${response.code} $url")

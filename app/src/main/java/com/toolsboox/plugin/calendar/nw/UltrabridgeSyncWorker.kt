@@ -143,7 +143,8 @@ class UltrabridgeSyncWorker(
 
             // Set up services
             val moshi = buildMoshi()
-            val webdavService = UltrabridgeWebDavService(webdavUrl, webdavUser, webdavPass)
+            val trustAllCerts = mainPrefs.getBoolean("ultrabridgeTrustAllCerts", false)
+            val webdavService = UltrabridgeWebDavService(webdavUrl, webdavUser, webdavPass, trustAllCerts)
 
             // Create the remote base directory
             webdavService.ensureDirectory("ToolsForBoox")

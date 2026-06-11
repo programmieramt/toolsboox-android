@@ -281,6 +281,7 @@ class CalendarSettingsFragment @Inject constructor() : ScreenFragment() {
         binding.webdavSyncUrlInput.setText(webDavSyncPrefs.getString("webDavUrl", ""))
         binding.webdavSyncUserInput.setText(webDavSyncPrefs.getString("webDavUser", ""))
         binding.webdavSyncPassInput.setText(webDavSyncPrefs.getString("webDavPassword", ""))
+        binding.webdavSyncTrustAllCertsCheck.isChecked = sharedPreferences.getBoolean("webDavSyncTrustAllCerts", false)
         updateWebDavSyncFieldsVisibility(webDavSyncEnabled)
         binding.webdavSyncEnableSwitch.setOnCheckedChangeListener { _, isChecked ->
             updateWebDavSyncFieldsVisibility(isChecked)
@@ -293,6 +294,7 @@ class CalendarSettingsFragment @Inject constructor() : ScreenFragment() {
         binding.ultrabridgeUrlInput.setText(ultrabridgePrefs.getString("ultrabridge_webdav_url", ""))
         binding.ultrabridgeUserInput.setText(ultrabridgePrefs.getString("ultrabridge_webdav_user", ""))
         binding.ultrabridgePassInput.setText(ultrabridgePrefs.getString("ultrabridge_webdav_pass", ""))
+        binding.ultrabridgeTrustAllCertsCheck.isChecked = sharedPreferences.getBoolean("ultrabridgeTrustAllCerts", false)
 
         // Toggle field visibility based on switch state
         updateUltrabridgeFieldsVisibility(ultrabridgeEnabled)
@@ -386,6 +388,7 @@ class CalendarSettingsFragment @Inject constructor() : ScreenFragment() {
                 .putString("webDavUrl", wdUrl)
                 .putString("webDavUser", wdUser)
                 .putString("webDavPassword", wdPass)
+                .putBoolean("webDavSyncTrustAllCerts", binding.webdavSyncTrustAllCertsCheck.isChecked)
                 .apply()
 
             // Persist Ultrabridge settings
@@ -403,7 +406,10 @@ class CalendarSettingsFragment @Inject constructor() : ScreenFragment() {
                 return@setOnClickListener
             }
 
-            sharedPreferences.edit().putBoolean("ultrabridgeEnabled", ubEnabled).apply()
+            sharedPreferences.edit()
+                .putBoolean("ultrabridgeEnabled", ubEnabled)
+                .putBoolean("ultrabridgeTrustAllCerts", binding.ultrabridgeTrustAllCertsCheck.isChecked)
+                .apply()
 
             // Store credentials in EncryptedSharedPreferences
             val ubPrefs = getUltrabridgeEncryptedPrefs()

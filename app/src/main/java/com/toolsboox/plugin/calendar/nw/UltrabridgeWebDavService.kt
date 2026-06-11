@@ -3,6 +3,7 @@ package com.toolsboox.plugin.calendar.nw
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
+import com.toolsboox.fi.TrustAllSsl
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
@@ -22,18 +23,21 @@ import java.util.concurrent.TimeUnit
 class UltrabridgeWebDavService(
     private val baseUrl: String,
     private val username: String,
-    private val password: String
+    private val password: String,
+    private val trustAllCerts: Boolean = false
 ) {
     companion object {
         private const val TAG = "UltrabridgeWebDav"
         private val PDF_MEDIA_TYPE = "application/pdf".toMediaType()
     }
 
-    private val client = OkHttpClient.Builder()
-        .connectTimeout(30_000, TimeUnit.MILLISECONDS)
-        .writeTimeout(60_000, TimeUnit.MILLISECONDS)
-        .readTimeout(30_000, TimeUnit.MILLISECONDS)
-        .build()
+    private val client = run {
+        val builder = OkHttpClient.Builder()
+            .connectTimeout(30_000, TimeUnit.MILLISECONDS)
+            .writeTimeout(60_000, TimeUnit.MILLISECONDS)
+            .readTimeout(30_000, TimeUnit.MILLISECONDS)
+        if (trustAllCerts) TrustAllSsl.apply(builder).build() else builder.build()
+    }
 
     /**
      * Upload a file to the WebDAV server at the given remote path.
