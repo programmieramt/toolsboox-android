@@ -1,6 +1,5 @@
 package com.toolsboox.ui
 
-import com.toolsboox.nw.CredentialService
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -15,7 +14,7 @@ import kotlinx.coroutines.launch
  *
  * @author <a href="mailto:gabor.auth@toolsboox.com">Gábor AUTH</a>
  */
-abstract class BasePresenter<out V : BaseView>(private val view: V, val credentialService: CredentialService) {
+abstract class BasePresenter<out V : BaseView>(private val view: V) {
     /**
      * Coroutines based call helper with default onError.
      *

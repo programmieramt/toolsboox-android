@@ -17,7 +17,6 @@
     <string name="drawer_menu_forum">"Foro de soporte"</string>
     <string name="drawer_menu_facebook">"Facebook"</string>
     <string name="drawer_menu_twitter">"Twitter"</string>
-    <string name="drawer_menu_logout">"Cerrar sesión"</string>
     <string name="toolbar_previous_image">"Anterior"</string>
     <string name="toolbar_pages_placeholder">"1 / 1"</string>
     <string name="toolbar_pages_template">"%1$d / %2$d"</string>
@@ -243,7 +242,6 @@ Strings related to dashboard fragment -->
     <string name="about_this_translation_contributors_list">"Maira Belmonte"</string>
     <string name="dashboard_item_calendar_title">"Calendario"</string>
     <string name="dashboard_item_templates_title">"Plantillas"</string>
-    <string name="dashboard_item_teamdrawer_title">"TeamDrawer"</string>
     <string name="dashboard_item_kanban_planner_title">"Tablero
 Kanban"</string>
     <string name="dashboard_item_about_title">"Información"</string>
@@ -317,38 +315,6 @@ esta semana"</string>
     <string name="calendar_time_box_day_brain_dump">"Volcado mental"</string>
     <string name="calendar_time_box_day_notes">"Notas"</string>
     <string name="kanban_planner_no_due_date">"sin fecha final"</string>
-    <string name="main_not_logged_in">"&lt;sin sesión iniciada&gt;"</string>
-    <string name="cloud_title">"Nube"</string>
-    <string name="cloud_loading">"cargando"</string>
-    <string name="cloud_logged_in">"sesión iniciada"</string>
-    <string name="cloud_not_logged_in">"sin sesión iniciada"</string>
-    <string name="cloud_experimental_title">"Característica experimental"</string>
-    <string name="cloud_experimental_message">"Advertencia: Esta es una característica experimental. No se recomienda su uso en entornos de producción. Sujeta a cambios eventuales."</string>
-    <string name="cloud_account_title">"Cuenta"</string>
-    <string name="cloud_account_message">"La copia de seguridad de datos en la nube requiere la creación de una cuenta. No almacenamos datos personales; se generará un ID que debes guardar."</string>
-    <string name="cloud_account_login_user_id_message">"ID de usuario: %s"</string>
-    <string name="cloud_account_login_status_message">"Estado de sesión: %s"</string>
-    <string name="cloud_account_sign_up_button">"Registrarse"</string>
-    <string name="cloud_account_log_in_button">"Iniciar sesión"</string>
-    <string name="cloud_account_log_out_button">"Cerrar sesión"</string>
-    <string name="cloud_account_sign_up_dialog_title">"Elige la contraseña"</string>
-    <string name="cloud_account_sign_up_view_password_hint">"Contraseña (mínimo de 8 caracteres)"</string>
-    <string name="cloud_account_log_in_dialog_title">"Iniciar sesión"</string>
-    <string name="cloud_account_log_in_view_password_hint">"Contraseña (mínimo de 8 caracteres)"</string>
-    <string name="cloud_account_log_in_failed_dialog_title">"Error al iniciar sesión"</string>
-    <string name="cloud_account_log_in_failed_dialog_message">"Comprueba el ID de usuario y la contraseña"</string>
-    <string name="cloud_account_log_out_dialog_title">"Cerrar sesión"</string>
-    <string name="cloud_account_log_out_dialog_message">"¿Seguro?"</string>
-    <string name="cloud_subscription_title">"Suscripción a la nube"</string>
-    <string name="cloud_subscription_message">"Haz una copia de seguridad de tus datos con un cifrado potente opcional en la nube (por ahora, solo se admite Google Drive). Si quieres probarlo de forma gratuita, puedes pedirme un cupón en Discord:"</string>
-    <string name="cloud_subscription_status_message">"Estado de suscripción: %s"</string>
-    <string name="cloud_subscription_status_subs">"Suscrito"</string>
-    <string name="cloud_subscription_status_no_subs">"No suscrito"</string>
-    <string name="cloud_subscription_monthly_button">"Suscripción mensual
-(%s)"</string>
-    <string name="cloud_subscription_yearly_button">"Suscripción anual
-(%s)"</string>
-    <string name="dashboard_item_cloud_title">"Nube"</string>
     <string name="calendar_cloud_title">"Sincronización en nube"</string>
     <string name="calendar_cloud_passphrase_text">"Tu contraseña:"</string>
     <string name="calendar_cloud_passphrase_hint">"Contraseña, mínimo de 8 caracteres"</string>
@@ -356,10 +322,6 @@ esta semana"</string>
     <string name="calendar_cloud_from_cloud_text">"Sincronizar desde nube (toca el elemento):"</string>
     <string name="calendar_cloud_nothing_to_sync">"No hay nada que sincronizar…"</string>
     <string name="calendar_drawing_toolbar_cloud_sync">"Sinc. en nube"</string>
-    <string name="cloud_account_login_username_message">"Tu usuario: %s"</string>
-    <string name="cloud_account_sign_up_view_username_hint">"Nombre de usuario (5-25 caracteres en minúscula)"</string>
-    <string name="cloud_account_sign_up_view_username_conflict_error">"Ese nombre ya está en uso"</string>
-    <string name="cloud_account_log_in_view_username_hint">"Nombre de usuario (5-25 caracteres en minúscula)"</string>
     <string name="calendar_cloud_passphrase_mismatch">"La contraseña no coincide, no se pueden descifrar los elementos"</string>
     <string name="calendar_cloud_compare_button">"Comparar"</string>
     <string name="calendar_cloud_sync_remember_passphrase">"Recordar contraseña (¡no es seguro!)"</string>
@@ -374,15 +336,6 @@ esta semana"</string>
     <string name="calendar_google_drive_sync_cloud_missing">"Última modificación en nube: no existe"</string>
     <string name="calendar_google_drive_sync_button_download">"Descargar"</string>
     <string name="calendar_google_drive_sync_button_upload">"Cargar"</string>
-    <string name="cloud_google_drive_title">"Google Drive"</string>
-    <string name="cloud_google_drive_message">"Para usar Google Drive como copia de seguridad en la nube, debes conectar tu cuenta."</string>
-    <string name="cloud_google_drive_status_connected">"Estado de tu cuenta: &lt;strong&gt;conectada&lt;/strong&gt;"</string>
-    <string name="cloud_google_drive_status_not_connected">"Estado de tu cuenta: &lt;strong&gt;desconectada&lt;/strong&gt;"</string>
-    <string name="cloud_google_drive_connect_button">"Conectar"</string>
-    <string name="cloud_google_drive_disconnect_button">"Desconectar"</string>
-    <string name="cloud_google_drive_connected_toast">"¡Google Drive conectado!"</string>
-    <string name="cloud_google_drive_disconnected_toast">"¡Google Drive desconectado!"</string>
-    <string name="cloud_google_drive_connection_failed_toast">"Ha fallado la conexión a Google Drive."</string>
 
     <!-- Please clarify. Is it a call to action ("Please, touch here"), a toggle to activate the touch input, anything else...? -->
     <string name="calendar_drawing_toolbar_touch">"Tocar"</string>

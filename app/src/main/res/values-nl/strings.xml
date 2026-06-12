@@ -17,7 +17,6 @@
     <string name="drawer_menu_forum">"Forum voor steun"</string>
     <string name="drawer_menu_facebook">"Facebook"</string>
     <string name="drawer_menu_twitter">"Twitter"</string>
-    <string name="drawer_menu_logout">"Log uit"</string>
     <string name="toolbar_previous_image">"Vorige"</string>
     <string name="toolbar_pages_placeholder">"1 / 1"</string>
     <string name="toolbar_pages_template">"%1$d / %2$d"</string>
@@ -243,7 +242,6 @@ Strings related to dashboard fragment -->
     <string name="about_this_translation_contributors_list">"anonieme medewerker"</string>
     <string name="dashboard_item_calendar_title">"Kalender"</string>
     <string name="dashboard_item_templates_title">"Sjablonen"</string>
-    <string name="dashboard_item_teamdrawer_title">"Tekenteam"</string>
     <string name="dashboard_item_kanban_planner_title">"Kanban
 planner"</string>
     <string name="dashboard_item_about_title">"Over"</string>
@@ -314,36 +312,4 @@ in kader"</string>
     <string name="calendar_time_box_day_brain_dump">"Brain Dump"</string>
     <string name="calendar_time_box_day_notes">"Notities"</string>
     <string name="kanban_planner_no_due_date">"Geen einddatum"</string>
-    <string name="main_not_logged_in">"&lt;niet ingelogd&gt;"</string>
-    <string name="cloud_title">"Cloud"</string>
-    <string name="cloud_loading">"Aan het laden"</string>
-    <string name="cloud_logged_in">"Ingelogd"</string>
-    <string name="cloud_not_logged_in">"Niet ingelogd"</string>
-    <string name="cloud_experimental_title">"Experimentele functie"</string>
-    <string name="cloud_experimental_message">"Waarschuwing: dit is een experimentele functie, wordt niet aanbevolen voor operationeel gebruik en kan elk moment veranderen"</string>
-    <string name="cloud_account_title">"Account"</string>
-    <string name="cloud_account_message">"Om de cloud data back-up te gebruiken, moet u een account aanmaken. Wij slaan geen persoonlijke gegevens op, dus u krijgt een aangemaakt ID die u moet bewaren."</string>
-    <string name="cloud_account_login_user_id_message">"Jouw gebruiks-ID: %s"</string>
-    <string name="cloud_account_login_status_message">"Jouw log-in status: %s"</string>
-    <string name="cloud_account_sign_up_button">"Schrijf je in"</string>
-    <string name="cloud_account_log_in_button">"Log in"</string>
-    <string name="cloud_account_log_out_button">"Log uit"</string>
-    <string name="cloud_account_sign_up_dialog_title">"stel je wachtwoord in"</string>
-    <string name="cloud_account_sign_up_view_password_hint">"Wachtwoord (minimum 8 karakters)"</string>
-    <string name="cloud_account_log_in_dialog_title">"Log in"</string>
-    <string name="cloud_account_log_in_view_password_hint">"Wachtwoord (minimum 8 karakters)"</string>
-    <string name="cloud_account_log_in_failed_dialog_title">"Log in mislukt"</string>
-    <string name="cloud_account_log_in_failed_dialog_message">"kijk jouw gebruikers ID en wachtwoord na."</string>
-    <string name="cloud_account_log_out_dialog_title">"Log uit"</string>
-    <string name="cloud_account_log_out_dialog_message">"Ben je zeker?"</string>
-    <string name="cloud_subscription_title">"Cloud abonnement"</string>
-    <string name="cloud_subscription_message">"Back-up persoonlijke gegevens met sterke encryptie naar cloud backend (zeer experimentele functie!). Als je het gratis wilt proberen, vraag me dan naar een coupon op Discord."</string>
-    <string name="cloud_subscription_status_message">"Jouw abonnementsstatus: %s"</string>
-    <string name="cloud_subscription_status_subs">"Geabonneerd"</string>
-    <string name="cloud_subscription_status_no_subs">"Niet geabonneerd"</string>
-    <string name="cloud_subscription_monthly_button">"Maandelijks abonnement
-(%s)"</string>
-    <string name="cloud_subscription_yearly_button">"Jaarlijks abonnement
-(%s)"</string>
-    <string name="dashboard_item_cloud_title">"Cloud"</string>
 </resources>

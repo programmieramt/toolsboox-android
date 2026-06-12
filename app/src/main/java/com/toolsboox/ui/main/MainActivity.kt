@@ -20,13 +20,11 @@ import com.toolsboox.R
 import com.toolsboox.databinding.ActivityMainBinding
 import com.toolsboox.databinding.ToolbarBinding
 import com.toolsboox.di.MainSharedPreferencesModule
-import com.toolsboox.nw.CredentialService
 import com.toolsboox.ui.BaseActivity
 import com.toolsboox.utils.ReleaseTree
 import dagger.hilt.android.AndroidEntryPoint
 import org.lsposed.hiddenapibypass.HiddenApiBypass
 import timber.log.Timber
-import java.time.Instant
 import java.util.*
 import javax.inject.Inject
 
@@ -49,12 +47,6 @@ class MainActivity : BaseActivity<MainPresenter>(), MainView {
      */
     @Inject
     lateinit var sharedPreferences: SharedPreferences
-
-    /**
-     * The credential service.
-     */
-    @Inject
-    lateinit var credentialService: CredentialService
 
     /**
      * The view binding.
@@ -93,15 +85,6 @@ class MainActivity : BaseActivity<MainPresenter>(), MainView {
         val androidId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
         sharedPreferences.edit().putString("androidId", androidId).apply()
 
-        val headerUserId = binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.navigation_header_user_id)
-
-        val userId = sharedPreferences.getString("userId", null)
-        if (userId == null) {
-            headerUserId.text = getString(R.string.main_not_logged_in)
-        } else {
-            headerUserId.text = userId
-        }
-
         val headerAndroidId = binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.navigation_header_android_id)
         headerAndroidId.text = androidId
 
@@ -124,10 +107,6 @@ class MainActivity : BaseActivity<MainPresenter>(), MainView {
                         else -> R.id.action_to_calendar_day
                     }
                     binding.fragmentContent.findNavController().navigate(calendarStartActionId, bundleOf())
-                }
-
-                R.id.drawer_item_logout -> {
-                    Timber.i("Not implemented yet...")
                 }
             }
 
@@ -173,52 +152,6 @@ class MainActivity : BaseActivity<MainPresenter>(), MainView {
                 binding.fragmentContent.findNavController().navigate(calendarStartActionId, bundle)
             }
         }
-
-        val refreshToken = sharedPreferences.getString("refreshToken", null)
-        val refreshTokenLastUpdate = sharedPreferences.getLong("refreshTokenLastUpdate", 0L)
-        val accessTokenLastUpdate = sharedPreferences.getLong("accessTokenLastUpdate", 0L)
-        val now = Date.from(Instant.now()).time
-
-        if (refreshToken != null) {
-            // Request new access token after 8 hours.
-            if (accessTokenLastUpdate + 60 * 60 * 8L * 1000L < now) {
-                presenter.accessToken(this, refreshToken)
-            }
-            // Request new refresh token after 7 days.
-            if (refreshTokenLastUpdate + 60 * 60 * 24 * 7L * 1000L < now) {
-                presenter.refreshToken(this, refreshToken)
-            }
-
-            // Remove all tokens after 30 days.
-            if (refreshTokenLastUpdate + 60 * 60 * 24 * 30L * 1000L < now) {
-                sharedPreferences.edit().remove("refreshToken").apply()
-                sharedPreferences.edit().remove("refreshTokenLastUpdate").apply()
-                sharedPreferences.edit().remove("accessToken").apply()
-                sharedPreferences.edit().remove("accessTokenLastUpdate").apply()
-            }
-        }
-    }
-
-    /**
-     * Process access token result.
-     *
-     * @param accessToken the access token
-     */
-    fun accessTokenResult(accessToken: String) {
-        sharedPreferences.edit().putString("accessToken", accessToken).apply()
-        sharedPreferences.edit().putLong("accessTokenLastUpdate", Date.from(Instant.now()).time).apply()
-        Timber.i("Store the new access token in shared preferences: $accessToken")
-    }
-
-    /**
-     * Process refresh token result.
-     *
-     * @param refreshToken the refresh token
-     */
-    fun refreshTokenResult(refreshToken: String) {
-        sharedPreferences.edit().putString("refreshToken", refreshToken).apply()
-        sharedPreferences.edit().putLong("refreshTokenLastUpdate", Date.from(Instant.now()).time).apply()
-        Timber.i("Store the new refresh token in shared preferences: $refreshToken")
     }
 
     /**
@@ -263,7 +196,7 @@ class MainActivity : BaseActivity<MainPresenter>(), MainView {
      * Instantiate the presenter.
      */
     override fun presenter(): MainPresenter {
-        return MainPresenter(this, credentialService)
+        return MainPresenter(this)
     }
 
     /**

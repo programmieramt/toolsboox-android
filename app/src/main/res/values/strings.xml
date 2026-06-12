@@ -40,7 +40,6 @@
     <string name="drawer_menu_forum">Support forum</string>
     <string name="drawer_menu_facebook">Facebook</string>
     <string name="drawer_menu_twitter">Twitter</string>
-    <string name="drawer_menu_logout">Logout</string>
     <string name="toolbar_previous_image">Previous</string>
     <string name="toolbar_pages_placeholder">1 / 1</string>
     <string name="toolbar_pages_template">%1$d / %2$d</string>
@@ -52,7 +51,6 @@
 
     <!-- Strings related to main activity -->
     <string name="main_version">%1$s&#8211;%2$s</string>
-    <string name="main_not_logged_in">&lt;not logged in&gt;</string>
     <string name="main_update_not_now">Not now</string>
     <string name="main_update">Update</string>
     <string name="main_all_granted_message">All asked permissions granted! Have a nice day!</string>
@@ -272,52 +270,6 @@
     <string name="calendar_time_box_day_brain_dump">Brain Dump</string>
     <string name="calendar_time_box_day_notes">Notes</string>
 
-    <string name="cloud_title">Cloud</string>
-    <string name="cloud_loading">loading</string>
-    <string name="cloud_logged_in">logged in</string>
-    <string name="cloud_not_logged_in">not logged in</string>
-
-    <string name="cloud_experimental_title">Experimental feature!</string>
-    <string name="cloud_experimental_message">"Warning: this is an experimental feature, isn't recommended for production use and likely to change at any time."</string>
-
-    <string name="cloud_account_title">Account</string>
-    <string name="cloud_account_message">In order to use the cloud data backup, you must create an account. Your username will be used as your personal [https://toolsboox.com/u/username] page, in addition, we do not store any personal data.</string>
-    <string name="cloud_account_login_username_message">Your username: %s</string>
-    <string name="cloud_account_login_user_id_message">Your user ID: %s</string>
-    <string name="cloud_account_login_status_message">Your log in status: %s</string>
-    <string name="cloud_account_sign_up_button">Sign up</string>
-    <string name="cloud_account_log_in_button">Log in</string>
-    <string name="cloud_account_log_out_button">Log out</string>
-    <string name="cloud_account_sign_up_dialog_title">Set your account</string>
-    <string name="cloud_account_sign_up_view_username_hint">Username (5–25 lowercase characters)</string>
-    <string name="cloud_account_sign_up_view_username_conflict_error">Username already taken</string>
-    <string name="cloud_account_sign_up_view_password_hint">Password (minimum 8 characters)</string>
-    <string name="cloud_account_log_in_view_username_hint">Username (5–25 lowercase characters)</string>
-    <string name="cloud_account_log_in_view_password_hint">Password (minimum 8 characters)</string>
-    <string name="cloud_account_log_in_dialog_title">Log in</string>
-    <string name="cloud_account_log_in_failed_dialog_title">Log in failed</string>
-    <string name="cloud_account_log_in_failed_dialog_message">Check your username or password.</string>
-    <string name="cloud_account_log_out_dialog_title">Log out</string>
-    <string name="cloud_account_log_out_dialog_message">Are you sure?</string>
-
-    <string name="cloud_google_drive_title">Google Drive</string>
-    <string name="cloud_google_drive_message">In order to use the Google Drive as cloud data backup, you must connect your account.</string>
-    <string name="cloud_google_drive_status_connected">Your account status: <strong>Connected</strong></string>
-    <string name="cloud_google_drive_status_not_connected">Your account status: <strong>Not connected</strong></string>
-    <string name="cloud_google_drive_connect_button">Connect</string>
-    <string name="cloud_google_drive_disconnect_button">Disconnect</string>
-    <string name="cloud_google_drive_connected_toast">Google Drive connected!</string>
-    <string name="cloud_google_drive_disconnected_toast">Google Drive disconnected!</string>
-    <string name="cloud_google_drive_connection_failed_toast">Google Drive connection failed.</string>
-
-    <string name="cloud_subscription_title">Cloud subscription</string>
-    <string name="cloud_subscription_message">Backup personal data with (optional strong encryption) to the selected cloud backend (currently only Google Drive supported). If you want to try it for free, please check out a redeem coupon on Discord: </string>
-    <string name="cloud_subscription_status_message">Your subscription status: %s</string>
-    <string name="cloud_subscription_status_subs">Subscribed</string>
-    <string name="cloud_subscription_status_no_subs">Not subscribed</string>
-    <string name="cloud_subscription_monthly_button">Monthly subscription\n(%s)</string>
-    <string name="cloud_subscription_yearly_button">Yearly subscription\n(%s)</string>
-
     <!-- Strings related to dashboard plugin -->
     <!-- Strings related to dashboard fragment -->
     <string name="dashboard_title">Dashboard</string>
@@ -327,10 +279,8 @@
     <string name="dashboard_device_mismatch_message">The \'Tools for Boox\' application is developed to Onyx Boox devices, your device does not look like an Onxy Boox (%1$s - %2$s), there may be bugs and crashes.</string>
     <string name="dashboard_item_calendar_title">Calendar</string>
     <string name="dashboard_item_templates_title">Templates</string>
-    <string name="dashboard_item_teamdrawer_title">TeamDrawer</string>
     <string name="dashboard_item_kanban_planner_title">Kanban\nplanner</string>
     <string name="dashboard_item_about_title">About</string>
-    <string name="dashboard_item_cloud_title">Cloud</string>
     <string name="dashboard_item_cancel_alt">Cancel</string>
     <string name="dashboard_item_delete_alt">Delete</string>
     <string name="dashboard_item_edit_alt">Edit</string>

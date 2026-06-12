@@ -17,7 +17,6 @@
     <string name="drawer_menu_forum">"Forum d'aide"</string>
     <string name="drawer_menu_facebook">"Facebook"</string>
     <string name="drawer_menu_twitter">"Twitter"</string>
-    <string name="drawer_menu_logout">"Déconnexion"</string>
     <string name="toolbar_previous_image">"Précédent"</string>
     <string name="toolbar_pages_placeholder">"1 / 1"</string>
     <string name="toolbar_pages_template">"%d / %d"</string>

@@ -125,13 +125,6 @@ class DashboardFragment @Inject constructor() : ScreenFragment() {
             )
         )
 
-        squareItems.add(
-            SquareItem(
-                getString(R.string.dashboard_item_cloud_title), R.drawable.ic_dashboard_item_cloud,
-                R.id.action_to_cloud, bundleOf()
-            )
-        )
-
         val clickListener = object : SquareItemAdapter.OnItemClickListener {
             override fun onItemClicked(squareItem: SquareItem) {
                 Timber.i("Route to ${squareItem.title}")

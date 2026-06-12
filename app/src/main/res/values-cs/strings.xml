@@ -18,7 +18,6 @@
     <string name="drawer_menu_forum">"Fórum podpory"</string>
     <string name="drawer_menu_facebook">"Facebook"</string>
     <string name="drawer_menu_twitter">"Twitter"</string>
-    <string name="drawer_menu_logout">"Odhlášení"</string>
     <string name="toolbar_previous_image">"Předchozí"</string>
     <string name="toolbar_pages_placeholder">"1/1"</string>
     <string name="toolbar_pages_template">"%d / %d"</string>
@@ -244,7 +243,6 @@ Strings related to dashboard fragment -->
     <string name="about_this_translation_contributors_list">"anonymní překladatel"</string>
     <string name="dashboard_item_calendar_title">"Kalendář"</string>
     <string name="dashboard_item_templates_title">"Šablony"</string>
-    <string name="dashboard_item_teamdrawer_title">"Společné malování"</string>
     <string name="dashboard_item_kanban_planner_title">"Kanban plánovač"</string>
     <string name="dashboard_item_about_title">"O aplikaci"</string>
     <string name="templates_item_boxed_days_title">"Denní 
@@ -318,38 +316,6 @@ týdne"</string>
     <string name="calendar_time_box_day_brain_dump">"Postřehy, nápady"</string>
     <string name="calendar_time_box_day_notes">"Poznámky"</string>
     <string name="kanban_planner_no_due_date">"bez datumu splatnosti"</string>
-    <string name="main_not_logged_in">"&lt;nepřihlášen&gt;"</string>
-    <string name="cloud_title">"Cloud"</string>
-    <string name="cloud_loading">"načítání"</string>
-    <string name="cloud_logged_in">"přihlášen"</string>
-    <string name="cloud_not_logged_in">"nepřihlášen"</string>
-    <string name="cloud_experimental_title">"Experimentální funkce"</string>
-    <string name="cloud_experimental_message">"Upozornění: Toto je experimentální funkce. Tyto funkce nejsou určené pro normální používání a mohou mít omezené fungování."</string>
-    <string name="cloud_account_title">"Účet"</string>
-    <string name="cloud_account_message">"Abyste mohli využívat zálohování dat do cloudu, tak si musíte předem vytvořit účet. Neuchováváme osobní údaje, takže získáte vygenerované ID, které si musíte uložit."</string>
-    <string name="cloud_account_login_user_id_message">"Vaše uživatelské ID: %s"</string>
-    <string name="cloud_account_login_status_message">"Stav vašeho přihlášení: %s"</string>
-    <string name="cloud_account_sign_up_button">"Zaregistrovat se"</string>
-    <string name="cloud_account_log_in_button">"Přihlásit se"</string>
-    <string name="cloud_account_log_out_button">"Odhlásit se"</string>
-    <string name="cloud_account_sign_up_dialog_title">"Nastavit heslo"</string>
-    <string name="cloud_account_sign_up_view_password_hint">"Heslo (min 8 znaků)"</string>
-    <string name="cloud_account_log_in_dialog_title">"Přihlásit se"</string>
-    <string name="cloud_account_log_in_view_password_hint">"Heslo (min 8 znaků)"</string>
-    <string name="cloud_account_log_in_failed_dialog_title">"Chyba přihlášení"</string>
-    <string name="cloud_account_log_in_failed_dialog_message">"Zkontrolujte vaše ID a heslo"</string>
-    <string name="cloud_account_log_out_dialog_title">"Odhlásit se"</string>
-    <string name="cloud_account_log_out_dialog_message">"Jste si jisti?"</string>
-    <string name="cloud_subscription_title">"Předplatné Cloudu"</string>
-    <string name="cloud_subscription_message">"Zálohujte osobní data s pomocí silného šifrování do cloudového úložiště (velmi experimentální funkce!). Pokud si tuto funkci chcete vyzkoušet zdarma, tak mě kontaktujte přes aplikaci Discord."</string>
-    <string name="cloud_subscription_status_message">"Stav vašeho předplatného: %s"</string>
-    <string name="cloud_subscription_status_subs">"Předplaceno"</string>
-    <string name="cloud_subscription_status_no_subs">"Nepředplaceno"</string>
-    <string name="cloud_subscription_monthly_button">"Měsíční předplatné
-(%s)"</string>
-    <string name="cloud_subscription_yearly_button">"Roční předplatné
-(%s)"</string>
-    <string name="dashboard_item_cloud_title">"Cloud"</string>
     <string name="calendar_cloud_title">"Synchr. cloudu"</string>
     <string name="calendar_cloud_passphrase_text">"Vaše přístupová fráze:"</string>
     <string name="calendar_cloud_passphrase_hint">"Přístupová fráze, minimálně 8 znaků"</string>
@@ -357,10 +323,6 @@ týdne"</string>
     <string name="calendar_cloud_from_cloud_text">"Synchr. z cloudu (synchronizaci provedete dotykem na položku):"</string>
     <string name="calendar_cloud_nothing_to_sync">"Nic k synchronizaci"</string>
     <string name="calendar_drawing_toolbar_cloud_sync">"Synchr. cloudu"</string>
-    <string name="cloud_account_login_username_message">"Uživ. jméno: %s"</string>
-    <string name="cloud_account_sign_up_view_username_hint">"Uživatelské jméno (5-25 znaků malým písmem)"</string>
-    <string name="cloud_account_sign_up_view_username_conflict_error">"Uživatelské jméno již existuje"</string>
-    <string name="cloud_account_log_in_view_username_hint">"Uživatelské jméno (5-25 znaků malým písmem)"</string>
     <string name="calendar_cloud_passphrase_mismatch">"Přístupová fráze nesouhlasí, nelze dešifrovat položky kalendáře"</string>
     <string name="calendar_cloud_compare_button">"Porovnat"</string>
     <string name="calendar_cloud_sync_remember_passphrase">"Zapamatovat přístupovou frázi (není bezpečné!)"</string>

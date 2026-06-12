@@ -13,7 +13,6 @@
     <string name="drawer_menu_forum">"Wsparcie"</string>
     <string name="drawer_menu_facebook">"Facebook"</string>
     <string name="drawer_menu_twitter">"Twitter"</string>
-    <string name="drawer_menu_logout">"Wyloguj się"</string>
     <string name="toolbar_previous_image">"Poprzedni"</string>
     <string name="toolbar_pages_placeholder">"1 / 1"</string>
     <string name="toolbar_pages_template">"%d / %d"</string>
@@ -217,7 +216,6 @@ Strings related to dashboard fragment -->
     <string name="about_this_translation_contributors_list">"Anonimowy współtwórca"</string>
     <string name="dashboard_item_calendar_title">"Kalendarz"</string>
     <string name="dashboard_item_templates_title">"Szablony"</string>
-    <string name="dashboard_item_teamdrawer_title">"TeamDrawer"</string>
     <string name="dashboard_item_kanban_planner_title">"Planer Kanban"</string>
     <string name="templates_item_community_title">"Szablony 
 społeczności"</string>
