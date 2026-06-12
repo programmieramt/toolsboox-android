@@ -111,8 +111,6 @@ Strings related to dashboard fragment -->
     <string name="dashboard_item_settings_alt">"Paramètres"</string>
     <string name="templates_list_button_text">"Listes"</string>
 
-    <!-- Strings related to templates 'community' fragment -->
-    <string name="templates_community_title">"Gabarits partagés"</string>
     <string name="util_fluent_days">"jours"</string>
     <string name="util_fluent_hours">"heures"</string>
     <string name="util_fluent_minutes">"minutes"</string>

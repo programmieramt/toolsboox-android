@@ -126,8 +126,6 @@ Strings related to dashboard fragment -->
     <string name="kanban_planner_card_content">"Kanban plánovač náhled"</string>
     <string name="templates_list_button_text">"Seznam"</string>
 
-    <!-- Strings related to templates 'community' fragment -->
-    <string name="templates_community_title">"Komunitní šablony"</string>
     <string name="dashboard_item_delete_alt">"Smaž"</string>
     <string name="dashboard_item_erase_alt">"Vymaž"</string>
     <string name="kanban_planner_lane_dueSoonBacklogTitle">"Brzký termín backlog (%d)"</string>
@@ -138,9 +136,6 @@ Strings related to dashboard fragment -->
     <string name="list_loading">"Nahrávám seznam..."</string>
     <string name="list_empty">"Prázdný seznam..."</string>
     <string name="export_message">"Uloženo jako %s"</string>
-    <string name="templates_community_list_thumbnail">"Komunitní připínáček"</string>
-    <string name="templates_community_list_icon_star">"Hvězda"</string>
-    <string name="templates_community_list_icon_starred">"Označené hvězdou"</string>
 
     <!-- Common messages -->
     <string name="ok">"OK"</string>
@@ -245,8 +240,6 @@ Strings related to dashboard fragment -->
 kalendář"</string>
     <string name="templates_item_boxed_weeks_title">"Týdenní
 kalendář"</string>
-    <string name="templates_item_community_title">"Komunitní 
-šablony"</string>
     <string name="templates_item_flat_weeks_title">"Plošný týd.
 kalendář
 "</string>

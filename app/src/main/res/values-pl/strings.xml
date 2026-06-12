@@ -110,8 +110,6 @@ Strings related to dashboard fragment -->
     <string name="kanban_planner_card_content">"Planer Kanban - podglad"</string>
     <string name="templates_list_button_text">"Lista"</string>
 
-    <!-- Strings related to templates 'community' fragment -->
-    <string name="templates_community_title">"Szablony społeczności"</string>
     <string name="dashboard_item_delete_alt">"Usuń"</string>
     <string name="dashboard_item_erase_alt">"Wymaż"</string>
     <string name="kanban_planner_lane_plannedTodayTitle">"Zaplanowane dzisiaj (%d)"</string>
@@ -121,9 +119,6 @@ Strings related to dashboard fragment -->
     <string name="list_loading">"Ładowanie listy..."</string>
     <string name="list_empty">"Pusta lista..."</string>
     <string name="export_message">"Wyeksportowano jako %s"</string>
-    <string name="templates_community_list_thumbnail">"Miniatura społeczności"</string>
-    <string name="templates_community_list_icon_star">"Gwiazdka"</string>
-    <string name="templates_community_list_icon_starred">"Oznaczone gwiazką"</string>
 
     <!-- Common messages -->
     <string name="ok">"Ok"</string>
@@ -213,9 +208,6 @@ Strings related to dashboard fragment -->
     <string name="dashboard_item_calendar_title">"Kalendarz"</string>
     <string name="dashboard_item_templates_title">"Szablony"</string>
     <string name="dashboard_item_kanban_planner_title">"Planer Kanban"</string>
-    <string name="templates_item_community_title">"Szablony 
-społeczności"</string>
-
     <!-- translated into 'This week' to keep similar lenght of text -->
     <string name="templates_item_this_weeks_title">"Bieżący tydzień"</string>
     <string name="cancel">"Anuluj"</string>

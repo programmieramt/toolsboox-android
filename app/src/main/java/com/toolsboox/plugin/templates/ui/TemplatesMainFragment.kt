@@ -70,12 +70,6 @@ class TemplatesMainFragment @Inject constructor() : ScreenFragment() {
         )
         squareItems.add(
             SquareItem(
-                getString(R.string.templates_item_community_title), R.drawable.ic_community_templates,
-                R.id.action_to_templates_community, bundleOf()
-            )
-        )
-        squareItems.add(
-            SquareItem(
                 getString(R.string.templates_item_flat_weeks_title), R.drawable.ic_dashboard_item_calendar,
                 R.id.action_to_templates_flat_weeks_calendar, bundleOf()
             )

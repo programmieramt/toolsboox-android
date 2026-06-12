@@ -277,9 +277,6 @@
                 android:id="@+id/action_to_templates_boxed_weeks_calendar"
                 app:destination="@id/TemplatesBoxedWeeksCalendarFragment"/>
         <action
-                android:id="@+id/action_to_templates_community"
-                app:destination="@id/TemplatesCommunityFragment"/>
-        <action
                 android:id="@+id/action_to_templates_flat_weeks_calendar"
                 app:destination="@id/TemplatesFlatWeeksCalendarFragment"/>
         <action
@@ -299,13 +296,6 @@
             android:name="com.toolsboox.plugin.templates.ui.BoxedWeeksCalendarFragment"
             android:label="TemplatesBoxedWeeksCalendarFragment"
             tools:layout="@layout/fragment_templates_boxed_weeks_calendar">
-    </fragment>
-
-    <fragment
-            android:id="@+id/TemplatesCommunityFragment"
-            android:name="com.toolsboox.plugin.templates.ui.CommunityFragment"
-            android:label="TemplatesCommunityFragment"
-            tools:layout="@layout/fragment_templates_community">
     </fragment>
 
     <fragment

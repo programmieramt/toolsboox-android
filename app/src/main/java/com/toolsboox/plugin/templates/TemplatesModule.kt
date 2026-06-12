@@ -23,9 +23,6 @@ abstract class TemplatesModule {
     abstract fun bindBoxedWeeksCalendarPresenter(boxedWeeksCalendarPresenter: BoxedWeeksCalendarPresenter): FragmentPresenter
 
     @Binds
-    abstract fun bindCommunityPresenter(communityPresenter: CommunityPresenter): FragmentPresenter
-
-    @Binds
     abstract fun bindFlatWeeksCalendarPresenter(flatWeeksCalendarPresenter: FlatWeeksCalendarPresenter): FragmentPresenter
 
     @Binds

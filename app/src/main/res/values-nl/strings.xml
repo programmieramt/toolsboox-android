@@ -125,8 +125,6 @@ Strings related to dashboard fragment -->
     <string name="kanban_planner_card_content">"Kanban planner voorbeeld inhoud"</string>
     <string name="templates_list_button_text">"Lijst"</string>
 
-    <!-- Strings related to templates 'community' fragment -->
-    <string name="templates_community_title">"Sjablonen van de community"</string>
     <string name="dashboard_item_delete_alt">"Verwijder"</string>
     <string name="dashboard_item_erase_alt">"Wis"</string>
     <string name="kanban_planner_lane_dueSoonBacklogTitle">"Binnenkort verwacht (%d)"</string>
@@ -137,9 +135,6 @@ Strings related to dashboard fragment -->
     <string name="list_loading">"Lijst is aan het laden..."</string>
     <string name="list_empty">"Lege lijst"</string>
     <string name="export_message">"Geëxporteerd als %s"</string>
-    <string name="templates_community_list_thumbnail">"Community thumbnail"</string>
-    <string name="templates_community_list_icon_star">"Ster"</string>
-    <string name="templates_community_list_icon_starred">"met een ster"</string>
 
     <!-- Common messages -->
     <string name="ok">"OK"</string>
@@ -245,7 +240,6 @@ planner"</string>
 in kader"</string>
     <string name="templates_item_boxed_weeks_title">"Week kalender
 in kader"</string>
-    <string name="templates_item_community_title">"Sjablonen van de community"</string>
     <string name="templates_item_flat_weeks_title">"vlakke week kalender"</string>
     <string name="templates_item_this_weeks_title">"Kalender van deze week"</string>
     <string name="calendar_settings_button_pattern_sync">"Markeringen bijwerken"</string>

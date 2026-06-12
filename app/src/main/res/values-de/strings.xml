@@ -125,8 +125,6 @@ Strings related to dashboard fragment -->
     <string name="kanban_planner_card_content">"Kanban Planer Inhaltsansicht"</string>
     <string name="templates_list_button_text">"Liste"</string>
 
-    <!-- Strings related to templates 'community' fragment -->
-    <string name="templates_community_title">"Vorlagen der Community"</string>
     <string name="dashboard_item_delete_alt">"Löschen"</string>
     <string name="dashboard_item_erase_alt">"Löschen"</string>
     <string name="kanban_planner_lane_dueSoonBacklogTitle">"Bald fällig (%d)"</string>
@@ -137,9 +135,6 @@ Strings related to dashboard fragment -->
     <string name="list_loading">"Liste laden..."</string>
     <string name="list_empty">"Leere Liste..."</string>
     <string name="export_message">"Exportiert als %s"</string>
-    <string name="templates_community_list_thumbnail">"Community Bild"</string>
-    <string name="templates_community_list_icon_star">"Stern"</string>
-    <string name="templates_community_list_icon_starred">"Markiert"</string>
 
     <!-- Common messages -->
     <string name="ok">"OK"</string>
@@ -244,8 +239,6 @@ Strings related to dashboard fragment -->
 Tage (Rahmen)"</string>
     <string name="templates_item_boxed_weeks_title">"Kalender
 Wochen (Rahmen)"</string>
-    <string name="templates_item_community_title">"Vorlagen
-Gemeinschaft"</string>
     <string name="templates_item_flat_weeks_title">"Kalender
 Wochen"</string>
     <string name="templates_item_this_weeks_title">"Kalender
