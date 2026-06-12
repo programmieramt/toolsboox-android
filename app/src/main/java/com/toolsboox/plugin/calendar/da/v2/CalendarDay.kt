@@ -55,8 +55,8 @@ data class CalendarDay(
          * @return the v2 data class
          */
         fun convert(v1: com.toolsboox.plugin.calendar.da.v1.CalendarDay): CalendarDay {
-            val strokes = com.toolsboox.plugin.teamdrawer.nw.domain.Stroke.convertTo(v1.strokes)
-            val notesStrokes = com.toolsboox.plugin.teamdrawer.nw.domain.Stroke.convertTo(v1.notesStrokes)
+            val strokes = com.toolsboox.plugin.calendar.da.v1.Stroke.convertTo(v1.strokes)
+            val notesStrokes = com.toolsboox.plugin.calendar.da.v1.Stroke.convertTo(v1.notesStrokes)
 
             val calendarStrokes = mutableMapOf(DEFAULT_STYLE to strokes)
             val calendarValues = mutableMapOf(DEFAULT_STYLE to mapOf<String, Float?>())

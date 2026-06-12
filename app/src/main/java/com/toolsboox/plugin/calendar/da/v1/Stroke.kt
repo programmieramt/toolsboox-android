@@ -1,11 +1,11 @@
-package com.toolsboox.plugin.teamdrawer.nw.domain
+package com.toolsboox.plugin.calendar.da.v1
 
 import com.squareup.moshi.JsonClass
 import com.toolsboox.da.StrokePoint
 import java.util.*
 
 /**
- * Stroke data class.
+ * Stroke data class (legacy v1 format).
  *
  * @author <a href="mailto:gabor.auth@toolsboox.com">Gábor AUTH</a>
  */
@@ -17,11 +17,11 @@ data class Stroke(
 ) {
     companion object {
         /**
-         * Convert strokes from common format to team drawer format.
+         * Convert strokes from common format to v1 format.
          *
          * @param commonStrokes the list of strokes in common format
          * @param pageId the page id to add
-         * @return list of strokes in team drawer format
+         * @return list of strokes in v1 format
          */
         fun convertFrom(commonStrokes: List<com.toolsboox.da.Stroke>, pageId: UUID): List<Stroke> {
             val strokes = mutableListOf<Stroke>()
@@ -31,9 +31,9 @@ data class Stroke(
         }
 
         /**
-         * Convert strokes from team drawer format to common format.
+         * Convert strokes from v1 format to common format.
          *
-         * @param teamStrokes the list of strokes in team drawer format
+         * @param teamStrokes the list of strokes in v1 format
          * @return list of strokes in common format
          */
         fun convertTo(teamStrokes: List<Stroke>): List<com.toolsboox.da.Stroke> {

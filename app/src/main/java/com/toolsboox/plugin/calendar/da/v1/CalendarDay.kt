@@ -1,7 +1,6 @@
 package com.toolsboox.plugin.calendar.da.v1
 
 import com.squareup.moshi.JsonClass
-import com.toolsboox.plugin.teamdrawer.nw.domain.Stroke
 import java.util.*
 
 /**
