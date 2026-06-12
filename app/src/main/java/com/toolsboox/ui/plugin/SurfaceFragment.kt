@@ -22,13 +22,6 @@ import androidx.core.view.GestureDetectorCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.lifecycle.lifecycleScope
-import com.google.mlkit.common.model.RemoteModelManager
-import com.google.mlkit.vision.digitalink.recognition.DigitalInkRecognition
-import com.google.mlkit.vision.digitalink.recognition.DigitalInkRecognitionModel
-import com.google.mlkit.vision.digitalink.recognition.DigitalInkRecognitionModelIdentifier
-import com.google.mlkit.vision.digitalink.recognition.DigitalInkRecognizerOptions
-import com.google.mlkit.vision.digitalink.recognition.Ink
 import com.onyx.android.sdk.api.device.epd.EpdController
 import com.onyx.android.sdk.data.note.TouchPoint
 import com.onyx.android.sdk.pen.RawInputCallback
@@ -45,9 +38,6 @@ import com.toolsboox.databinding.ToolbarDrawingBinding
 import com.toolsboox.ot.OnGestureListener
 import com.toolsboox.ot.StrokeClipboard
 import com.toolsboox.plugin.calendar.CalendarNavigator
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import java.time.Instant
 import java.util.*
@@ -1886,39 +1876,6 @@ abstract class SurfaceFragment : ScreenFragment() {
         onStrokeChanged(strokes)
         onStrokesAdded(strokesToAdd.toList())
 
-        processStrokes(strokesToAdd)
         strokesToAdd.clear()
-    }
-
-    /**
-     * Process the strokes, recognize the written text with ML Kit Digital Ink Recognition.
-     */
-    private fun processStrokes(strokes: List<Stroke>) {
-        val inkBuilder = Ink.builder()
-        strokes.forEach { stroke ->
-            val strokeBuilder: Ink.Stroke.Builder = Ink.Stroke.builder()
-            stroke.strokePoints.forEach { point ->
-                strokeBuilder.addPoint(Ink.Point.create(point.x, point.y, point.t))
-            }
-            inkBuilder.addStroke(strokeBuilder.build())
-        }
-        val ink = inkBuilder.build()
-
-        val remoteModelManager = RemoteModelManager.getInstance()
-        DigitalInkRecognitionModelIdentifier.fromLanguageTag("en-US")?.let { mi ->
-            val model = DigitalInkRecognitionModel.builder(mi).build()
-            this@SurfaceFragment.lifecycleScope.launch(Dispatchers.IO) {
-                if (remoteModelManager.isModelDownloaded(model).await()) {
-                    val recognizer = DigitalInkRecognition.getClient(DigitalInkRecognizerOptions.builder(model).build())
-                    recognizer.recognize(ink).addOnSuccessListener { result ->
-                        Timber.i("Recognition result: ${result.candidates}")
-                    }.addOnFailureListener { e ->
-                        Timber.e("Recognition failed: $e")
-                    }
-                } else {
-                    Timber.w("Model not downloaded yet")
-                }
-            }
-        }
     }
 }
