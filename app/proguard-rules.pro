@@ -19,14 +19,6 @@
 
 -keep class com.toolsboox.** { *; }
 
--keep class com.google.android.gms.** { *; }
--dontnote com.google.android.gms.**
--dontwarn com.google.android.gms.**
-
--keep class com.google.firebase.** { *; }
--dontnote com.google.firebase.**
--dontwarn com.google.firebase.**
-
 -keep class kotlin.** { *; }
 -dontnote kotlin.**
 -dontwarn kotlin.**
