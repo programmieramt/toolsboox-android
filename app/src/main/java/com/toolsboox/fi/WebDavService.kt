@@ -118,6 +118,7 @@ class WebDavService @Inject constructor() {
             val entries = mutableListOf<WebDavEntry>()
             try {
                 val doc = DocumentBuilderFactory.newInstance()
+                    .apply { isNamespaceAware = true }
                     .newDocumentBuilder()
                     .parse(InputSource(StringReader(xml)))
                 val responses = doc.getElementsByTagNameNS("DAV:", "response")
