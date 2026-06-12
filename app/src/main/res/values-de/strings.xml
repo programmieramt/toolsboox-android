@@ -28,8 +28,6 @@
 
     <!-- Strings related to main activity -->
     <string name="main_version">"%s - %s"</string>
-    <string name="main_update_not_now">"Nicht jetzt"</string>
-    <string name="main_update">"Aktualisieren"</string>
     <string name="main_read_external_storage_permission_missing">"Fehlende Berechtigung zum Lesen für externen Speicher"</string>
     <string name="main_write_external_storage_permission_missing">"Fehlende Berechtigung zum Schreiben für externen Speicher"</string>
 
@@ -39,8 +37,6 @@
     <!-- Strings related to dashboard plugin
 Strings related to dashboard fragment -->
     <string name="dashboard_title">"Übersicht"</string>
-    <string name="dashboard_new_version_title">"Neue Version"</string>
-    <string name="dashboard_new_version_message">"Es ist eine neue Version von \"Tools for Boox\" verfügbar, bitte aktualisieren"</string>
 
     <!-- Strings related to team drawer plugin -->
     <string name="team_drawer_title">"Team Zeichnungen – %1$s"</string>

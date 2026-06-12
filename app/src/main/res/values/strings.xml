@@ -51,8 +51,6 @@
 
     <!-- Strings related to main activity -->
     <string name="main_version">%1$s&#8211;%2$s</string>
-    <string name="main_update_not_now">Not now</string>
-    <string name="main_update">Update</string>
     <string name="main_all_granted_message">All asked permissions granted! Have a nice day!</string>
     <string name="main_some_granted_message">Some asked permissions granted, denying permissions may cause feature loss!</string>
     <string name="main_all_denied_message">All asked permissions denied, denying permissions may cause feature loss!</string>
@@ -273,8 +271,6 @@
     <!-- Strings related to dashboard plugin -->
     <!-- Strings related to dashboard fragment -->
     <string name="dashboard_title">Dashboard</string>
-    <string name="dashboard_new_version_title">New version</string>
-    <string name="dashboard_new_version_message">There is a new version of \'Tools for Boox\' available, please upgrade it unless some functions may not work.</string>
     <string name="dashboard_device_mismatch_title">Device mismatch</string>
     <string name="dashboard_device_mismatch_message">The \'Tools for Boox\' application is developed to Onyx Boox devices, your device does not look like an Onxy Boox (%1$s - %2$s), there may be bugs and crashes.</string>
     <string name="dashboard_item_calendar_title">Calendar</string>

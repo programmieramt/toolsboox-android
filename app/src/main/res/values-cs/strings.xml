@@ -29,8 +29,6 @@
 
     <!-- Strings related to main activity -->
     <string name="main_version">"%s–%s"</string>
-    <string name="main_update_not_now">"Teď ne"</string>
-    <string name="main_update">"Aktualizace"</string>
     <string name="main_read_external_storage_permission_missing">"Nemáte oprávnění číst externí úložiště..."</string>
     <string name="main_write_external_storage_permission_missing">"Nemáte oprávnění ukládat na externí úložiště..."</string>
 
@@ -40,8 +38,6 @@
     <!-- Strings related to dashboard plugin
 Strings related to dashboard fragment -->
     <string name="dashboard_title">"Nástroje"</string>
-    <string name="dashboard_new_version_title">"Nová verze"</string>
-    <string name="dashboard_new_version_message">"Je k dispozici nová verze 'Tools for Boox', pro plnou funkčnost upgradujte."</string>
 
     <!-- Strings related to team drawer plugin -->
     <string name="team_drawer_title">"Týmová Tabule – %1$s"</string>

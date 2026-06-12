@@ -1,10 +1,8 @@
 package com.toolsboox.plugin.dashboard.ui
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.hardware.input.InputManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -14,22 +12,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.play.core.review.ReviewException
-import com.google.android.play.core.review.ReviewManagerFactory
 import com.squareup.moshi.Moshi
-import com.toolsboox.BuildConfig
 import com.toolsboox.R
 import com.toolsboox.da.SquareItem
 import com.toolsboox.databinding.FragmentDashboardBinding
 import com.toolsboox.ot.SquareItemAdapter
-import com.toolsboox.plugin.dashboard.da.Version
 import com.toolsboox.ui.plugin.ScreenFragment
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import java.time.Instant
-import java.time.temporal.ChronoUnit
 import javax.inject.Inject
-import kotlin.random.Random
 
 /**
  * Dashboard main fragment.
@@ -38,11 +29,6 @@ import kotlin.random.Random
  */
 @AndroidEntryPoint
 class DashboardFragment @Inject constructor() : ScreenFragment() {
-
-    companion object {
-        // User already notified about new version.
-        private var notifiedAboutNewVersion: Boolean = false
-    }
 
     /**
      * The injected presenter.
@@ -136,11 +122,6 @@ class DashboardFragment @Inject constructor() : ScreenFragment() {
         binding.recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
 
-        presenter.parameters(this)
-        presenter.version(this)
-
-        presenter.downloadInkRecognition(this, "en-US")
-
         val inputManager = requireContext().getSystemService(Context.INPUT_SERVICE) as InputManager?
         val inputs = inputManager!!.inputDeviceIds
         for (i in inputs.indices) {
@@ -171,7 +152,6 @@ class DashboardFragment @Inject constructor() : ScreenFragment() {
         deviceCheck()
 
         updateAdButton()
-        askForRate()
     }
 
     /**
@@ -197,58 +177,6 @@ class DashboardFragment @Inject constructor() : ScreenFragment() {
     }
 
     /**
-     * Render the result of 'parameter' service call.
-     *
-     * @param parameters the parameters
-     */
-    fun parameterResult(parameters: Map<String, String>) {
-        parameters.forEach { (key, value) ->
-            if ("earlyAdopterDeviceIds" == key) {
-                sharedPreferences.getString("androidId", null)?.let { androidId ->
-                    sharedPreferences.edit().putBoolean("earlyAdopter", value.contains(androidId)).apply()
-                }
-            }
-            Timber.i("Store parameter in shared preferences: $key - $value")
-            sharedPreferences.edit().putString(key, value).apply()
-        }
-    }
-
-    /**
-     * Render the result of 'version' service call.
-     *
-     * @param version the version code
-     */
-    fun versionResult(version: Version) {
-        val installer = requireContext().packageManager.getInstallerPackageName(requireContext().packageName)
-
-        if (BuildConfig.VERSION_CODE >= version.versionCode) return
-        if (notifiedAboutNewVersion) return
-        notifiedAboutNewVersion = true
-
-        if (installer == null) {
-            val filename = "toolboox-prod-release-${version.versionName}.apk"
-            val url = "https://github.com/gaborauth/toolsboox-android/releases/latest/download/$filename"
-            Timber.i("The update URL is '$url'")
-
-            val builder: AlertDialog.Builder = AlertDialog.Builder(this.requireContext())
-            builder.setTitle(R.string.dashboard_new_version_title)
-                .setMessage(R.string.dashboard_new_version_message)
-                .setPositiveButton(R.string.main_update) { _, _ ->
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                    this.startActivity(intent)
-                }
-                .setNegativeButton(R.string.main_update_not_now) { dialog, _ -> dialog.cancel() }
-            builder.create().show()
-        } else {
-            val builder: AlertDialog.Builder = AlertDialog.Builder(this.requireContext())
-            builder.setTitle(R.string.dashboard_new_version_title)
-                .setMessage(R.string.dashboard_new_version_message)
-                .setPositiveButton(R.string.ok) { dialog, _ -> dialog.cancel() }
-            builder.create().show()
-        }
-    }
-
-    /**
      * Show the progress bar.
      */
     override fun showLoading() {
@@ -266,27 +194,5 @@ class DashboardFragment @Inject constructor() : ScreenFragment() {
      * Update the state of the advertisement enable-disable button.
      */
     private fun updateAdButton() {
-    }
-
-    /**
-     * Ask for app rate.
-     */
-    private fun askForRate() {
-        val randomFuture = Instant.now().plus(Random.nextLong(7, 14), ChronoUnit.DAYS).toEpochMilli()
-        val nextRateTimestamp = sharedPreferences.getLong("nextRateTimestamp", randomFuture)
-        if (nextRateTimestamp > Instant.now().toEpochMilli()) return
-        sharedPreferences.edit().putLong("nextRateTimestamp", randomFuture).apply()
-
-        val manager = ReviewManagerFactory.create(requireContext())
-        manager.requestReviewFlow().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                manager.launchReviewFlow(requireActivity(), task.result).addOnCompleteListener { _ ->
-                    Timber.i("Review completed.")
-                }
-            } else {
-                val reviewErrorCode = (task.exception as ReviewException).errorCode
-                Timber.e("Review error: $reviewErrorCode")
-            }
-        }
     }
 }

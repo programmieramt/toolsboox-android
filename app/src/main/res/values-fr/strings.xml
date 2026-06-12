@@ -25,8 +25,6 @@
 
     <!-- Strings related to main activity -->
     <string name="main_version">"%s–%s"</string>
-    <string name="main_update_not_now">"Pas maintenant"</string>
-    <string name="main_update">"Mise à jour"</string>
     <string name="main_read_external_storage_permission_missing">"Permission de lecture manquante"</string>
     <string name="main_write_external_storage_permission_missing">"Permission d'écriture manquante"</string>
 
@@ -36,8 +34,6 @@
     <!-- Strings related to dashboard plugin
 Strings related to dashboard fragment -->
     <string name="dashboard_title">"Tableau de bord"</string>
-    <string name="dashboard_new_version_title">"Nouvelle version"</string>
-    <string name="dashboard_new_version_message">"Nouvelle version dispo : mettez à jour pour profiter de toutes les fonctionnalités"</string>
 
     <!-- Strings related to team drawer plugin -->
     <string name="team_drawer_title">"Dessin collaboratif – %1$s"</string>
