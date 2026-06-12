@@ -304,29 +304,8 @@ esta semana"</string>
     <string name="calendar_time_box_day_brain_dump">"Volcado mental"</string>
     <string name="calendar_time_box_day_notes">"Notas"</string>
     <string name="kanban_planner_no_due_date">"sin fecha final"</string>
-    <string name="calendar_cloud_title">"Sincronización en nube"</string>
-    <string name="calendar_cloud_passphrase_text">"Tu contraseña:"</string>
-    <string name="calendar_cloud_passphrase_hint">"Contraseña, mínimo de 8 caracteres"</string>
-    <string name="calendar_cloud_to_cloud_text">"Sincronizar hacia nube (toca el elemento):"</string>
-    <string name="calendar_cloud_from_cloud_text">"Sincronizar desde nube (toca el elemento):"</string>
-    <string name="calendar_cloud_nothing_to_sync">"No hay nada que sincronizar…"</string>
     <string name="calendar_drawing_toolbar_cloud_sync">"Sinc. en nube"</string>
-    <string name="calendar_cloud_passphrase_mismatch">"La contraseña no coincide, no se pueden descifrar los elementos"</string>
-    <string name="calendar_cloud_compare_button">"Comparar"</string>
-    <string name="calendar_cloud_sync_remember_passphrase">"Recordar contraseña (¡no es seguro!)"</string>
-    <string name="calendar_google_drive_title">"Sincronización en Google Drive"</string>
-    <string name="calendar_google_drive_compare_button">"Comparar"</string>
-    <string name="calendar_google_drive_connected">"Google Drive está conectado. Puedes comparar el estado de la copia en la nube con el de este dispositivo y seleccionar las diferencias que quieres sincronizar."</string>
-    <string name="calendar_google_drive_disconnected">"Google Drive está desconectado. Si quieres sincronizar el calendario entre dispositivos, debes conectarte a Google Drive."</string>
-    <string name="calendar_google_drive_nothing_to_sync">"No hay nada que sincronizar…"</string>
-    <string name="calendar_google_drive_sync_file_last_modification">"Última modificación: hace %s"</string>
-    <string name="calendar_google_drive_sync_file_missing">"Última modificación: no existe"</string>
-    <string name="calendar_google_drive_sync_cloud_last_modification">"Última modificación en nube: hace %s"</string>
-    <string name="calendar_google_drive_sync_cloud_missing">"Última modificación en nube: no existe"</string>
-    <string name="calendar_google_drive_sync_button_download">"Descargar"</string>
-    <string name="calendar_google_drive_sync_button_upload">"Cargar"</string>
 
     <!-- Please clarify. Is it a call to action ("Please, touch here"), a toggle to activate the touch input, anything else...? -->
     <string name="calendar_drawing_toolbar_touch">"Tocar"</string>
-    <string name="calendar_google_drive_background_sync">"Activar sincronización de calendario en segundo plano"</string>
 </resources>

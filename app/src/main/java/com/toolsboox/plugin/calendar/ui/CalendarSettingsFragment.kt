@@ -20,7 +20,6 @@ import com.toolsboox.da.LocaleItem
 import com.toolsboox.databinding.FragmentCalendarSettingsBinding
 import com.toolsboox.ot.LocaleItemAdapter
 import com.toolsboox.ot.NoFilterAdapter
-import com.toolsboox.plugin.calendar.nw.CalendarSyncWorker
 import com.toolsboox.plugin.calendar.nw.UltrabridgeSyncWorker
 import com.toolsboox.ui.plugin.ScreenFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -84,25 +83,9 @@ class CalendarSettingsFragment @Inject constructor() : ScreenFragment() {
      */
     private var selectedNoteTemplate: Int = 0
 
-    /**
-     * Whether auto-sync is enabled.
-     */
-    private var autoSyncEnabled: Boolean = false
-
-    /**
-     * The selected auto-sync interval index (maps to SYNC_INTERVAL_MINUTES).
-     */
-    private var selectedAutoSyncInterval: Int = 1
-
     companion object {
-        private const val WORK_NAME = "calendar-cloud-sync"
         private const val ULTRABRIDGE_ENCRYPTED_PREFS_NAME = "ultrabridge_encrypted_prefs"
         private const val WEBDAV_SYNC_ENCRYPTED_PREFS_NAME = "webdav_sync_encrypted_prefs"
-
-        /**
-         * Interval options in minutes, indexed to match the spinner.
-         */
-        private val SYNC_INTERVAL_MINUTES = longArrayOf(15, 60, 360, 1440)
     }
 
     private fun getEncryptedPrefs(name: String): SharedPreferences {
@@ -241,39 +224,6 @@ class CalendarSettingsFragment @Inject constructor() : ScreenFragment() {
         binding.rotationReversePortraitCheck.isChecked = (rotationMask and 0b0100) != 0
         binding.rotationLandscapeCcwCheck.isChecked = (rotationMask and 0b1000) != 0
 
-        // Auto-sync settings
-        autoSyncEnabled = sharedPreferences.getBoolean("autoSyncEnabled", false)
-        selectedAutoSyncInterval = sharedPreferences.getInt("autoSyncIntervalIndex", 1)
-
-        binding.autoSyncSwitch.isChecked = autoSyncEnabled
-
-        val listOfIntervals = mutableListOf<String>()
-        listOfIntervals.add(getString(R.string.calendar_settings_auto_sync_interval_15_min))
-        listOfIntervals.add(getString(R.string.calendar_settings_auto_sync_interval_1_hr))
-        listOfIntervals.add(getString(R.string.calendar_settings_auto_sync_interval_6_hr))
-        listOfIntervals.add(getString(R.string.calendar_settings_auto_sync_interval_daily))
-
-        val intervalAdapter = NoFilterAdapter(this.requireContext(), R.layout.list_item_locale, listOfIntervals)
-        binding.autoSyncIntervalSpinner.setAdapter(intervalAdapter)
-        intervalAdapter.notifyDataSetChanged()
-
-        binding.autoSyncIntervalSpinner.inputType = 0
-        binding.autoSyncIntervalSpinner.setOnItemClickListener { _, _, position, _ ->
-            requireActivity().currentFocus?.let {
-                imm.hideSoftInputFromWindow(it.windowToken, 0)
-            }
-            selectedAutoSyncInterval = position
-        }
-
-        binding.autoSyncIntervalSpinner.setText(listOfIntervals[selectedAutoSyncInterval])
-
-        // Toggle interval spinner visibility based on switch state
-        updateAutoSyncIntervalVisibility()
-        binding.autoSyncSwitch.setOnCheckedChangeListener { _, isChecked ->
-            autoSyncEnabled = isChecked
-            updateAutoSyncIntervalVisibility()
-        }
-
         // WebDAV Sync settings
         val webDavSyncPrefs = getWebDavSyncEncryptedPrefs()
         val webDavSyncEnabled = sharedPreferences.getBoolean("webDavSyncEnabled", false)
@@ -335,37 +285,6 @@ class CalendarSettingsFragment @Inject constructor() : ScreenFragment() {
             if (rotMask == 0) rotMask = 0b0001  // never empty — fall back to portrait
             sharedPreferences.edit().putInt("rotationOrientationMask", rotMask).apply()
 
-            // Persist auto-sync settings
-            sharedPreferences.edit().putBoolean("autoSyncEnabled", autoSyncEnabled).apply()
-            sharedPreferences.edit().putInt("autoSyncIntervalIndex", selectedAutoSyncInterval).apply()
-
-            // Enqueue or cancel periodic sync work
-            val workManager = WorkManager.getInstance(requireContext())
-            if (autoSyncEnabled) {
-                val intervalMinutes = SYNC_INTERVAL_MINUTES[selectedAutoSyncInterval]
-                val constraints = Constraints.Builder()
-                    .setRequiredNetworkType(NetworkType.CONNECTED)
-                    // Skip only when the battery is genuinely low. No charging requirement —
-                    // this device often runs for days unplugged, and Doze already throttles
-                    // periodic work into occasional maintenance windows once the screen is off.
-                    .setRequiresBatteryNotLow(true)
-                    .build()
-                val syncRequest = PeriodicWorkRequestBuilder<CalendarSyncWorker>(
-                    intervalMinutes, TimeUnit.MINUTES
-                )
-                    .setConstraints(constraints)
-                    // Back off generously on failure so a flaky network can't cause a retry storm.
-                    .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 15, TimeUnit.MINUTES)
-                    .build()
-                workManager.enqueueUniquePeriodicWork(
-                    WORK_NAME,
-                    ExistingPeriodicWorkPolicy.UPDATE,
-                    syncRequest
-                )
-            } else {
-                workManager.cancelUniqueWork(WORK_NAME)
-            }
-
             // Persist WebDAV Sync settings
             val wdEnabled = binding.webdavSyncEnableSwitch.isChecked
             val wdUrl = binding.webdavSyncUrlInput.text?.toString()?.trim() ?: ""
@@ -420,6 +339,7 @@ class CalendarSettingsFragment @Inject constructor() : ScreenFragment() {
                 .apply()
 
             // Enqueue or cancel Ultrabridge periodic work
+            val workManager = WorkManager.getInstance(requireContext())
             if (ubEnabled) {
                 val ubConstraints = Constraints.Builder()
                     .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -466,15 +386,6 @@ class CalendarSettingsFragment @Inject constructor() : ScreenFragment() {
         binding.startViewSpinner.setText(listOfStartViews[selectedStartView])
         binding.startHourSpinner.setText(listOfStartHours[selectedStartHour + 1])
         binding.noteTemplateSpinner.setText(listOfNoteTemplates[selectedNoteTemplate])
-    }
-
-    /**
-     * Show or hide the auto-sync interval spinner based on the switch state.
-     */
-    private fun updateAutoSyncIntervalVisibility() {
-        val visibility = if (autoSyncEnabled) View.VISIBLE else View.GONE
-        binding.autoSyncIntervalText.visibility = visibility
-        binding.autoSyncIntervalSpinnerLayout.visibility = visibility
     }
 
     private fun updateWebDavSyncFieldsVisibility(enabled: Boolean) {

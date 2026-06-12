@@ -29,18 +29,6 @@ object CalendarNavigator {
     }
 
     /**
-     * Navigate to the cloud sync of calendar.
-     *
-     * @param fragment the fragment
-     */
-    fun toCloudSync(fragment: ScreenFragment) {
-        val bundle = bundleOf()
-
-        Timber.i("Navigate to the calendar cloud sync → redirected to settings")
-        fragment.findNavController().navigate(R.id.action_to_calendar_settings, bundle)
-    }
-
-    /**
      * Navigate to the daily calendar notes.
      *
      * @param fragment the fragment

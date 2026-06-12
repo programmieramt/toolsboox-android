@@ -14,6 +14,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.work.WorkManager
 import com.google.android.material.snackbar.Snackbar
 import com.toolsboox.BuildConfig
 import com.toolsboox.R
@@ -95,6 +96,9 @@ class MainActivity : BaseActivity<MainPresenter>(), MainView {
 
         val preferences = MainSharedPreferencesModule.provideSharedPreferences(this)
         preferences.edit().putLong("lastTimestamp", Date().time).apply()
+
+        // One-time migration: cancel the legacy cloud-sync periodic work, removed with the cloud sync feature
+        WorkManager.getInstance(this).cancelUniqueWork("calendar-cloud-sync")
 
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {

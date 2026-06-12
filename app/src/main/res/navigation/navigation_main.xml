@@ -49,32 +49,6 @@
     </fragment>
 
     <fragment
-            android:id="@+id/CalendarCloudSyncFragment"
-            android:name="com.toolsboox.plugin.calendar.ui.CalendarCloudSyncFragment"
-            android:label="CalendarCloudSyncFragment"
-            tools:layout="@layout/fragment_calendar_cloud_sync">
-
-        <action
-                android:id="@+id/action_to_dashboard"
-                app:destination="@id/DashboardFragment"
-                app:popUpTo="@id/DashboardFragment"
-                app:popUpToInclusive="true"/>
-    </fragment>
-
-    <fragment
-            android:id="@+id/CalendarGoogleDriveSyncFragment"
-            android:name="com.toolsboox.plugin.calendar.ui.CalendarGoogleDriveSyncFragment"
-            android:label="CalendarGoogleDriveSyncFragment"
-            tools:layout="@layout/fragment_calendar_google_drive_sync">
-
-        <action
-                android:id="@+id/action_to_dashboard"
-                app:destination="@id/DashboardFragment"
-                app:popUpTo="@id/DashboardFragment"
-                app:popUpToInclusive="true"/>
-    </fragment>
-
-    <fragment
             android:id="@+id/CalendarYearFragment"
             android:name="com.toolsboox.plugin.calendar.ui.CalendarYearFragment"
             android:label="CalendarYearFragment"
@@ -94,12 +68,6 @@
                 app:destination="@id/DashboardFragment"
                 app:popUpTo="@id/DashboardFragment"
                 app:popUpToInclusive="true"/>
-        <action
-                android:id="@+id/action_to_calendar_cloud_sync"
-                app:destination="@id/CalendarCloudSyncFragment"/>
-        <action
-                android:id="@+id/action_to_calendar_google_drive_sync"
-                app:destination="@id/CalendarGoogleDriveSyncFragment"/>
         <action
                 android:id="@+id/action_to_calendar_settings"
                 app:destination="@id/CalendarSettingsFragment"/>
@@ -134,12 +102,6 @@
                 app:destination="@id/DashboardFragment"
                 app:popUpTo="@id/DashboardFragment"
                 app:popUpToInclusive="true"/>
-        <action
-                android:id="@+id/action_to_calendar_cloud_sync"
-                app:destination="@id/CalendarCloudSyncFragment"/>
-        <action
-                android:id="@+id/action_to_calendar_google_drive_sync"
-                app:destination="@id/CalendarGoogleDriveSyncFragment"/>
         <action
                 android:id="@+id/action_to_calendar_settings"
                 app:destination="@id/CalendarSettingsFragment"/>
@@ -179,12 +141,6 @@
                 app:destination="@id/DashboardFragment"
                 app:popUpTo="@id/DashboardFragment"
                 app:popUpToInclusive="true"/>
-        <action
-                android:id="@+id/action_to_calendar_cloud_sync"
-                app:destination="@id/CalendarCloudSyncFragment"/>
-        <action
-                android:id="@+id/action_to_calendar_google_drive_sync"
-                app:destination="@id/CalendarGoogleDriveSyncFragment"/>
         <action
                 android:id="@+id/action_to_calendar_settings"
                 app:destination="@id/CalendarSettingsFragment"/>
@@ -233,12 +189,6 @@
                 app:destination="@id/DashboardFragment"
                 app:popUpTo="@id/DashboardFragment"
                 app:popUpToInclusive="true"/>
-        <action
-                android:id="@+id/action_to_calendar_cloud_sync"
-                app:destination="@id/CalendarCloudSyncFragment"/>
-        <action
-                android:id="@+id/action_to_calendar_google_drive_sync"
-                app:destination="@id/CalendarGoogleDriveSyncFragment"/>
         <action
                 android:id="@+id/action_to_calendar_settings"
                 app:destination="@id/CalendarSettingsFragment"/>

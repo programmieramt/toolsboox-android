@@ -576,7 +576,7 @@ abstract class SurfaceFragment : ScreenFragment() {
         }
 
         provideToolbarDrawing().toolbarCloudSync.setOnClickListener {
-            CalendarNavigator.toCloudSync(this)
+            CalendarNavigator.toSettings(this)
         }
 
         provideToolbarDrawing().toolbarRotate.setOnClickListener {
