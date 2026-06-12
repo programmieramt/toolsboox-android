@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Allows plain HTTP (cleartext) only for self-hosted WebDAV servers reachable on
+    private/VPN networks (e.g. Tailscale). All other traffic stays HTTPS-only
+    (default-config below has cleartextTrafficPermitted="false").
+
+    Add one <domain> entry per host/IP you connect to over plain HTTP.
+    Android's network security config requires exact host/IP literals - CIDR
+    ranges are not supported, so each WebDAV server address must be listed here.
+-->
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">100.64.103.113</domain>
+    </domain-config>
+
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system"/>
+        </trust-anchors>
+    </base-config>
+</network-security-config>
