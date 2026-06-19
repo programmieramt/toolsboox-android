@@ -357,7 +357,7 @@ abstract class SurfaceFragment : ScreenFragment() {
             }
             WindowInsetsControllerCompat(window, window.decorView).apply {
                 systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-                hide(WindowInsetsCompat.Type.systemBars())
+                hide(WindowInsetsCompat.Type.statusBars())
             }
         }
         // The activity's DrawerLayout has fitsSystemWindows="true" which reserves
@@ -653,7 +653,7 @@ abstract class SurfaceFragment : ScreenFragment() {
         requireActivity().window.let { window ->
             WindowCompat.setDecorFitsSystemWindows(window, true)
             WindowInsetsControllerCompat(window, window.decorView)
-                .show(WindowInsetsCompat.Type.systemBars())
+                .show(WindowInsetsCompat.Type.statusBars())
         }
         requireActivity().findViewById<View>(R.id.drawerLayout)?.fitsSystemWindows = true
 
