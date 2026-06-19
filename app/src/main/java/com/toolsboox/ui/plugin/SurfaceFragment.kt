@@ -74,6 +74,8 @@ abstract class SurfaceFragment : ScreenFragment() {
          */
         @JvmStatic protected var singleFingerGesturesEnabled: Boolean = false
 
+        private const val PEN_PALM_REJECTION_MS = 500L
+
         // List of unrecognized actions.
         private val actions = mutableListOf<String>()
 
@@ -141,6 +143,10 @@ abstract class SurfaceFragment : ScreenFragment() {
     // --- Undo/redo history ---
     private val undoStack = mutableListOf<List<Stroke>>()
     private val redoStack = mutableListOf<List<Stroke>>()
+
+    // --- Palm rejection state ---
+    private var penIsDown = false
+    private var penUpTimestamp = 0L
 
     // --- Zoom and pan state ---
     protected var twoFingerGesture = false
@@ -813,6 +819,8 @@ abstract class SurfaceFragment : ScreenFragment() {
 
     fun handleZoomPanTouch(motionEvent: MotionEvent): Boolean {
         if (motionEvent.getToolType(0) != MotionEvent.TOOL_TYPE_FINGER) return false
+
+        if (penIsDown || System.currentTimeMillis() - penUpTimestamp < PEN_PALM_REJECTION_MS) return true
 
         if (motionEvent.actionMasked == MotionEvent.ACTION_DOWN) twoFingerGesture = false
         if (motionEvent.pointerCount >= 2 || singleFingerGesturesEnabled) twoFingerGesture = true
@@ -1574,6 +1582,11 @@ abstract class SurfaceFragment : ScreenFragment() {
         val actionDown = listOf(MotionEvent.ACTION_DOWN, 211).contains(motionEvent.action)
         val actionMove = listOf(MotionEvent.ACTION_MOVE, 213).contains(motionEvent.action)
         val actionUp = listOf(MotionEvent.ACTION_UP, 212).contains(motionEvent.action)
+
+        if (toolTypeStylus || toolTypeEraser) {
+            if (actionDown) penIsDown = true
+            if (actionUp) { penIsDown = false; penUpTimestamp = System.currentTimeMillis() }
+        }
 
         val drawing = ((toolTypeStylus || toolTypeEraser) && !touchDrawingState) || (toolTypeFinger && touchDrawingState)
         val erasing = motionEvent.buttonState != 0 || toolTypeEraser
