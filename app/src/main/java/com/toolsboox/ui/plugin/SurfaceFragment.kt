@@ -1519,6 +1519,7 @@ abstract class SurfaceFragment : ScreenFragment() {
      */
     private val callback: RawInputCallback = object : RawInputCallback() {
         override fun onPenActive(touchPoint: TouchPoint) {
+            penIsDown = true
         }
 
         override fun onPenUpRefresh(refreshRect: RectF) {
@@ -1559,10 +1560,14 @@ abstract class SurfaceFragment : ScreenFragment() {
             val actionHoverExit = motionEvent.action == MotionEvent.ACTION_HOVER_EXIT
 
             if (actionHoverEnter) {
+                penIsDown = true
                 return true
             } else if (actionHoverMove) {
+                penIsDown = true
                 return true
             } else if (actionHoverExit) {
+                penIsDown = false
+                penUpTimestamp = System.currentTimeMillis()
                 Handler(Looper.getMainLooper()).postDelayed({
                     if (lastPoint == null) {
                         convertStrokes()
