@@ -302,7 +302,7 @@ class CalendarDayFragment @Inject constructor() : SurfaceFragment() {
 
         val defaultStartHour = sharedPreferences.getInt("calendarStartHour", 5)
         timer = GlobalScope.launch(Dispatchers.Main) {
-            presenter.load(this@CalendarDayFragment, binding, currentDate, defaultStartHour, locale)
+            presenter.load(this@CalendarDayFragment, binding, currentDate, defaultStartHour, locale)?.join()
             syncPresenter.backgroundSync(this@CalendarDayFragment, UUID.randomUUID())
         }
     }
