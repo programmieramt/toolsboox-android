@@ -17,6 +17,7 @@ import com.toolsboox.plugin.calendar.ot.CalendarTaskCarryOver
 import com.toolsboox.ui.plugin.FragmentPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -64,10 +65,10 @@ class CalendarDayPresenter @Inject constructor() : FragmentPresenter() {
     fun load(
         fragment: CalendarDayFragment, binding: FragmentCalendarBinding,
         currentDate: LocalDate, defaultStartHour: Int, locale: Locale
-    ) {
-        if (!checkPermissions(fragment, binding.root)) return
+    ): Job? {
+        if (!checkPermissions(fragment, binding.root)) return null
 
-        GlobalScope.launch(Dispatchers.IO) {
+        return GlobalScope.launch(Dispatchers.IO) {
             try {
                 withContext(Dispatchers.Main) { fragment.runOnActivity { fragment.showLoading() } }
 
