@@ -27,6 +27,15 @@
     <action
             android:id="@+id/action_to_about"
             app:destination="@id/AboutFragment"/>
+    <action
+            android:id="@+id/action_to_sofort_list"
+            app:destination="@id/SofortListFragment"/>
+    <action
+            android:id="@+id/action_to_sofort_meta"
+            app:destination="@id/SofortMetaFragment"/>
+    <action
+            android:id="@+id/action_to_sofort"
+            app:destination="@id/SofortFragment"/>
 
     <fragment
             android:id="@+id/DashboardFragment"
@@ -273,4 +282,49 @@
             android:id="@+id/KanbanMainFragment"
             android:name="com.toolsboox.plugin.kanban.ui.KanbanMainFragment"
             android:label="KanbanMainFragment"/>
+
+    <fragment
+            android:id="@+id/SofortListFragment"
+            android:name="com.toolsboox.plugin.sofort.ui.SofortListFragment"
+            android:label="SofortListFragment"
+            tools:layout="@layout/fragment_sofort_list">
+        <action
+                android:id="@+id/action_to_dashboard"
+                app:destination="@id/DashboardFragment"
+                app:popUpTo="@id/DashboardFragment"
+                app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/SofortMetaFragment"
+            android:name="com.toolsboox.plugin.sofort.ui.SofortMetaFragment"
+            android:label="SofortMetaFragment"
+            tools:layout="@layout/fragment_sofort_meta">
+        <argument
+                android:name="noteId"
+                app:argType="string"
+                app:nullable="true"/>
+        <action
+                android:id="@+id/action_to_dashboard"
+                app:destination="@id/DashboardFragment"
+                app:popUpTo="@id/DashboardFragment"
+                app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/SofortFragment"
+            android:name="com.toolsboox.plugin.sofort.ui.SofortFragment"
+            android:label="SofortFragment"
+            tools:layout="@layout/fragment_sofort">
+        <argument
+                android:name="noteId"
+                app:argType="string"
+                app:nullable="true"/>
+        <action
+                android:id="@+id/action_to_dashboard"
+                app:destination="@id/DashboardFragment"
+                app:popUpTo="@id/DashboardFragment"
+                app:popUpToInclusive="true"/>
+    </fragment>
+
 </navigation>
