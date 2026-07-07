@@ -1079,6 +1079,7 @@ abstract class SurfaceFragment : ScreenFragment() {
 
         lockCanvas.restore()
 
+        try { EpdController.enablePost(provideSurfaceView(), 1) } catch (_: Throwable) {}
         touchHelper?.setRawDrawingEnabled(false)
         touchHelper?.isRawDrawingRenderEnabled = false
         provideSurfaceView().holder.unlockCanvasAndPost(lockCanvas)
@@ -1460,6 +1461,7 @@ abstract class SurfaceFragment : ScreenFragment() {
             renderTextElements(canvas)
         }
 
+        try { EpdController.enablePost(provideSurfaceView(), 1) } catch (_: Throwable) {}
         touchHelper?.setRawDrawingEnabled(false)
         touchHelper?.isRawDrawingRenderEnabled = false
         provideSurfaceView().holder.unlockCanvasAndPost(lockCanvas)
