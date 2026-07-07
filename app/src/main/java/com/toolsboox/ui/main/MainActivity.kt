@@ -102,6 +102,9 @@ class MainActivity : BaseActivity<MainPresenter>(), MainView {
 
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.drawer_item_dashboard -> {
+                    binding.fragmentContent.findNavController().navigate(R.id.action_to_dashboard, bundleOf())
+                }
                 R.id.drawer_item_calendar -> {
                     val calendarStartActionId = when (sharedPreferences.getInt("calendarStartView", 0)) {
                         0 -> R.id.action_to_calendar_day
