@@ -375,6 +375,19 @@ abstract class SurfaceFragment : ScreenFragment() {
         }
 
         initializeSurface()
+        // Re-open raw drawing after closeRawDrawing() in onPause. surfaceCreated only fires
+        // on the very first attach; on subsequent app-switches the surface stays alive and
+        // surfaceCreated never re-fires — so without this explicit re-open the device falls
+        // back to the slow Android MotionEvent path for every resume after first launch.
+        touchHelper?.let { th ->
+            if (surfaceSize.width() > 0) {
+                th.setLimitRect(Rect(0, 0, surfaceSize.width(), surfaceSize.height()), ArrayList())
+            }
+            th.openRawDrawing()
+            th.setStrokeStyle(TouchHelper.STROKE_STYLE_PENCIL)
+            th.setStrokeColor(paint.color)
+            th.setStrokeWidth(paint.strokeWidth * baseScale * zoomScale)
+        }
         touchHelper?.setRawDrawingEnabled(true)
         touchHelper?.isRawDrawingRenderEnabled = true
 
