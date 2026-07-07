@@ -1804,16 +1804,26 @@ abstract class SurfaceFragment : ScreenFragment() {
             if (actionDown) {
                 onBeginDrawing(strokePoint)
             } else if (actionMove) {
-                val touchPoints = mutableListOf<StrokePoint>()
-                for (i in 0 until motionEvent.historySize) {
-                    val hPts = screenToCanvas(motionEvent.getHistoricalX(i), motionEvent.getHistoricalY(i))
-                    val hx = (10.0f * hPts[0]).roundToInt() / 10.0f
-                    val hy = (10.0f * hPts[1]).roundToInt() / 10.0f
-                    val hp = (10.0f * motionEvent.getHistoricalPressure(i)).roundToInt() / 10.0f
-                    val ht = Instant.now().toEpochMilli() + motionEvent.getHistoricalEventTime(i) - SystemClock.uptimeMillis()
-                    touchPoints.add(StrokePoint(hx, hy, hp, ht))
+                val histSize = motionEvent.historySize
+                val touchPoints = ArrayList<StrokePoint>(histSize + 1)
+                if (histSize > 0) {
+                    // Batch all historical point transforms into one matrix call instead of
+                    // N individual screenToCanvas calls (each allocating a FloatArray).
+                    val rawPts = FloatArray(histSize * 2)
+                    for (i in 0 until histSize) {
+                        rawPts[i * 2] = motionEvent.getHistoricalX(i)
+                        rawPts[i * 2 + 1] = motionEvent.getHistoricalY(i)
+                    }
+                    inverseViewMatrix.mapPoints(rawPts)
+                    val uptimeMs = SystemClock.uptimeMillis()
+                    for (i in 0 until histSize) {
+                        val hx = (10.0f * rawPts[i * 2]).roundToInt() / 10.0f
+                        val hy = (10.0f * rawPts[i * 2 + 1]).roundToInt() / 10.0f
+                        val hp = (10.0f * motionEvent.getHistoricalPressure(i)).roundToInt() / 10.0f
+                        val ht = t + motionEvent.getHistoricalEventTime(i) - uptimeMs
+                        touchPoints.add(StrokePoint(hx, hy, hp, ht))
+                    }
                 }
-
                 touchPoints.add(strokePoint)
                 onMoveDrawing(touchPoints)
             } else if (actionUp) {
