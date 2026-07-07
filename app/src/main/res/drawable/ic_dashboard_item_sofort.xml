@@ -1,0 +1,20 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="80dp"
+        android:height="80dp"
+        android:viewportWidth="512"
+        android:viewportHeight="512"
+
+        android:tint="?attr/colorControlNormal">
+
+    <!-- Notepad with pen icon -->
+    <path
+            android:fillColor="#FF000000"
+            android:pathData="M400,64H320V48c0,-26.5 -21.5,-48 -48,-48H240c-26.5,0 -48,21.5 -48,48V64H112C85.5,64 64,85.5 64,112V464c0,26.5 21.5,48 48,48H400c26.5,0 48,-21.5 48,-48V112C448,85.5 426.5,64 400,64zM224,48h64v80H224V48zM400,464H112V112h64v16c0,17.7 14.3,32 32,32h96c17.7,0 32,-14.3 32,-32v-16h64V464z"/>
+    <path
+            android:fillColor="#FF000000"
+            android:pathData="M160,240h192v32H160zM160,320h192v32H160zM160,400h128v32H160z"/>
+    <path
+            android:fillColor="#FF000000"
+            android:pathData="M350,360l32,-32 32,32 -80,80H302v-42z"/>
+
+</vector>

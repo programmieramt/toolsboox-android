@@ -247,6 +247,16 @@
     <string name="dashboard_item_templates_title">Templates</string>
     <string name="dashboard_item_kanban_planner_title">Kanban\nplanner</string>
     <string name="dashboard_item_about_title">About</string>
+    <string name="dashboard_item_sofort_title">Sofort\nNotizen</string>
+
+    <!-- Strings related to Sofort-Notizen plugin -->
+    <string name="sofort_list_title">Sofort-Notizen</string>
+    <string name="sofort_list_empty">Noch keine Notizen. Tippe + um eine neue zu erstellen.</string>
+    <string name="sofort_meta_title">Neue Notiz</string>
+    <string name="sofort_meta_title_hint">Titel</string>
+    <string name="sofort_meta_btn_weiter">Weiter</string>
+    <string name="sofort_drawing_title">Notiz</string>
+    <string name="sofort_template_image">Sofort-Notiz Zeichenfläche</string>
     <string name="dashboard_item_cancel_alt">Cancel</string>
     <string name="dashboard_item_delete_alt">Delete</string>
     <string name="dashboard_item_edit_alt">Edit</string>
