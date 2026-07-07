@@ -40,6 +40,7 @@ import com.toolsboox.da.TextElement
 import com.toolsboox.databinding.ToolbarDrawingBinding
 import com.toolsboox.ot.OnGestureListener
 import com.toolsboox.ot.StrokeClipboard
+import androidx.navigation.fragment.findNavController
 import com.toolsboox.plugin.calendar.CalendarNavigator
 import timber.log.Timber
 import java.time.Instant
@@ -627,6 +628,10 @@ abstract class SurfaceFragment : ScreenFragment() {
             CalendarNavigator.toSettings(this)
         }
 
+        provideToolbarDrawing().toolbarDashboard.setOnClickListener {
+            findNavController().navigate(R.id.action_to_dashboard)
+        }
+
         val toolbarCollapsed = sharedPreferences.getBoolean("toolbarCollapsed", false)
         applyToolbarCollapsedState(toolbarCollapsed)
 
@@ -733,6 +738,7 @@ abstract class SurfaceFragment : ScreenFragment() {
             toolbar.toolbarSwitchSide.id,
             toolbar.toolbarRotate.id,
             toolbar.toolbarCloudSync.id,
+            toolbar.toolbarDashboard.id,
             toolbar.toolbarSettings.id,
         )
         for ((idx, id) in rightChain.withIndex()) {

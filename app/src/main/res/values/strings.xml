@@ -257,6 +257,7 @@
     <string name="sofort_meta_btn_weiter">Weiter</string>
     <string name="sofort_drawing_title">Notiz</string>
     <string name="sofort_template_image">Sofort-Notiz Zeichenfläche</string>
+    <string name="toolbar_dashboard">Dashboard</string>
     <string name="dashboard_item_cancel_alt">Cancel</string>
     <string name="dashboard_item_delete_alt">Delete</string>
     <string name="dashboard_item_edit_alt">Edit</string>
