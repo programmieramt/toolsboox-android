@@ -1850,13 +1850,22 @@ abstract class SurfaceFragment : ScreenFragment() {
 
     private fun onMoveDrawing(touchPoints: List<StrokePoint>) {
         if (stylusPointList.isEmpty()) return
-        val path = Path()
-        path.moveTo(stylusPointList[0].x, stylusPointList[0].y)
-        stylusPointList.forEach {
-            path.lineTo(it.x, it.y)
-        }
+
+        val needsSoftwarePreview = touchHelper == null && penState
+
+        // Only build the path when we actually need it for software rendering.
+        // When the Onyx SDK is active it handles live preview itself; building an
+        // ever-growing path on every ACTION_MOVE (O(n) per event, O(n²) per stroke)
+        // was loading the main thread and starving the SDK's raw-drawing callbacks.
+        val path: Path? = if (needsSoftwarePreview) {
+            val p = Path()
+            p.moveTo(stylusPointList[0].x, stylusPointList[0].y)
+            stylusPointList.forEach { p.lineTo(it.x, it.y) }
+            p
+        } else null
+
         touchPoints.forEach { touchPoint ->
-            path.lineTo(touchPoint.x, touchPoint.y)
+            path?.lineTo(touchPoint.x, touchPoint.y)
             if (!epsilon(touchPoint, lastPoint!!)) {
                 touchPoint.t = Instant.now().toEpochMilli() - firstPointTimestamp
                 lastPoint = touchPoint
@@ -1866,7 +1875,7 @@ abstract class SurfaceFragment : ScreenFragment() {
 
         // Software live rendering for the no-Onyx path (e.g. TouchHelper creation failed
         // and we're rendering strokes ourselves via MotionEvent fallback).
-        if (touchHelper == null && penState) {
+        if (needsSoftwarePreview && path != null) {
             val totalScale = baseScale * zoomScale
             val sigma = paint.strokeWidth * totalScale * 4.0f
 
