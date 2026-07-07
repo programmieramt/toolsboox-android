@@ -375,19 +375,6 @@ abstract class SurfaceFragment : ScreenFragment() {
         }
 
         initializeSurface()
-        // Re-open raw drawing after closeRawDrawing() in onPause. surfaceCreated only fires
-        // on the very first attach; on subsequent app-switches the surface stays alive and
-        // surfaceCreated never re-fires — so without this explicit re-open the device falls
-        // back to the slow Android MotionEvent path for every resume after first launch.
-        touchHelper?.let { th ->
-            if (surfaceSize.width() > 0) {
-                th.setLimitRect(Rect(0, 0, surfaceSize.width(), surfaceSize.height()), ArrayList())
-            }
-            th.openRawDrawing()
-            th.setStrokeStyle(TouchHelper.STROKE_STYLE_PENCIL)
-            th.setStrokeColor(paint.color)
-            th.setStrokeWidth(paint.strokeWidth * baseScale * zoomScale)
-        }
         touchHelper?.setRawDrawingEnabled(true)
         touchHelper?.isRawDrawingRenderEnabled = true
 
@@ -1092,7 +1079,6 @@ abstract class SurfaceFragment : ScreenFragment() {
 
         lockCanvas.restore()
 
-        try { EpdController.enablePost(provideSurfaceView(), 1) } catch (_: Throwable) {}
         touchHelper?.setRawDrawingEnabled(false)
         touchHelper?.isRawDrawingRenderEnabled = false
         provideSurfaceView().holder.unlockCanvasAndPost(lockCanvas)
@@ -1474,7 +1460,6 @@ abstract class SurfaceFragment : ScreenFragment() {
             renderTextElements(canvas)
         }
 
-        try { EpdController.enablePost(provideSurfaceView(), 1) } catch (_: Throwable) {}
         touchHelper?.setRawDrawingEnabled(false)
         touchHelper?.isRawDrawingRenderEnabled = false
         provideSurfaceView().holder.unlockCanvasAndPost(lockCanvas)
@@ -1804,26 +1789,16 @@ abstract class SurfaceFragment : ScreenFragment() {
             if (actionDown) {
                 onBeginDrawing(strokePoint)
             } else if (actionMove) {
-                val histSize = motionEvent.historySize
-                val touchPoints = ArrayList<StrokePoint>(histSize + 1)
-                if (histSize > 0) {
-                    // Batch all historical point transforms into one matrix call instead of
-                    // N individual screenToCanvas calls (each allocating a FloatArray).
-                    val rawPts = FloatArray(histSize * 2)
-                    for (i in 0 until histSize) {
-                        rawPts[i * 2] = motionEvent.getHistoricalX(i)
-                        rawPts[i * 2 + 1] = motionEvent.getHistoricalY(i)
-                    }
-                    inverseViewMatrix.mapPoints(rawPts)
-                    val uptimeMs = SystemClock.uptimeMillis()
-                    for (i in 0 until histSize) {
-                        val hx = (10.0f * rawPts[i * 2]).roundToInt() / 10.0f
-                        val hy = (10.0f * rawPts[i * 2 + 1]).roundToInt() / 10.0f
-                        val hp = (10.0f * motionEvent.getHistoricalPressure(i)).roundToInt() / 10.0f
-                        val ht = t + motionEvent.getHistoricalEventTime(i) - uptimeMs
-                        touchPoints.add(StrokePoint(hx, hy, hp, ht))
-                    }
+                val touchPoints = mutableListOf<StrokePoint>()
+                for (i in 0 until motionEvent.historySize) {
+                    val hPts = screenToCanvas(motionEvent.getHistoricalX(i), motionEvent.getHistoricalY(i))
+                    val hx = (10.0f * hPts[0]).roundToInt() / 10.0f
+                    val hy = (10.0f * hPts[1]).roundToInt() / 10.0f
+                    val hp = (10.0f * motionEvent.getHistoricalPressure(i)).roundToInt() / 10.0f
+                    val ht = Instant.now().toEpochMilli() + motionEvent.getHistoricalEventTime(i) - SystemClock.uptimeMillis()
+                    touchPoints.add(StrokePoint(hx, hy, hp, ht))
                 }
+
                 touchPoints.add(strokePoint)
                 onMoveDrawing(touchPoints)
             } else if (actionUp) {
@@ -1860,22 +1835,13 @@ abstract class SurfaceFragment : ScreenFragment() {
 
     private fun onMoveDrawing(touchPoints: List<StrokePoint>) {
         if (stylusPointList.isEmpty()) return
-
-        val needsSoftwarePreview = touchHelper == null && penState
-
-        // Only build the path when we actually need it for software rendering.
-        // When the Onyx SDK is active it handles live preview itself; building an
-        // ever-growing path on every ACTION_MOVE (O(n) per event, O(n²) per stroke)
-        // was loading the main thread and starving the SDK's raw-drawing callbacks.
-        val path: Path? = if (needsSoftwarePreview) {
-            val p = Path()
-            p.moveTo(stylusPointList[0].x, stylusPointList[0].y)
-            stylusPointList.forEach { p.lineTo(it.x, it.y) }
-            p
-        } else null
-
+        val path = Path()
+        path.moveTo(stylusPointList[0].x, stylusPointList[0].y)
+        stylusPointList.forEach {
+            path.lineTo(it.x, it.y)
+        }
         touchPoints.forEach { touchPoint ->
-            path?.lineTo(touchPoint.x, touchPoint.y)
+            path.lineTo(touchPoint.x, touchPoint.y)
             if (!epsilon(touchPoint, lastPoint!!)) {
                 touchPoint.t = Instant.now().toEpochMilli() - firstPointTimestamp
                 lastPoint = touchPoint
@@ -1885,7 +1851,7 @@ abstract class SurfaceFragment : ScreenFragment() {
 
         // Software live rendering for the no-Onyx path (e.g. TouchHelper creation failed
         // and we're rendering strokes ourselves via MotionEvent fallback).
-        if (needsSoftwarePreview && path != null) {
+        if (touchHelper == null && penState) {
             val totalScale = baseScale * zoomScale
             val sigma = paint.strokeWidth * totalScale * 4.0f
 
