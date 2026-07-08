@@ -60,11 +60,18 @@ class SofortFragment @Inject constructor() : SurfaceFragment() {
 
         toolbar.root.title = getString(R.string.drawer_title, getString(R.string.app_name), getString(R.string.sofort_drawing_title))
 
-        provideToolbarDrawing().toolbarSwipeUp.setOnClickListener {
-            // Go directly back to the list, skipping the title screen
+        val navigateBack = {
             if (!findNavController().popBackStack(R.id.SofortListFragment, false)) {
                 findNavController().navigateUp()
             }
+        }
+
+        provideToolbarDrawing().toolbarSwipeUp.setOnClickListener { navigateBack() }
+
+        binding.fabSave.setOnClickListener {
+            // note.strokes is always current (updated by onStrokeChanged after every stroke)
+            note?.let { n -> presenter.save(this, n, n.strokes) }
+            navigateBack()
         }
 
         noteId?.let { presenter.load(this, it) }

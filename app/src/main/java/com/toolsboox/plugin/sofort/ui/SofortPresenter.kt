@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import java.util.UUID
 import javax.inject.Inject
 
@@ -33,15 +34,18 @@ class SofortPresenter @Inject constructor() : FragmentPresenter() {
     }
 
     fun save(fragment: SofortFragment, note: SofortNote, strokes: List<Stroke>) {
-        if (!checkPermissions(fragment, fragment.requireView())) return
-
         GlobalScope.launch(Dispatchers.IO) {
-            val rootPath = rootPath(fragment, Environment.DIRECTORY_DOCUMENTS)
-            val updated = note.copy(
-                strokes = strokes,
-                updatedAt = System.currentTimeMillis()
-            )
-            sofortService.save(rootPath, updated)
+            try {
+                val rootPath = rootPath(fragment, Environment.DIRECTORY_DOCUMENTS)
+                val updated = note.copy(strokes = strokes, updatedAt = System.currentTimeMillis())
+                sofortService.save(rootPath, updated)
+                Timber.i("SofortNote saved: ${note.id}, strokes: ${strokes.size}")
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to save SofortNote ${note.id}")
+                withContext(Dispatchers.Main) {
+                    fragment.runOnActivity { fragment.somethingHappened(e, fragment.provideSurfaceView()) }
+                }
+            }
         }
     }
 }
