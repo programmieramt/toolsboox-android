@@ -275,7 +275,7 @@
     <string name="dashboard_item_erase_alt">Erase</string>
     <string name="dashboard_item_save_alt">Save</string>
     <string name="dashboard_item_settings_alt">Settings</string>
-    <string name="dashboard_ad_settings_button_hide">Hide ads</string>
+
     <string name="dashboard_ad_settings_button_show">Show ads</string>
 
     <!-- Strings related to kanban planner plugin -->
