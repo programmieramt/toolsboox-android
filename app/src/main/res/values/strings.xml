@@ -257,6 +257,17 @@
     <string name="sofort_meta_btn_weiter">Weiter</string>
     <string name="sofort_drawing_title">Notiz</string>
     <string name="sofort_template_image">Sofort-Notiz Zeichenfläche</string>
+
+    <!-- Strings related to 1on1 plugin -->
+    <string name="dashboard_item_oneonone_title">1:1\nGespräche</string>
+    <string name="oneonone_list_title">1:1 Gespräche</string>
+    <string name="oneonone_list_empty">Noch keine 1:1 Gespräche. Tippe + um ein neues zu erstellen.</string>
+    <string name="oneonone_meta_title">Neues 1:1</string>
+    <string name="oneonone_meta_title_hint">Person / Thema</string>
+    <string name="oneonone_meta_btn_weiter">Weiter</string>
+    <string name="oneonone_drawing_title">1:1</string>
+    <string name="oneonone_template_image">1:1 Zeichenfläche</string>
+
     <string name="toolbar_dashboard">Dashboard</string>
     <string name="dashboard_item_cancel_alt">Cancel</string>
     <string name="dashboard_item_delete_alt">Delete</string>
