@@ -737,7 +737,6 @@ abstract class SurfaceFragment : ScreenFragment() {
             toolbar.toolbarSwipeDown.id,
             toolbar.toolbarSwitchSide.id,
             toolbar.toolbarRotate.id,
-            toolbar.toolbarCloudSync.id,
             toolbar.toolbarDashboard.id,
             toolbar.toolbarSettings.id,
         )
