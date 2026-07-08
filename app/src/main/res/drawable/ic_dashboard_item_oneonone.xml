@@ -1,0 +1,29 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="80dp"
+        android:height="80dp"
+        android:viewportWidth="512"
+        android:viewportHeight="512"
+        android:tint="?attr/colorControlNormal">
+
+    <!-- Left person -->
+    <path
+            android:fillColor="#FF000000"
+            android:pathData="M160,80 a56,56 0 1,0 0.01,0Z"/>
+    <path
+            android:fillColor="#FF000000"
+            android:pathData="M80,200 Q80,160 160,160 Q240,160 240,200 L240,320 L80,320Z"/>
+
+    <!-- Right person -->
+    <path
+            android:fillColor="#FF000000"
+            android:pathData="M352,80 a56,56 0 1,0 0.01,0Z"/>
+    <path
+            android:fillColor="#FF000000"
+            android:pathData="M272,200 Q272,160 352,160 Q432,160 432,200 L432,320 L272,320Z"/>
+
+    <!-- Speech bubble connecting them -->
+    <path
+            android:fillColor="#FF000000"
+            android:pathData="M176,370 Q176,350 196,350 L316,350 Q336,350 336,370 L336,420 Q336,440 316,440 L220,440 L200,460 L204,440 L196,440 Q176,440 176,420Z"/>
+
+</vector>

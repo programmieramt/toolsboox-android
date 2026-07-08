@@ -36,6 +36,15 @@
     <action
             android:id="@+id/action_to_sofort"
             app:destination="@id/SofortFragment"/>
+    <action
+            android:id="@+id/action_to_oneonone_list"
+            app:destination="@id/OneOnOneListFragment"/>
+    <action
+            android:id="@+id/action_to_oneonone_meta"
+            app:destination="@id/OneOnOneMetaFragment"/>
+    <action
+            android:id="@+id/action_to_oneonone"
+            app:destination="@id/OneOnOneFragment"/>
 
     <fragment
             android:id="@+id/DashboardFragment"
@@ -316,6 +325,50 @@
             android:name="com.toolsboox.plugin.sofort.ui.SofortFragment"
             android:label="SofortFragment"
             tools:layout="@layout/fragment_sofort">
+        <argument
+                android:name="noteId"
+                app:argType="string"
+                app:nullable="true"/>
+        <action
+                android:id="@+id/action_to_dashboard"
+                app:destination="@id/DashboardFragment"
+                app:popUpTo="@id/DashboardFragment"
+                app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/OneOnOneListFragment"
+            android:name="com.toolsboox.plugin.oneonone.ui.OneOnOneListFragment"
+            android:label="OneOnOneListFragment"
+            tools:layout="@layout/fragment_oneonone_list">
+        <action
+                android:id="@+id/action_to_dashboard"
+                app:destination="@id/DashboardFragment"
+                app:popUpTo="@id/DashboardFragment"
+                app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/OneOnOneMetaFragment"
+            android:name="com.toolsboox.plugin.oneonone.ui.OneOnOneMetaFragment"
+            android:label="OneOnOneMetaFragment"
+            tools:layout="@layout/fragment_oneonone_meta">
+        <argument
+                android:name="noteId"
+                app:argType="string"
+                app:nullable="true"/>
+        <action
+                android:id="@+id/action_to_dashboard"
+                app:destination="@id/DashboardFragment"
+                app:popUpTo="@id/DashboardFragment"
+                app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/OneOnOneFragment"
+            android:name="com.toolsboox.plugin.oneonone.ui.OneOnOneFragment"
+            android:label="OneOnOneFragment"
+            tools:layout="@layout/fragment_oneonone">
         <argument
                 android:name="noteId"
                 app:argType="string"
