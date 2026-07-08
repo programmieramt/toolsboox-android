@@ -50,6 +50,14 @@ class SofortFragment @Inject constructor() : SurfaceFragment() {
         }
 
         initializeSurface(true)
+
+        binding.surfaceView.setOnHoverListener { _, motionEvent ->
+            callback(motionEvent, true)
+        }
+        binding.surfaceView.setOnTouchListener { _, motionEvent ->
+            if (callback(motionEvent, false)) return@setOnTouchListener true
+            handleZoomPanTouch(motionEvent)
+        }
     }
 
     override fun onResume() {
