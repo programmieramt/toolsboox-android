@@ -54,10 +54,10 @@ class SofortMetaFragment @Inject constructor() : ScreenFragment() {
         binding.etTitle.setText(note.title)
     }
 
-    fun navigateToDrawing(id: UUID) {
+    fun navigateToDrawing(id: UUID, title: String) {
         findNavController().navigate(
             R.id.action_to_sofort,
-            bundleOf("noteId" to id.toString())
+            bundleOf("noteId" to id.toString(), "noteTitle" to title)
         )
     }
 

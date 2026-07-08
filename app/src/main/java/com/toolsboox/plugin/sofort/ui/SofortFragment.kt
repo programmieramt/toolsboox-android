@@ -13,9 +13,6 @@ import com.toolsboox.plugin.sofort.da.SofortNote
 import com.toolsboox.ui.plugin.SurfaceFragment
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
 
@@ -40,8 +37,16 @@ class SofortFragment @Inject constructor() : SurfaceFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSofortBinding.bind(view)
 
-        arguments?.getString("noteId")?.let { id ->
-            runCatching { UUID.fromString(id) }.getOrNull()?.let { noteId = it }
+        arguments?.let { args ->
+            args.getString("noteId")?.let { idStr ->
+                runCatching { UUID.fromString(idStr) }.getOrNull()?.let { uuid ->
+                    noteId = uuid
+                    // Initialize note synchronously so onStrokeChanged can save
+                    // even before the async file load completes.
+                    val title = args.getString("noteTitle") ?: ""
+                    if (note == null) note = SofortNote(id = uuid, title = title)
+                }
+            }
         }
 
         initializeSurface(true)
@@ -56,20 +61,23 @@ class SofortFragment @Inject constructor() : SurfaceFragment() {
         toolbar.root.title = getString(R.string.drawer_title, getString(R.string.app_name), getString(R.string.sofort_drawing_title))
 
         provideToolbarDrawing().toolbarSwipeUp.setOnClickListener {
-            findNavController().navigateUp()
+            // Go directly back to the list, skipping the title screen
+            if (!findNavController().popBackStack(R.id.SofortListFragment, false)) {
+                findNavController().navigateUp()
+            }
         }
 
-        GlobalScope.launch(Dispatchers.Main) {
-            noteId?.let { presenter.load(this@SofortFragment, it) }
-        }
+        noteId?.let { presenter.load(this, it) }
     }
 
     fun renderNote(loadedNote: SofortNote?) {
-        if (loadedNote != null) {
-            note = loadedNote
-            toolbar.root.title = getString(R.string.drawer_title, getString(R.string.app_name), loadedNote.title)
-            applyStrokes(Stroke.listDeepCopy(loadedNote.strokes), true)
-        }
+        if (loadedNote == null) return
+        // Only apply loaded strokes if the user hasn't already drawn something
+        // (avoids overwriting a fresh drawing with old data in the rare race window).
+        val freshStrokes = note?.strokes ?: emptyList()
+        note = if (freshStrokes.isEmpty()) loadedNote else loadedNote.copy(strokes = freshStrokes)
+        toolbar.root.title = getString(R.string.drawer_title, getString(R.string.app_name), loadedNote.title)
+        applyStrokes(Stroke.listDeepCopy(note!!.strokes), true)
     }
 
     override fun onStrokeChanged(strokes: MutableList<Stroke>) {

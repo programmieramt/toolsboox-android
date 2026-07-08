@@ -46,7 +46,7 @@ class SofortMetaPresenter @Inject constructor() : FragmentPresenter() {
                     strokes = existing?.strokes ?: emptyList()
                 )
                 sofortService.save(rootPath, note)
-                withContext(Dispatchers.Main) { fragment.navigateToDrawing(noteId) }
+                withContext(Dispatchers.Main) { fragment.navigateToDrawing(noteId, title) }
             } finally {
                 withContext(Dispatchers.Main) { fragment.hideLoading() }
             }
