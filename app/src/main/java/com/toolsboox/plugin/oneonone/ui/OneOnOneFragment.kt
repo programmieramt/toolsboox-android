@@ -35,6 +35,8 @@ class OneOnOneFragment @Inject constructor() : SurfaceFragment() {
 
     override fun provideToolbarDrawing(): ToolbarDrawingBinding = binding.toolbarDrawing
 
+    override fun toolbarCollapsedKey(): String = "oneononeToolbarCollapsed"
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentOneononeBinding.bind(view)

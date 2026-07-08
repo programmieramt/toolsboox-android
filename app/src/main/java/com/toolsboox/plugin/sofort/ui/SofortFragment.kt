@@ -33,6 +33,8 @@ class SofortFragment @Inject constructor() : SurfaceFragment() {
 
     override fun provideToolbarDrawing(): ToolbarDrawingBinding = binding.toolbarDrawing
 
+    override fun toolbarCollapsedKey(): String = "sofortToolbarCollapsed"
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSofortBinding.bind(view)

@@ -304,6 +304,8 @@ abstract class SurfaceFragment : ScreenFragment() {
      */
     abstract fun provideToolbarDrawing(): ToolbarDrawingBinding
 
+    open fun toolbarCollapsedKey(): String = "toolbarCollapsed"
+
     /**
      * Add strokes callback.
      *
@@ -632,12 +634,12 @@ abstract class SurfaceFragment : ScreenFragment() {
             findNavController().navigate(R.id.action_to_dashboard)
         }
 
-        val toolbarCollapsed = sharedPreferences.getBoolean("toolbarCollapsed", false)
+        val toolbarCollapsed = sharedPreferences.getBoolean(toolbarCollapsedKey(), false)
         applyToolbarCollapsedState(toolbarCollapsed)
 
         val toggleAction = View.OnClickListener {
-            val collapsed = !sharedPreferences.getBoolean("toolbarCollapsed", false)
-            sharedPreferences.edit().putBoolean("toolbarCollapsed", collapsed).apply()
+            val collapsed = !sharedPreferences.getBoolean(toolbarCollapsedKey(), false)
+            sharedPreferences.edit().putBoolean(toolbarCollapsedKey(), collapsed).apply()
             applyToolbarCollapsedState(collapsed)
         }
         provideToolbarDrawing().toolbarToggle.setOnClickListener(toggleAction)
