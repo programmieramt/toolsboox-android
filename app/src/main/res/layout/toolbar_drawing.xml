@@ -256,7 +256,7 @@
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_toolbar_rotate"
 
-            app:layout_constraintBottom_toTopOf="@id/toolbarSettings"
+            app:layout_constraintBottom_toTopOf="@id/toolbarDashboard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="Rotate screen"/>
