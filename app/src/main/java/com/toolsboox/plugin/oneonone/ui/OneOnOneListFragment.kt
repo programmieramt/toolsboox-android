@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.toolsboox.R
 import com.toolsboox.databinding.FragmentOneononeListBinding
+import com.toolsboox.plugin.calendar.ui.CalendarWebDavSyncPresenter
 import com.toolsboox.plugin.oneonone.da.OneOnOneNote
 import com.toolsboox.ui.plugin.ScreenFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +25,9 @@ class OneOnOneListFragment @Inject constructor() : ScreenFragment() {
 
     @Inject
     lateinit var presenter: OneOnOneListPresenter
+
+    @Inject
+    lateinit var syncPresenter: CalendarWebDavSyncPresenter
 
     override val view = R.layout.fragment_oneonone_list
 
@@ -49,6 +53,7 @@ class OneOnOneListFragment @Inject constructor() : ScreenFragment() {
     override fun onResume() {
         super.onResume()
         toolbar.root.title = getString(R.string.drawer_title, getString(R.string.app_name), getString(R.string.oneonone_list_title))
+        syncPresenter.backgroundSync(this, java.util.UUID.randomUUID())
         presenter.load(this)
     }
 

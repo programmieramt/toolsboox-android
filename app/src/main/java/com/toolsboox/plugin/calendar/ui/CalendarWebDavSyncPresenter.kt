@@ -63,7 +63,6 @@ class CalendarWebDavSyncPresenter @Inject constructor() : FragmentPresenter() {
                 val fileList = fileList(rootPath, userId)
                 val cloudList = cloudList()
                 val syncList = calculateSyncList(fileList, cloudList)
-                if (syncList.isEmpty()) return@launch
 
                 Timber.i("WebDAV background sync items: $syncList")
                 syncList.forEach { item ->
@@ -77,10 +76,54 @@ class CalendarWebDavSyncPresenter @Inject constructor() : FragmentPresenter() {
                         cloudUpdate(fileLoad(rootPath, item.file!!))
                     }
                 }
+
+                syncFlatNotes(rootPath, "sofort")
+                syncFlatNotes(rootPath, "oneonone")
             } catch (e: IOException) {
                 Timber.e(e, "WebDAV background sync failed")
             } catch (e: Exception) {
                 Timber.e(e, "WebDAV background sync error")
+            }
+        }
+    }
+
+    private fun syncFlatNotes(rootPath: File, subDir: String) {
+        val localDir = File(rootPath, subDir)
+        val url = webDavUrl()
+        val user = webDavUser()
+        val pass = webDavPassword()
+        val trustAll = webDavTrustAllCerts()
+
+        val localFiles = (localDir.listFiles { f -> f.name.endsWith(".json") } ?: emptyArray())
+            .associate { it.name to it.lastModified() }
+
+        val cloudFiles = try {
+            WebDavService.list(url, subDir, user, pass, trustAll)
+                .filter { !it.isDirectory && it.name.endsWith(".json") }
+                .associate { it.name to it.lastModified }
+        } catch (e: Exception) {
+            Timber.w(e, "WebDAV list failed for $subDir")
+            emptyMap()
+        }
+
+        WebDavService.mkdirs(url, subDir, user, pass, trustAll)
+
+        localFiles.forEach { (name, localTime) ->
+            val cloudTime = cloudFiles[name] ?: 0L
+            if (localTime > cloudTime) {
+                val bytes = File(localDir, name).readBytes()
+                WebDavService.put(url, "$subDir/$name", bytes, user, pass, trustAll)
+                Timber.i("WebDAV upload $subDir/$name")
+            }
+        }
+
+        cloudFiles.forEach { (name, cloudTime) ->
+            val localTime = localFiles[name] ?: 0L
+            if (cloudTime > localTime) {
+                val bytes = WebDavService.get(url, "$subDir/$name", user, pass, trustAll)
+                localDir.mkdirs()
+                File(localDir, name).writeBytes(bytes)
+                Timber.i("WebDAV download $subDir/$name")
             }
         }
     }
