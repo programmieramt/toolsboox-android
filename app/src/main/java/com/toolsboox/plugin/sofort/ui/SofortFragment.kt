@@ -12,6 +12,7 @@ import com.toolsboox.databinding.ToolbarDrawingBinding
 import com.toolsboox.plugin.sofort.da.SofortNote
 import com.toolsboox.ui.plugin.SurfaceFragment
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -53,6 +54,10 @@ class SofortFragment @Inject constructor() : SurfaceFragment() {
         templateCanvas.drawColor(Color.WHITE)
 
         toolbar.root.title = getString(R.string.drawer_title, getString(R.string.app_name), getString(R.string.sofort_drawing_title))
+
+        provideToolbarDrawing().toolbarSwipeUp.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         GlobalScope.launch(Dispatchers.Main) {
             noteId?.let { presenter.load(this@SofortFragment, it) }
