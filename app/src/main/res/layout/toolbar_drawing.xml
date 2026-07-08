@@ -28,7 +28,7 @@
             android:id="@+id/toolbarButtonGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:constraint_referenced_ids="toolbarHandTouch,toolbarPen,toolbarEraser,toolbarProcrastinator,toolbarLasso,toolbarCopy,toolbarPaste,toolbarText,toolbarUndo,toolbarRedo,toolbarTrash,toolbarCalendarView,toolbarHealthView,toolbarTimeboxView,toolbarSwipeUp,toolbarSwipeDown,toolbarSwitchSide,toolbarRotate,toolbarCloudSync,toolbarDashboard,toolbarSettings"/>
+            app:constraint_referenced_ids="toolbarHandTouch,toolbarPen,toolbarEraser,toolbarProcrastinator,toolbarLasso,toolbarCopy,toolbarText,toolbarUndo,toolbarRedo,toolbarTrash,toolbarCalendarView,toolbarHealthView,toolbarTimeboxView,toolbarSwipeUp,toolbarSwipeDown,toolbarSwitchSide,toolbarRotate,toolbarCloudSync,toolbarDashboard,toolbarSettings"/>
 
     <ImageButton
             android:id="@+id/toolbarHandTouch"
@@ -106,14 +106,14 @@
 
     <ImageButton
             android:id="@+id/toolbarPaste"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_toolbar_paste"
 
             app:layout_constraintTop_toBottomOf="@id/toolbarCopy"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="@string/calendar_drawing_toolbar_paste"/>
 
     <ImageButton
@@ -168,7 +168,6 @@
             android:id="@+id/toolbarCalendarView"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="16dp"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_calendar_today"
 
