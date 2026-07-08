@@ -28,7 +28,7 @@
             android:id="@+id/toolbarButtonGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:constraint_referenced_ids="toolbarHandTouch,toolbarPen,toolbarEraser,toolbarProcrastinator,toolbarLasso,toolbarCopy,toolbarText,toolbarUndo,toolbarRedo,toolbarTrash,toolbarCalendarView,toolbarHealthView,toolbarTimeboxView,toolbarSwipeUp,toolbarSwipeDown,toolbarSwitchSide,toolbarRotate,toolbarCloudSync,toolbarDashboard,toolbarSettings"/>
+            app:constraint_referenced_ids="toolbarHandTouch,toolbarPen,toolbarEraser,toolbarProcrastinator,toolbarLasso,toolbarCopy,toolbarText,toolbarUndo,toolbarRedo,toolbarTrash,toolbarCalendarView,toolbarHealthView,toolbarTimeboxView,toolbarSwipeUp,toolbarSwipeDown,toolbarSwitchSide,toolbarRotate,toolbarDashboard,toolbarSettings"/>
 
     <ImageButton
             android:id="@+id/toolbarHandTouch"
@@ -207,7 +207,7 @@
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_toolbar_swipe_up"
 
-            app:layout_constraintBottom_toTopOf="@id/toolbarSwipeDown"
+            app:layout_constraintTop_toBottomOf="@id/toolbarCalendarView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="@string/calendar_drawing_toolbar_swipe_down"/>
@@ -219,7 +219,7 @@
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_toolbar_swipe_down"
 
-            app:layout_constraintBottom_toTopOf="@id/toolbarSwitchSide"
+            app:layout_constraintTop_toBottomOf="@id/toolbarSwipeUp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="@string/calendar_drawing_toolbar_swipe_down"/>
@@ -231,21 +231,21 @@
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_toolbar_switch_side"
 
-            app:layout_constraintBottom_toTopOf="@id/toolbarCloudSync"
+            app:layout_constraintTop_toBottomOf="@id/toolbarSwipeDown"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="@string/calendar_drawing_toolbar_switch_side"/>
 
     <ImageButton
             android:id="@+id/toolbarCloudSync"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_toolbar_cloud_sync"
 
-            app:layout_constraintBottom_toTopOf="@id/toolbarRotate"
+            app:layout_constraintTop_toBottomOf="@id/toolbarSwitchSide"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="@string/calendar_drawing_toolbar_cloud_sync"/>
 
     <ImageButton
@@ -255,7 +255,7 @@
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_toolbar_rotate"
 
-            app:layout_constraintBottom_toTopOf="@id/toolbarDashboard"
+            app:layout_constraintTop_toBottomOf="@id/toolbarSwitchSide"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="Rotate screen"/>
@@ -267,7 +267,7 @@
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_toolbar_dashboard"
 
-            app:layout_constraintBottom_toTopOf="@id/toolbarSettings"
+            app:layout_constraintTop_toBottomOf="@id/toolbarRotate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="@string/toolbar_dashboard"/>
@@ -279,7 +279,7 @@
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_toolbar_settings"
 
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbarDashboard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="@string/calendar_drawing_toolbar_settings"/>
