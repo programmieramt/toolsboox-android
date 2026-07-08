@@ -131,16 +131,6 @@ class DashboardFragment @Inject constructor() : ScreenFragment() {
             }
         }
 
-        binding.buttonToggleAd.setOnClickListener {
-            if (sharedPreferences.getBoolean("advertisements", true)) {
-                sharedPreferences.edit().putBoolean("advertisements", false).apply()
-            } else {
-                sharedPreferences.edit().putBoolean("advertisements", true).apply()
-            }
-
-            updateAdButton()
-        }
-
     }
 
     override fun onResume() {
@@ -151,7 +141,6 @@ class DashboardFragment @Inject constructor() : ScreenFragment() {
         askAppPermissions()
         deviceCheck()
 
-        updateAdButton()
     }
 
     /**
@@ -190,9 +179,4 @@ class DashboardFragment @Inject constructor() : ScreenFragment() {
         binding.mainProgress.visibility = View.INVISIBLE
     }
 
-    /**
-     * Update the state of the advertisement enable-disable button.
-     */
-    private fun updateAdButton() {
-    }
 }
