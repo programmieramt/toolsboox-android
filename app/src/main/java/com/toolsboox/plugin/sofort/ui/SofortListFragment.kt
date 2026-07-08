@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.toolsboox.R
 import com.toolsboox.databinding.FragmentSofortListBinding
+import com.toolsboox.plugin.calendar.ui.CalendarWebDavSyncPresenter
 import com.toolsboox.plugin.sofort.da.SofortNote
 import com.toolsboox.ui.plugin.ScreenFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +25,9 @@ class SofortListFragment @Inject constructor() : ScreenFragment() {
 
     @Inject
     lateinit var presenter: SofortListPresenter
+
+    @Inject
+    lateinit var syncPresenter: CalendarWebDavSyncPresenter
 
     override val view = R.layout.fragment_sofort_list
 
@@ -49,6 +53,7 @@ class SofortListFragment @Inject constructor() : ScreenFragment() {
     override fun onResume() {
         super.onResume()
         toolbar.root.title = getString(R.string.drawer_title, getString(R.string.app_name), getString(R.string.sofort_list_title))
+        syncPresenter.backgroundSync(this, java.util.UUID.randomUUID())
         presenter.load(this)
     }
 
