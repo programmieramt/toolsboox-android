@@ -1,6 +1,7 @@
 package com.toolsboox.ui.plugin
 
 import android.Manifest
+import android.content.Context
 import android.os.Build
 import android.os.Environment
 import android.view.View
@@ -19,6 +20,21 @@ import java.io.File
  * @author <a href="mailto:gabor.auth@toolsboox.com">Gábor AUTH</a>
  */
 abstract class FragmentPresenter {
+
+    companion object {
+        /**
+         * Returns with the root path of the documents (calendar, notes) without a fragment.
+         *
+         * @param context the context
+         */
+        fun documentsRoot(context: Context): File {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!
+            } else {
+                File(Environment.getExternalStorageDirectory(), "toolsBoox")
+            }
+        }
+    }
 
     /**
      * Check and ask common permissions of the fragment.
@@ -93,7 +109,7 @@ abstract class FragmentPresenter {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             when (fallback) {
                 Environment.DIRECTORY_DOCUMENTS -> {
-                    fragment.requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!
+                    documentsRoot(fragment.requireContext())
                 }
 
                 else -> {

@@ -7,7 +7,7 @@ import com.toolsboox.ot.UUIDJsonAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.components.SingletonComponent
 
 /**
  * Retrofit DI module of network services.
@@ -15,7 +15,7 @@ import dagger.hilt.android.components.ActivityComponent
  * @author <a href="mailto:gabor.auth@toolsboox.com">Gábor AUTH</a>
  */
 @Module
-@InstallIn(ActivityComponent::class)
+@InstallIn(SingletonComponent::class)
 object NetworkModule {
 
     /**

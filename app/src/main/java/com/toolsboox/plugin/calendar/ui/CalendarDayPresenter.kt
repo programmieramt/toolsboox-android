@@ -11,9 +11,10 @@ import com.toolsboox.plugin.calendar.da.v1.CalendarPattern
 import com.toolsboox.plugin.calendar.da.v1.ReadingProgress
 import com.toolsboox.plugin.calendar.da.v2.CalendarDay
 import com.toolsboox.plugin.calendar.fi.CalendarDayService
+import com.toolsboox.plugin.calendar.fi.CalendarDayStore
 import com.toolsboox.plugin.calendar.fi.CalendarEventsService
 import com.toolsboox.plugin.calendar.fi.CalendarPatternService
-import com.toolsboox.plugin.calendar.ot.CalendarTaskCarryOver
+import com.toolsboox.plugin.calendar.provider.CalendarDataProvider
 import com.toolsboox.ui.plugin.FragmentPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -54,6 +55,12 @@ class CalendarDayPresenter @Inject constructor() : FragmentPresenter() {
     lateinit var calendarEventsService: CalendarEventsService
 
     /**
+     * The calendar day store.
+     */
+    @Inject
+    lateinit var calendarDayStore: CalendarDayStore
+
+    /**
      * Load the daily calendar data.
      *
      * @param fragment the fragment
@@ -68,6 +75,7 @@ class CalendarDayPresenter @Inject constructor() : FragmentPresenter() {
     ): Job? {
         if (!checkPermissions(fragment, binding.root)) return null
 
+        val appContext = fragment.requireContext().applicationContext
         return GlobalScope.launch(Dispatchers.IO) {
             try {
                 withContext(Dispatchers.Main) { fragment.runOnActivity { fragment.showLoading() } }
@@ -80,23 +88,9 @@ class CalendarDayPresenter @Inject constructor() : FragmentPresenter() {
                     var calendarEvents = calendarEventsService.loadEvents(fragment, currentDate)
                     calendarDay.startHour = calendarDay.startHour ?: defaultStartHour
 
-                    if (currentDate.isEqual(LocalDate.now())) {
-                        val yesterday = currentDate.minusDays(1)
-                        val yesterdayCalendarDay = calendarDayService.load(rootPath, yesterday, defaultStartHour, locale)
-
-                        if (CalendarTaskCarryOver.carryOver(yesterdayCalendarDay, calendarDay)) {
-                            CalendarPatternService.mutex.withLock {
-                                val yesterdayPattern = calendarPatternService.load(rootPath, yesterday, locale)
-                                yesterdayPattern.updateDay(yesterdayCalendarDay)
-                                calendarDayService.save(rootPath, yesterday, yesterdayCalendarDay)
-                                calendarPatternService.save(rootPath, yesterday, yesterdayPattern)
-
-                                calendarPattern.updateDay(calendarDay)
-                                calendarDayService.save(rootPath, currentDate, calendarDay)
-                                calendarPatternService.save(rootPath, currentDate, calendarPattern)
-                            }
-                        }
-                    }
+                    calendarDayStore.carryOverTasks(
+                        appContext, rootPath, currentDate, calendarDay, calendarPattern, defaultStartHour, locale
+                    )
 
                     if (currentDate >= LocalDate.now()) {
                         calendarDay.readingProgress.clear()
@@ -141,6 +135,7 @@ class CalendarDayPresenter @Inject constructor() : FragmentPresenter() {
     ) {
         if (!checkPermissions(fragment, binding.root)) return
 
+        val appContext = fragment.requireContext().applicationContext
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 withContext(Dispatchers.Main) { fragment.runOnActivity { fragment.showLoading() } }
@@ -155,7 +150,8 @@ class CalendarDayPresenter @Inject constructor() : FragmentPresenter() {
                         calendarDayService.save(rootPath, currentDate, calendarDay)
                         calendarPatternService.save(rootPath, currentDate, calendarPattern)
                     }
-                    CalendarWidgetProvider.refreshAll(fragment.requireContext())
+                    CalendarDataProvider.notifyDayChanged(appContext, currentDate)
+                    CalendarWidgetProvider.refreshAll(appContext)
                 } catch (e: IOException) {
                     withContext(Dispatchers.Main) { fragment.somethingHappened(e) }
                 }
@@ -182,6 +178,7 @@ class CalendarDayPresenter @Inject constructor() : FragmentPresenter() {
         if (!checkPermissions(fragment, binding.root)) return
 
         val nextDate = currentDate.plusDays(1)
+        val appContext = fragment.requireContext().applicationContext
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 withContext(Dispatchers.Main) { fragment.runOnActivity { fragment.showLoading() } }
@@ -200,6 +197,7 @@ class CalendarDayPresenter @Inject constructor() : FragmentPresenter() {
                         calendarDayService.save(rootPath, nextDate, calendarDay)
                         calendarPatternService.save(rootPath, nextDate, calendarPattern)
                     }
+                    CalendarDataProvider.notifyDayChanged(appContext, nextDate)
                 } catch (e: IOException) {
                     withContext(Dispatchers.Main) { fragment.somethingHappened(e) }
                 }

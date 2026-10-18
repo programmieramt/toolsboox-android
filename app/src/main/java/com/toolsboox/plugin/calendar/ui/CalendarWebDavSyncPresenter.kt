@@ -1,17 +1,19 @@
 package com.toolsboox.plugin.calendar.ui
 
+import android.content.Context
 import android.content.SharedPreferences
-import android.os.Environment
 import androidx.lifecycle.lifecycleScope
 import com.toolsboox.fi.WebDavService
 import com.toolsboox.plugin.calendar.da.v1.CalendarSyncItem
 import com.toolsboox.plugin.calendar.da.v1.CalendarSyncViewItem
 import com.toolsboox.plugin.calendar.fi.*
+import com.toolsboox.plugin.calendar.provider.CalendarDataProvider
 import com.toolsboox.ui.plugin.FragmentPresenter
 import com.toolsboox.ui.plugin.ScreenFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
@@ -24,6 +26,40 @@ import java.util.*
 import javax.inject.Inject
 
 class CalendarWebDavSyncPresenter @Inject constructor() : FragmentPresenter() {
+
+    companion object {
+        /**
+         * Serializes syncs started by the day view and by the background worker.
+         */
+        private val syncMutex = Mutex()
+
+        private const val PREF_SYNC_STARTED = "webDavSyncStarted"
+        private const val PREF_SYNC_FINISHED = "webDavSyncFinished"
+        private const val PREF_SYNC_OK = "webDavSyncOk"
+        private const val PREF_SYNC_ERROR = "webDavSyncError"
+    }
+
+    /**
+     * Outcome of the last sync, for the ink launcher's indicator (see CalendarDataProvider).
+     *
+     * @property configured WebDAV is set up and auto sync is on
+     * @property started epoch millis of the last start, 0 if never
+     * @property finished epoch millis of the last end, 0 if never; a sync runs while [started] > [finished]
+     * @property error message of the last failure, null if the last sync succeeded
+     */
+    data class SyncStatus(
+        val configured: Boolean, val started: Long, val finished: Long, val ok: Boolean, val error: String?
+    )
+
+    fun status(): SyncStatus = SyncStatus(
+        configured = autoSyncEnabled() && webDavConfigured(),
+        started = sharedPreferences.getLong(PREF_SYNC_STARTED, 0L),
+        finished = sharedPreferences.getLong(PREF_SYNC_FINISHED, 0L),
+        ok = sharedPreferences.getBoolean(PREF_SYNC_OK, false),
+        error = sharedPreferences.getString(PREF_SYNC_ERROR, null)
+    )
+
+    private fun autoSyncEnabled() = sharedPreferences.getString("webDavAutoSyncOptIn", "true").toBoolean()
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
@@ -50,16 +86,32 @@ class CalendarWebDavSyncPresenter @Inject constructor() : FragmentPresenter() {
     private fun webDavTrustAllCerts() = sharedPreferences.getBoolean("webDavSyncTrustAllCerts", false)
 
     fun backgroundSync(fragment: ScreenFragment, userId: UUID) {
-        if (!sharedPreferences.getString("webDavAutoSyncOptIn", "true").toBoolean()) return
+        if (!autoSyncEnabled()) return
         if (!webDavConfigured()) return
 
         val lastSync = Instant.ofEpochMilli(sharedPreferences.getLong("lastCalendarWebDavBackgroundSync", 0L))
         if (Instant.now().minusSeconds(30).isBefore(lastSync)) return
         sharedPreferences.edit().putLong("lastCalendarWebDavBackgroundSync", Instant.now().toEpochMilli()).apply()
 
+        val appContext = fragment.requireContext().applicationContext
         fragment.lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val rootPath = rootPath(fragment, Environment.DIRECTORY_DOCUMENTS)
+            sync(appContext, userId)
+        }
+    }
+
+    /**
+     * Bidirectional sync of calendar data and flat notes, without fragment (also used by [CalendarWebDavSyncWorker]).
+     */
+    suspend fun sync(context: Context, userId: UUID) {
+        if (!autoSyncEnabled()) return
+        if (!webDavConfigured()) return
+
+        syncMutex.withLock {
+            sharedPreferences.edit().putLong(PREF_SYNC_STARTED, System.currentTimeMillis()).commit()
+            CalendarDataProvider.notifySyncChanged(context)
+
+            val error: String? = try {
+                val rootPath = documentsRoot(context)
                 val fileList = fileList(rootPath, userId)
                 val cloudList = cloudList()
                 val syncList = calculateSyncList(fileList, cloudList)
@@ -70,7 +122,7 @@ class CalendarWebDavSyncPresenter @Inject constructor() : FragmentPresenter() {
                     val cloudLastModified = item.cloud?.updated?.time ?: 0L
                     if (fileLastModified < cloudLastModified) {
                         Timber.i("File update from WebDAV: ${item.cloud}")
-                        fileUpdate(rootPath, cloudLoad(item.cloud!!))
+                        fileUpdate(context, rootPath, cloudLoad(item.cloud!!))
                     } else {
                         Timber.i("WebDAV update: ${item.file}")
                         cloudUpdate(fileLoad(rootPath, item.file!!))
@@ -79,11 +131,21 @@ class CalendarWebDavSyncPresenter @Inject constructor() : FragmentPresenter() {
 
                 syncFlatNotes(rootPath, "sofort")
                 syncFlatNotes(rootPath, "oneonone")
+                null
             } catch (e: IOException) {
                 Timber.e(e, "WebDAV background sync failed")
+                e.message ?: e.javaClass.simpleName
             } catch (e: Exception) {
                 Timber.e(e, "WebDAV background sync error")
+                e.message ?: e.javaClass.simpleName
             }
+
+            sharedPreferences.edit()
+                .putLong(PREF_SYNC_FINISHED, System.currentTimeMillis())
+                .putBoolean(PREF_SYNC_OK, error == null)
+                .putString(PREF_SYNC_ERROR, error)
+                .commit()
+            CalendarDataProvider.notifySyncChanged(context)
         }
     }
 
@@ -154,11 +216,8 @@ class CalendarWebDavSyncPresenter @Inject constructor() : FragmentPresenter() {
             }
         }
 
-        try {
-            walkFolder("")
-        } catch (e: Exception) {
-            Timber.e(e, "WebDAV cloudList failed")
-        }
+        // Network errors (e.g. server not reachable via Tailscale) fail the sync; HTTP errors yield an empty list.
+        walkFolder("")
         return items
     }
 
@@ -207,7 +266,7 @@ class CalendarWebDavSyncPresenter @Inject constructor() : FragmentPresenter() {
         return item
     }
 
-    private fun fileUpdate(rootPath: File, item: CalendarSyncItem): CalendarSyncItem {
+    private fun fileUpdate(context: Context, rootPath: File, item: CalendarSyncItem): CalendarSyncItem {
         calendarYearService.fromSyncItem(item)?.let {
             calendarYearService.save(rootPath, item.path, item.baseName, it)
             val currentDate = LocalDate.ofYearDay(it.year, 1)
@@ -235,6 +294,7 @@ class CalendarWebDavSyncPresenter @Inject constructor() : FragmentPresenter() {
             val pattern = calendarPatternService.load(rootPath, currentDate, it.locale)
             pattern.updateDay(it)
             calendarPatternService.save(rootPath, currentDate, pattern)
+            CalendarDataProvider.notifyDayChanged(context, LocalDate.of(it.year, it.month, it.day))
         }
         return item
     }
