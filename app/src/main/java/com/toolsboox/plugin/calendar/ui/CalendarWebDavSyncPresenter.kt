@@ -40,7 +40,7 @@ class CalendarWebDavSyncPresenter @Inject constructor() : FragmentPresenter() {
     }
 
     /**
-     * Outcome of the last sync, for the ink launcher's indicator (see CalendarDataProvider).
+     * Outcome of the last sync, for the Paper Launch indicator (see CalendarDataProvider).
      *
      * @property configured WebDAV is set up and auto sync is on
      * @property started epoch millis of the last start, 0 if never

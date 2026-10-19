@@ -98,7 +98,7 @@ object CalendarTaskCarryOver {
      * horizontally closest, on a tie the row they start in. Otherwise such a stroke would count as a task row of its
      * own. Checkbox marks belong to the row of their center.
      *
-     * Same rules as the ink launcher's `OpenTasks.kt`; keep both in sync.
+     * Same rules as Paper Launch's `OpenTasks.kt`; keep both in sync.
      */
     private fun groupByRow(strokes: List<Stroke>): Map<Int, List<Stroke>> {
         val result = mutableMapOf<Int, MutableList<Stroke>>()

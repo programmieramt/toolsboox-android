@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29"/>
 
-    <!-- Calendar data access for apps signed with the same key (ink launcher), see CalendarDataProvider. -->
+    <!-- Calendar data access for apps signed with the same key (Paper Launch), see CalendarDataProvider. -->
     <permission
             android:name="com.overwatcher.programmieramt.permission.CALENDAR_DATA"
             android:protectionLevel="signature"/>

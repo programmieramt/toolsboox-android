@@ -17,7 +17,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
- * One-shot WebDAV calendar sync outside of the day view, e.g. after the ink launcher wrote strokes.
+ * One-shot WebDAV calendar sync outside of the day view, e.g. after Paper Launch wrote strokes.
  */
 class CalendarWebDavSyncWorker(
     appContext: Context,

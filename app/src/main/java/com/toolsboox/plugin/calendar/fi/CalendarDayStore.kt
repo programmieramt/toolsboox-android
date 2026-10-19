@@ -13,7 +13,7 @@ import java.util.*
 import javax.inject.Inject
 
 /**
- * Day operations shared by the day view and the data provider (used by the ink launcher).
+ * Day operations shared by the day view and the data provider (used by Paper Launch).
  */
 class CalendarDayStore @Inject constructor() {
 

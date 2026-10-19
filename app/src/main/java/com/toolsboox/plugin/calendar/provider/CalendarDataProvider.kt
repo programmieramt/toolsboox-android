@@ -36,7 +36,7 @@ import java.time.format.DateTimeParseException
 import java.util.*
 
 /**
- * Gives apps signed with the same key (the ink launcher) access to the calendar days.
+ * Gives apps signed with the same key (Paper Launch) access to the calendar days.
  *
  * - `openFile(content://<applicationId>.data/day/2026-10-18, "r")`: the day as v2 JSON (carries over open tasks if today)
  * - `call("putStrokes", "2026-10-18", {style, strokes})`: replaces the strokes of one page style, strokes as JSON array
