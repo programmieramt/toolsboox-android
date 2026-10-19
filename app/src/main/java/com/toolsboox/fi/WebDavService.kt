@@ -27,6 +27,7 @@ class WebDavService @Inject constructor() {
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
+            .addInterceptor(CleartextGuard)
 
         private val defaultClient = clientBuilder().build()
         private val trustAllClient = TrustAllSsl.apply(clientBuilder()).build()

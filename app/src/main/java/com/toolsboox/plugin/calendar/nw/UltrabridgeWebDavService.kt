@@ -3,6 +3,7 @@ package com.toolsboox.plugin.calendar.nw
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
+import com.toolsboox.fi.CleartextGuard
 import com.toolsboox.fi.TrustAllSsl
 import timber.log.Timber
 import java.io.File
@@ -36,6 +37,7 @@ class UltrabridgeWebDavService(
             .connectTimeout(30_000, TimeUnit.MILLISECONDS)
             .writeTimeout(60_000, TimeUnit.MILLISECONDS)
             .readTimeout(30_000, TimeUnit.MILLISECONDS)
+            .addInterceptor(CleartextGuard)
         if (trustAllCerts) TrustAllSsl.apply(builder).build() else builder.build()
     }
 
